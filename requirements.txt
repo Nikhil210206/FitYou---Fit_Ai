@@ -1,10 +1,12 @@
 Flask
-numpy
 pandas
+numpy
+flask-cors
+werkzeug
+serverless-wsgi
+PyPDF2==3.0.1
+python-docx==0.8.11
 tensorflow
 scikit-learn
 requests
 matplotlib
-flask-cors
-werkzeug
-serverless-wsgi
