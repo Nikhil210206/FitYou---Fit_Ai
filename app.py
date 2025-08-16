@@ -171,7 +171,7 @@ class WeeklyDietPlan:
         meal_plan = {}
 
         # Group meals by meal_type and generate the plan
-        for meal_type in ['Breakfast', 'Mid-Morning', 'Lunch', 'Afternoon Snack', 'Dinner', 'Before Bed']:
+        for meal_type in ['Breakfast', 'Mid-Morning', 'Lunch', 'Afternoon Snack', 'Dinner', 'Before Bed', 'other']:
             selected_meal = meals[meals['meal_type'] == meal_type].sample(1).iloc[0]  # Pick one random meal for each type
             meal_plan[meal_type] = f"{selected_meal['food_item']} - {selected_meal['calories']} calories"
         

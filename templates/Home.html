@@ -29,6 +29,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -37,15 +38,20 @@
             color: #ff4f00; 
         }
 
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+
         .auth-buttons a {
-            margin-left: 15px;
-            padding: 12px 25px;
-            border-radius: 50px;
+            margin-left: 10px;
+            padding: 8px 16px;
+            border-radius: 25px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             transition: background-color 0.3s ease, color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         .auth-buttons .login-btn {
@@ -65,6 +71,117 @@
 
         .auth-buttons .start-now-btn:hover {
             background-color: #009d8b; 
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: flex;
+            background: #ff4f00;      /* ← Added ORANGE background */
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 35px;              /* ← Made wider (30px → 35px) */
+            height: 30px;             /* ← Made taller (24px → 30px) */
+            border-radius: 6px;       /* ← Added rounded corners */
+        }
+
+        .mobile-menu-toggle .bar {
+            width: 25px;
+            height: 4px;
+            background-color: #fff;
+            background: #fff;
+            margin: 2px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle:hover .bar {
+            background-color: #fff;
+        }
+
+        .mobile-menu-toggle.active .bar:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .bar:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 20px;
+            background: linear-gradient(135deg, #333, #222);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            border-radius: 20px;
+            overflow: hidden;
+            min-width: 250px;
+            border: 1px solid #444;
+        }
+
+        .mobile-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 15px;
+            width: 16px;
+            height: 16px;
+            background: #333;
+            border: 1px solid #444;
+            border-bottom: none;
+            border-right: none;
+            transform: rotate(45deg);
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 5px 10px;
+            border-radius: 12px;
+        }
+
+        .mobile-menu .login-btn {
+            background: linear-gradient(135deg, #ff4f00, #e64300);
+            color: #fff;
+        }
+
+        .mobile-menu .start-now-btn {
+            background: linear-gradient(135deg, #eaff07, #c9e000);
+            color: #000;
+        }
+
+        .mobile-menu a:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu .login-btn:hover {
+            background: linear-gradient(135deg, #e64300, #d63900);
+        }
+
+        .mobile-menu .start-now-btn:hover {
+            background: linear-gradient(135deg, #c9e000, #009d8b);
+            color: #fff;
         }
 
         .hero {
@@ -202,11 +319,21 @@
             margin: 0;
             font-weight: 600;
         }
+        
         @media (max-width: 768px) {
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
             .hero {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                padding: 40px 20px;
             }
 
             .text-container, .phone-mockup {
@@ -243,10 +370,44 @@
             .features {
                 flex-direction: column;
                 align-items: center;
+                padding: 40px 20px;
             }
 
             .feature {
                 margin-bottom: 20px;
+                max-width: 100%;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .cta-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+
+            .mobile-menu a {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -270,6 +431,21 @@
                 <a href="/workout" class="login-btn animate__animated animate__fadeIn">Workout</a>
                 <a href="/gen" class="start-now-btn animate__animated animate__fadeIn">Personalized Routine</a>
             </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="/sport" class="login-btn">Sport Scheduler</a>
+                <a href="/diet" class="start-now-btn">Get your diet plan</a>
+                <a href="/workout" class="login-btn">Workout</a>
+                <a href="/gen" class="start-now-btn">Personalized Routine</a>
+            </div>
         </nav>
     </header>
 
@@ -283,8 +459,6 @@
             </div>
             <div class="phone-mockup animate__animated animate__fadeInRight">
                 <img src="{{ url_for('static', filename='images/fitai.jpg') }}" alt="FitAi logo">
-
-
                 <div class="overlay-text">FitAi</div>
             </div>
         </section>
@@ -311,5 +485,37 @@
     <footer>
         <p>&copy; 2024 Fit You. All rights reserved.</p>
     </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!nav.contains(event.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when window is resized to desktop
+        window.addEventListener('resize', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
