@@ -1,12 +1,64 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import random
 import pandas as pd
 import os
+import requests
+import json
 
 app = Flask(__name__)
 
-# Read exercises from CSV dataset 
-API_KEY = os.getenv('your_api_key')
+# Ollama API configuration
+OLLAMA_BASE_URL = "http://localhost:11434"
+OLLAMA_MODEL = "YOUR_MODEL_NAME"  # Replace with your actual model name
+
+# Ollama client functions
+def chat_with_ollama(message, context=""):
+    """
+    Send a message to Ollama API and get AI response
+    """
+    try:
+        fitness_context = f"""
+You are FitAI, an expert fitness and health coach. You provide personalized advice on:
+- Workout routines and exercise techniques
+- Nutrition and diet planning
+- Fitness goal setting and motivation
+- Health and wellness tips
+- Form corrections and injury prevention
+
+Always be encouraging, professional, and provide actionable advice. Keep responses concise but informative.
+
+{context}
+
+User: {message}
+FitAI:"""
+        
+        payload = {
+            "model": OLLAMA_MODEL,
+            "prompt": fitness_context,
+            "stream": False
+        }
+        
+        response = requests.post(f"{OLLAMA_BASE_URL}/api/generate", json=payload, timeout=30)
+        
+        if response.status_code == 200:
+            return response.json().get('response', 'Sorry, I could not generate a response.')
+        else:
+            return f"Error: Unable to connect to AI model (Status: {response.status_code})"
+            
+    except requests.exceptions.ConnectionError:
+        return "Error: Unable to connect to Ollama. Please make sure Ollama is running with 'ollama serve' and the qwen2:0.5b model is installed."
+    except requests.exceptions.Timeout:
+        return "Error: Request timed out. The AI model might be processing a complex request."
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+def get_fitness_context(user_data=None):
+    """
+    Generate context based on user's fitness data
+    """
+    if user_data:
+        return f"User context: Weight: {user_data.get('weight', 'N/A')}kg, Height: {user_data.get('height', 'N/A')}cm, Goal: {user_data.get('goal', 'general fitness')}"
+    return ""
 def load_exercises():
     return pd.read_csv('exercises.csv')
 
@@ -182,6 +234,40 @@ def d4():
 @app.route("/D2")
 def d2():
     return render_template("day2.html")
+
+# AI Chatbot Routes
+@app.route('/ai-coach')
+def ai_coach():
+    """Display the AI fitness coach chatbot interface"""
+    return render_template('chatbot.html')
+
+@app.route('/api/chat', methods=['POST'])
+def chat_api():
+    """API endpoint for chatbot conversations"""
+    try:
+        data = request.json
+        message = data.get('message', '').strip()
+        user_context = data.get('context', {})
+        
+        if not message:
+            return jsonify({'error': 'Message is required'}), 400
+        
+        # Generate context from user data if available
+        context = get_fitness_context(user_context)
+        
+        # Get AI response
+        ai_response = chat_with_ollama(message, context)
+        
+        return jsonify({
+            'response': ai_response,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'error': f'Server error: {str(e)}',
+            'status': 'error'
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

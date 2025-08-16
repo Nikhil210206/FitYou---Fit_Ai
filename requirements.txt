@@ -1,6 +1,10 @@
 Flask
-pandas
 numpy
+pandas
+tensorflow
+scikit-learn
+requests
+matplotlib
 flask-cors
 werkzeug
 serverless-wsgi
