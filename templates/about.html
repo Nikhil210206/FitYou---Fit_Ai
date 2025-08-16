@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #222;
+            padding: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff4f00; 
+        }
+
+        .auth-buttons a {
+            margin-left: 15px;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-buttons .login-btn {
+            background-color: #ff4f00; 
+            color: #fff;
+            border: 1px solid #ff4f00;
+        }
+
+        .auth-buttons .login-btn:hover {
+            background-color: #e64300; 
+        }
+
+        .auth-buttons .start-now-btn {
+            background-color: #eaff07; 
+            color: #000000;
+        }
+
+        .auth-buttons .start-now-btn:hover {
+            background-color: #009d8b; 
+        }
+
+        .about-section {
+            padding: 80px 60px;
+            background: linear-gradient(135deg, #111 0%, #222 100%);
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .about-section h1 {
+            font-size: 3rem;
+            color: #ff4f00;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            max-width: 900px;
+            color: #ccc;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .about-cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #333;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card i {
+            font-size: 3rem;
+            color: #ff4f00;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #ddd;
+        }
+
+        footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            font-size: 1.1rem;
+        }
+
+        footer p {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .about-section h1 {
+                font-size: 2.5rem;
+            }
+            .about-section p {
+                font-size: 1.1rem;
+            }
+            .about-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Fit You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h3>Fit You</h3>
+            </div>
+            <div class="auth-buttons">
+                <a href="Home.html" class="start-now-btn">Home</a>
+                <a href="sports.html" class="login-btn animate__animated animate__fadeIn">Sport Scheduler</a>
+                <a href="diet.html" class="start-now-btn animate__animated animate__fadeIn">Get your diet plan</a>
+                <a href="index.html" class="login-btn">Workout</a>
+                <a href="/gen" class="start-now-btn">Personalized Routine</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-section">
+            <h1>About Fit You</h1>
+            <p>
+                Fit You is your AI-powered fitness coach, designed to guide you on your fitness journey. 
+                We believe fitness should be **personalized, accessible, and fun**. 
+                That’s why we provide custom workouts, smart nutrition advice, and easy progress tracking—all powered by AI.
+            </p>
+
+            <div class="about-cards">
+                <div class="card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To make fitness simple, effective, and accessible for everyone, no matter where you are.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Our Vision</h3>
+                    <p>Empowering individuals with smart AI tools that turn goals into achievements.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Our Team</h3>
+                    <p>We’re a passionate group of developers, trainers, and nutritionists working together to help you succeed.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fit You. All rights reserved.</p>
+    </footer>
+</body>
+</html>
