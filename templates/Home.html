@@ -31,12 +31,59 @@
             align-items: center;
         }
 
+        .navbar {
+  background: rgba(28, 28, 28, 0.95); /* glassy black */
+  backdrop-filter: blur(10px);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  background: #ff4f00;
+  box-shadow: 0 0 12px #ff4f00;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.nav-links a.active {
+  background: #ff4f00;
+  color: #000;
+  font-weight: bold;
+}
+
         .logo {
             font-size: 2rem;
             font-weight: bold;
             color: #ff4f00; 
         }
 
+    .auth-btn {
+    padding: 0.5rem 1.2rem;
+    margin-left: 1rem;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff6f00, #ff4f00);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
         .auth-buttons a {
             margin-left: 15px;
             padding: 12px 25px;
@@ -248,6 +295,7 @@
             .feature {
                 margin-bottom: 20px;
             }
+            
         }
     </style>
     <meta charset="UTF-8">
