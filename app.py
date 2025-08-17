@@ -487,228 +487,229 @@ def fitness_index():
     )
 
 if __name__ == '__main__':
-   
-# backend/adjuster.py
-import os
-from flask import Blueprint, request, jsonify
-from pymongo import MongoClient
-from bson.objectid import ObjectId
-import numpy as np
-from sklearn.neighbors import NearestNeighbors
-import json
-import datetime
+    app.run(debug=True)
 
-bp = Blueprint('adjuster', __name__, url_prefix='/api/adjuster')
+# # backend/adjuster.py
+# import os
+# from flask import Blueprint, request, jsonify
+# from pymongo import MongoClient
+# from bson.objectid import ObjectId
+# import numpy as np
+# from sklearn.neighbors import NearestNeighbors
+# import json
+# import datetime
 
-# ---------- CONFIG ----------
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/fitai")
-client = MongoClient(MONGO_URI)
-db = client.get_default_database() or client['fitai']
+# bp = Blueprint('adjuster', __name__, url_prefix='/api/adjuster')
 
-# If you integrate Google Generative AI, supply API key and model via env vars:
-# GOOGLE_API_KEY, GOOGLE_GEN_AI_MODEL
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  # placeholder
-GOOGLE_GEN_AI_MODEL = os.environ.get("GOOGLE_GEN_AI_MODEL", "models/text-bison-001")
+# # ---------- CONFIG ----------
+# MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/fitai")
+# client = MongoClient(MONGO_URI)
+# db = client.get_default_database() or client['fitai']
 
-# ---------- Utility: local fallback suggestions using NearestNeighbors ----------
-def build_meal_index():
-    # build index from meals collection. Use calories+protein+carbs+fat normalized.
-    meals = list(db.meals.find({}))
-    if not meals:
-        return None, [], None
-    X = []
-    ids = []
-    for m in meals:
-        macros = m.get('macros', {})
-        # default zero if missing
-        row = [
-            float(macros.get('calories', 0)),
-            float(macros.get('protein', 0)),
-            float(macros.get('carbs', 0)),
-            float(macros.get('fat', 0))
-        ]
-        X.append(row)
-        ids.append(str(m['_id']))
-    X = np.array(X)
-    # normalize by column
-    X_mean = X.mean(axis=0)
-    X_std = X.std(axis=0)
-    X_std[X_std == 0] = 1.0
-    X_norm = (X - X_mean) / X_std
-    knn = NearestNeighbors(n_neighbors=10, metric='euclidean')
-    knn.fit(X_norm)
-    return knn, ids, (X_mean, X_std)
+# # If you integrate Google Generative AI, supply API key and model via env vars:
+# # GOOGLE_API_KEY, GOOGLE_GEN_AI_MODEL
+# GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  # placeholder
+# GOOGLE_GEN_AI_MODEL = os.environ.get("GOOGLE_GEN_AI_MODEL", "models/text-bison-001")
 
-# Build once on import (can be improved to rebuild on meal changes)
-_knn_index, _knn_ids, _knn_norm_params = build_meal_index()
+# # ---------- Utility: local fallback suggestions using NearestNeighbors ----------
+# def build_meal_index():
+#     # build index from meals collection. Use calories+protein+carbs+fat normalized.
+#     meals = list(db.meals.find({}))
+#     if not meals:
+#         return None, [], None
+#     X = []
+#     ids = []
+#     for m in meals:
+#         macros = m.get('macros', {})
+#         # default zero if missing
+#         row = [
+#             float(macros.get('calories', 0)),
+#             float(macros.get('protein', 0)),
+#             float(macros.get('carbs', 0)),
+#             float(macros.get('fat', 0))
+#         ]
+#         X.append(row)
+#         ids.append(str(m['_id']))
+#     X = np.array(X)
+#     # normalize by column
+#     X_mean = X.mean(axis=0)
+#     X_std = X.std(axis=0)
+#     X_std[X_std == 0] = 1.0
+#     X_norm = (X - X_mean) / X_std
+#     knn = NearestNeighbors(n_neighbors=10, metric='euclidean')
+#     knn.fit(X_norm)
+#     return knn, ids, (X_mean, X_std)
 
-def find_similar_meals_by_macros(target_macros, top_k=5, tolerance=0.15, cuisine=None, meal_type=None, exclude_ids=None):
-    """
-    target_macros: dict with calories, protein, carbs, fat
-    tolerance: fraction allowed difference (e.g., 0.15 => ±15%)
-    """
-    if _knn_index is None:
-        return []
+# # Build once on import (can be improved to rebuild on meal changes)
+# _knn_index, _knn_ids, _knn_norm_params = build_meal_index()
 
-    X_mean, X_std = _knn_norm_params
-    target_row = np.array([
-        float(target_macros.get('calories', 0)),
-        float(target_macros.get('protein', 0)),
-        float(target_macros.get('carbs', 0)),
-        float(target_macros.get('fat', 0))
-    ])
-    target_norm = (target_row - X_mean) / X_std
-    dists, neigh = _knn_index.kneighbors([target_norm], n_neighbors=min(10, len(_knn_ids)))
-    candidate_ids = [ObjectId(_knn_ids[i]) for i in neigh[0]]
-    # filter by tolerance, cuisine, meal_type, exclude
-    suggestions = []
-    for mid in candidate_ids:
-        if exclude_ids and str(mid) in exclude_ids:
-            continue
-        m = db.meals.find_one({"_id": mid})
-        if not m:
-            continue
-        macros = m.get('macros', {})
-        ok = True
-        for k in ['calories','protein','carbs','fat']:
-            target_v = float(target_macros.get(k,0))
-            cand_v = float(macros.get(k,0))
-            if target_v == 0:
-                continue
-            if abs(cand_v - target_v) / target_v > tolerance:
-                ok = False
-                break
-        if not ok:
-            continue
-        if cuisine and m.get('cuisine') != cuisine:
-            continue
-        if meal_type and m.get('type') != meal_type:
-            continue
-        suggestions.append(m)
-        if len(suggestions) >= top_k:
-            break
-    return suggestions
+# def find_similar_meals_by_macros(target_macros, top_k=5, tolerance=0.15, cuisine=None, meal_type=None, exclude_ids=None):
+#     """
+#     target_macros: dict with calories, protein, carbs, fat
+#     tolerance: fraction allowed difference (e.g., 0.15 => ±15%)
+#     """
+#     if _knn_index is None:
+#         return []
 
-# ---------- Optional: Wrapper to call Google Generative AI ----------
-def call_google_gen_ai_generate_swap(original_meal, constraints, n=3):
-    """
-    Placeholder function — implement with your Google Generative AI client code.
-    It should return a list of suggested meals (dicts with title, ingredients, macros, recipe_steps)
-    """
-    if not GOOGLE_API_KEY:
-        return []
+#     X_mean, X_std = _knn_norm_params
+#     target_row = np.array([
+#         float(target_macros.get('calories', 0)),
+#         float(target_macros.get('protein', 0)),
+#         float(target_macros.get('carbs', 0)),
+#         float(target_macros.get('fat', 0))
+#     ])
+#     target_norm = (target_row - X_mean) / X_std
+#     dists, neigh = _knn_index.kneighbors([target_norm], n_neighbors=min(10, len(_knn_ids)))
+#     candidate_ids = [ObjectId(_knn_ids[i]) for i in neigh[0]]
+#     # filter by tolerance, cuisine, meal_type, exclude
+#     suggestions = []
+#     for mid in candidate_ids:
+#         if exclude_ids and str(mid) in exclude_ids:
+#             continue
+#         m = db.meals.find_one({"_id": mid})
+#         if not m:
+#             continue
+#         macros = m.get('macros', {})
+#         ok = True
+#         for k in ['calories','protein','carbs','fat']:
+#             target_v = float(target_macros.get(k,0))
+#             cand_v = float(macros.get(k,0))
+#             if target_v == 0:
+#                 continue
+#             if abs(cand_v - target_v) / target_v > tolerance:
+#                 ok = False
+#                 break
+#         if not ok:
+#             continue
+#         if cuisine and m.get('cuisine') != cuisine:
+#             continue
+#         if meal_type and m.get('type') != meal_type:
+#             continue
+#         suggestions.append(m)
+#         if len(suggestions) >= top_k:
+#             break
+#     return suggestions
 
-    # Example prompt to send:
-    prompt = {
-        "prompt": f"""You are a helpful assistant that suggests Indian meal alternatives.
-Original meal: {json.dumps(original_meal, indent=0)}
-Constraints: {json.dumps(constraints)}
-Return {n} alternatives as JSON list; each item must contain: title, type (vegetarian/non-vegetarian/vegan), cuisine, ingredients(list of {{"name","qty"}}), macros (calories, protein, carbs, fat), and recipe_steps (list of strings)."""
-    }
+# # ---------- Optional: Wrapper to call Google Generative AI ----------
+# def call_google_gen_ai_generate_swap(original_meal, constraints, n=3):
+#     """
+#     Placeholder function — implement with your Google Generative AI client code.
+#     It should return a list of suggested meals (dicts with title, ingredients, macros, recipe_steps)
+#     """
+#     if not GOOGLE_API_KEY:
+#         return []
 
-    # NOTE: Implementation depends on google client library. Here we return [] as placeholder.
-    # You must implement this with your project's Google Gen AI integration.
-    return []
+#     # Example prompt to send:
+#     prompt = {
+#         "prompt": f"""You are a helpful assistant that suggests Indian meal alternatives.
+# Original meal: {json.dumps(original_meal, indent=0)}
+# Constraints: {json.dumps(constraints)}
+# Return {n} alternatives as JSON list; each item must contain: title, type (vegetarian/non-vegetarian/vegan), cuisine, ingredients(list of {{"name","qty"}}), macros (calories, protein, carbs, fat), and recipe_steps (list of strings)."""
+#     }
 
-# ---------- API: Adjust meal ----------
-@bp.route('/adjust', methods=['POST'])
-def adjust_meal():
-    """
-    Request JSON:
-    {
-      "user_id": "<user_id>",
-      "meal_id": "<meal_id>",  # original meal
-      "constraints": {
-         "type": "vegetarian" | "non-vegetarian" | "vegan" | null,
-         "calorie_tolerance": 0.10,   # 10%
-         "exclude_ingredients": ["peanut"],
-         "prefer_cuisine": "South Indian"
-      },
-      "use_ai": true  # whether to call Google Gen AI (if available)
-    }
-    """
-    data = request.get_json()
-    user_id = data.get('user_id')
-    meal_id = data.get('meal_id')
-    constraints = data.get('constraints', {})
-    use_ai = data.get('use_ai', True)
+#     # NOTE: Implementation depends on google client library. Here we return [] as placeholder.
+#     # You must implement this with your project's Google Gen AI integration.
+#     return []
 
-    if not meal_id:
-        return jsonify({"error": "meal_id required"}), 400
+# # ---------- API: Adjust meal ----------
+# @bp.route('/adjust', methods=['POST'])
+# def adjust_meal():
+#     """
+#     Request JSON:
+#     {
+#       "user_id": "<user_id>",
+#       "meal_id": "<meal_id>",  # original meal
+#       "constraints": {
+#          "type": "vegetarian" | "non-vegetarian" | "vegan" | null,
+#          "calorie_tolerance": 0.10,   # 10%
+#          "exclude_ingredients": ["peanut"],
+#          "prefer_cuisine": "South Indian"
+#       },
+#       "use_ai": true  # whether to call Google Gen AI (if available)
+#     }
+#     """
+#     data = request.get_json()
+#     user_id = data.get('user_id')
+#     meal_id = data.get('meal_id')
+#     constraints = data.get('constraints', {})
+#     use_ai = data.get('use_ai', True)
 
-    orig = db.meals.find_one({"_id": ObjectId(meal_id)})
-    if not orig:
-        return jsonify({"error": "meal not found"}), 404
+#     if not meal_id:
+#         return jsonify({"error": "meal_id required"}), 400
 
-    # 1) Try AI suggestions first (if allowed)
-    suggestions = []
-    if use_ai and GOOGLE_API_KEY:
-        suggestions = call_google_gen_ai_generate_swap(orig, constraints, n=3)
+#     orig = db.meals.find_one({"_id": ObjectId(meal_id)})
+#     if not orig:
+#         return jsonify({"error": "meal not found"}), 404
 
-    # 2) Always provide fallback suggestions from local DB (nearest macros)
-    exclude_ids = [meal_id]
-    local_suggestions = find_similar_meals_by_macros(orig.get('macros', {}), top_k=3, tolerance=constraints.get('calorie_tolerance', 0.15), cuisine=constraints.get('prefer_cuisine'), meal_type=constraints.get('type'), exclude_ids=exclude_ids)
-    # format llocal suggestions minimal fields
-    local_suggestions_clean = []
-    for s in local_suggestions:
-        # filter out suggestions that contain excluded ingredients
-        excluded = False
-        ex_ing = set([i.lower() for i in constraints.get('exclude_ingredients', [])])
-        for ing in s.get('ingredients', []):
-            if ing.get('name','').lower() in ex_ing:
-                excluded = True
-                break
-        if excluded:
-            continue
-        local_suggestions_clean.append({
-            "id": str(s['_id']),
-            "title": s.get('title'),
-            "type": s.get('type'),
-            "cuisine": s.get('cuisine'),
-            "ingredients": s.get('ingredients'),
-            "macros": s.get('macros'),
-            "recipe_steps": s.get('recipe_steps')
-        })
-    # merge AI suggestions (if any) + local suggestions, dedupe by title
-    seen = set()
-    merged = []
-    for s in (suggestions or []):
-        title = s.get('title')
-        if title and title not in seen:
-            merged.append(s)
-            seen.add(title)
-    for s in local_suggestions_clean:
-        if s.get('title') not in seen:
-            merged.append(s)
-            seen.add(s.get('title'))
+#     # 1) Try AI suggestions first (if allowed)
+#     suggestions = []
+#     if use_ai and GOOGLE_API_KEY:
+#         suggestions = call_google_gen_ai_generate_swap(orig, constraints, n=3)
 
-    # return up to 3 suggestions
-    merged = merged[:3]
+#     # 2) Always provide fallback suggestions from local DB (nearest macros)
+#     exclude_ids = [meal_id]
+#     local_suggestions = find_similar_meals_by_macros(orig.get('macros', {}), top_k=3, tolerance=constraints.get('calorie_tolerance', 0.15), cuisine=constraints.get('prefer_cuisine'), meal_type=constraints.get('type'), exclude_ids=exclude_ids)
+#     # format llocal suggestions minimal fields
+#     local_suggestions_clean = []
+#     for s in local_suggestions:
+#         # filter out suggestions that contain excluded ingredients
+#         excluded = False
+#         ex_ing = set([i.lower() for i in constraints.get('exclude_ingredients', [])])
+#         for ing in s.get('ingredients', []):
+#             if ing.get('name','').lower() in ex_ing:
+#                 excluded = True
+#                 break
+#         if excluded:
+#             continue
+#         local_suggestions_clean.append({
+#             "id": str(s['_id']),
+#             "title": s.get('title'),
+#             "type": s.get('type'),
+#             "cuisine": s.get('cuisine'),
+#             "ingredients": s.get('ingredients'),
+#             "macros": s.get('macros'),
+#             "recipe_steps": s.get('recipe_steps')
+#         })
+#     # merge AI suggestions (if any) + local suggestions, dedupe by title
+#     seen = set()
+#     merged = []
+#     for s in (suggestions or []):
+#         title = s.get('title')
+#         if title and title not in seen:
+#             merged.append(s)
+#             seen.add(title)
+#     for s in local_suggestions_clean:
+#         if s.get('title') not in seen:
+#             merged.append(s)
+#             seen.add(s.get('title'))
 
-    # record the adjustment search (not commit to plan yet)
-    db.meal_adjustments.insert_one({
-        "user_id": ObjectId(user_id) if user_id else None,
-        "original_meal_id": ObjectId(meal_id),
-        "query_constraints": constraints,
-        "results_count": len(merged),
-        "created_at": datetime.datetime.utcnow()
-    })
+#     # return up to 3 suggestions
+#     merged = merged[:3]
 
-    return jsonify({"original": {"id": str(orig['_id']), "title": orig.get('title'), "macros": orig.get('macros')}, "suggestions": merged})
-# backend/tests/test_adjuster.py
-import json
-from backend.adjuster import bp as adjuster_bp
-from flask import Flask
-import os
+#     # record the adjustment search (not commit to plan yet)
+#     db.meal_adjustments.insert_one({
+#         "user_id": ObjectId(user_id) if user_id else None,
+#         "original_meal_id": ObjectId(meal_id),
+#         "query_constraints": constraints,
+#         "results_count": len(merged),
+#         "created_at": datetime.datetime.utcnow()
+#     })
 
-def create_app():
-    app = Flask(__name__)
-    app.register_blueprint(adjuster_bp)
-    return app
+#     return jsonify({"original": {"id": str(orig['_id']), "title": orig.get('title'), "macros": orig.get('macros')}, "suggestions": merged})
+# # backend/tests/test_adjuster.py
+# import json
+# from backend.adjuster import bp as adjuster_bp
+# from flask import Flask
+# import os
 
-def test_adjust_missing_meal():
-    app = create_app()
-    client = app.test_client()
-    res = client.post('/api/adjuster/adjust', json={"user_id": None, "meal_id": "000000000000000000000000"})
-    assert res.status_code in (400,404)
+# def create_app():
+#     app = Flask(__name__)
+#     app.register_blueprint(adjuster_bp)
+#     return app
+
+# def test_adjust_missing_meal():
+#     app = create_app()
+#     client = app.test_client()
+#     res = client.post('/api/adjuster/adjust', json={"user_id": None, "meal_id": "000000000000000000000000"})
+#     assert res.status_code in (400,404)
 
