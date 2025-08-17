@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT YOU - Your AI-powered Fitness Coach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
         * {
             margin: 0;
@@ -20,10 +26,10 @@
         header {
             background-color: #222;
             padding: 20px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         nav {
@@ -32,89 +38,65 @@
             align-items: center;
         }
 
-        .navbar {
-  background: rgba(28, 28, 28, 0.95); /* glassy black */
-  backdrop-filter: blur(10px);
-  padding: 0.8rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 12px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
-}
-
-.nav-links a:hover {
-  background: #ff4f00;
-  box-shadow: 0 0 12px #ff4f00;
-  color: #000;
-  transform: scale(1.05);
-}
-
-.nav-links a.active {
-  background: #ff4f00;
-  color: #000;
-  font-weight: bold;
-}
-
         .logo {
             font-size: 2rem;
             font-weight: bold;
             color: #ff4f00;
         }
 
-    .auth-btn {
-    padding: 0.5rem 1.2rem;
-    margin-left: 1rem;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #ff6f00, #ff4f00);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
+        .auth-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
         .auth-buttons a {
-            margin-left: 15px;
             padding: 12px 25px;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             transition: background-color 0.3s ease, color 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .auth-buttons .login-btn {
+        .login-btn {
             background-color: #ff4f00;
             color: #fff;
             border: 1px solid #ff4f00;
         }
 
-        .auth-buttons .login-btn:hover {
+        .login-btn:hover {
             background-color: #e64300;
         }
 
-        .auth-buttons .start-now-btn {
+        .start-now-btn {
             background-color: #eaff07;
-            color: #000000;
+            color: #000;
         }
 
-        .auth-buttons .start-now-btn:hover {
+        .start-now-btn:hover {
             background-color: #009d8b;
+            color: #fff;
         }
 
+        /* Dark/Light Theme Toggle */
+        .toggle-theme {
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            background: none;
+            border: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-theme:hover {
+            transform: scale(1.2);
+        }
+
+        /* Hero Section */
         .hero {
             display: flex;
             justify-content: space-between;
@@ -123,6 +105,7 @@
             min-height: 89vh;
             background: linear-gradient(135deg, #111 0%, #222 100%);
             position: relative;
+            flex-wrap: wrap;
         }
 
         .text-container {
@@ -153,7 +136,7 @@
             border-radius: 50px;
             text-decoration: none;
             margin-top: 30px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
@@ -190,20 +173,20 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 15px;
+            padding: 10px 20px;
             border-radius: 25px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            font-size: 1.3rem;
-            color: #333;
+            font-size: 1.2rem;
             font-weight: bold;
-            text-align: center;
+            color: #333;
         }
 
+        /* Features */
         .features {
             display: flex;
             justify-content: space-around;
             padding: 60px;
             background: linear-gradient(135deg, #222 0%, #111 100%);
+            flex-wrap: wrap;
             gap: 20px;
         }
 
@@ -228,15 +211,16 @@
         }
 
         .feature h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
         .feature p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #ccc;
         }
 
+        /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, #111 0%, #222 100%);
             padding: 80px 60px;
@@ -246,59 +230,50 @@
         .contact-section h2 {
             font-size: 3rem;
             color: #ff4f00;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-weight: bold;
         }
 
         .contact-section p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ccc;
             margin-bottom: 50px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .contact-item {
             background-color: #333;
-            padding: 35px;
-            border-radius: 20px;
+            padding: 25px;
+            border-radius: 15px;
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid transparent;
+            transition: 0.3s;
         }
 
         .contact-item:hover {
             transform: translateY(-8px);
-            box-shadow: 0px 15px 30px rgba(255, 79, 0, 0.2);
-            border-color: #ff4f00;
+            border: 2px solid #ff4f00;
         }
 
         .contact-item i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ff4f00;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .contact-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
         }
 
-        .contact-item p, .contact-item a {
-            font-size: 1.1rem;
+        .contact-item a {
             color: #ccc;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
 
         .contact-item a:hover {
@@ -306,770 +281,39 @@
         }
 
         .contact-form {
-            background-color: #333;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+            margin: 40px auto 0;
+            background: #333;
+            padding: 30px;
+            border-radius: 15px;
             max-width: 600px;
-            margin: 50px auto 0;
         }
 
         .contact-form h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: #ff4f00;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #555;
-            border-radius: 10px;
-            background-color: #222;
-            color: #fff;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ff4f00;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: #ff4f00;
-            color: #fff;
-            padding: 15px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .submit-btn:hover {
-            background-color: #e64300;
-            transform: translateY(-2px);
         }
 
         footer {
             background-color: #222;
             color: #fff;
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             margin-top: 40px;
-            font-size: 1.1rem;
-        }
-
-        footer p {
-            margin: 0;
-            font-weight: 600;
-        }
-
-        /* Large Desktop Screens */
-        @media (min-width: 1400px) {
-            .hero {
-                padding: 80px 100px;
-            }
-
-            .hero h1 {
-                font-size: 5rem;
-            }
-
-            .hero p {
-                font-size: 1.8rem;
-            }
-
-            .features {
-                padding: 80px 100px;
-            }
-
-            .contact-section {
-                padding: 100px 80px;
-            }
-
-            .contact-grid {
-                max-width: 1400px;
-                gap: 50px;
-            }
-        }
-
-        /* Desktop Screens */
-        @media (max-width: 1199px) and (min-width: 992px) {
-            .hero {
-                padding: 60px 40px;
-            }
-
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .hero p {
-                font-size: 1.5rem;
-            }
-
-            .features {
-                padding: 60px 40px;
-            }
-
-            .contact-section {
-                padding: 70px 40px;
-            }
-        }
-
-        /* Tablet Landscape */
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .hero {
-                padding: 50px 30px;
-                flex-direction: column;
-                text-align: center;
-                min-height: 80vh;
-            }
-
-            .text-container {
-                max-width: 80%;
-                margin-bottom: 30px;
-            }
-
-            .phone-mockup {
-                max-width: 60%;
-                margin-left: 0;
-            }
-
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-
-            .hero p {
-                font-size: 1.4rem;
-            }
-
-            .features {
-                padding: 50px 30px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .feature {
-                max-width: 280px;
-                margin: 10px;
-            }
-
-            .contact-section {
-                padding: 60px 30px;
-            }
-
-            .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
-
-            .auth-buttons {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .auth-buttons a {
-                font-size: 0.95rem;
-                padding: 10px 18px;
-            }
-        }
-
-        /* Tablet Portrait & Large Mobile */
-
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .logo {
-                font-size: 1.8rem;
-            }
-
-            .hero {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 40px 20px;
-                min-height: 75vh;
-            }
-
-            .text-container,
-            .phone-mockup {
-                max-width: 100%;
-                margin-left: 0;
-            }
-
-            .phone-mockup {
-                margin-top: 30px;
-                max-width: 70%;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-                margin-bottom: 20px;
-            }
-
-            .hero p {
-                font-size: 1.3rem;
-                margin-top: 15px;
-            }
-
-            .cta-btn {
-                padding: 12px 25px;
-                font-size: 1.1rem;
-                margin-top: 25px;
-            }
-
-            .quiz-info {
-                font-size: 1rem;
-                margin-top: 15px;
-            }
-
-            .overlay-text {
-                font-size: 1rem;
-                padding: 10px 15px;
-            }
-
-            .features {
-                flex-direction: column;
-                align-items: center;
-                padding: 50px 20px;
-                gap: 25px;
-            }
-
-            .feature {
-                margin-bottom: 0;
-                max-width: 100%;
-                padding: 30px 20px;
-            }
-
-            .feature h2 {
-                font-size: 1.4rem;
-            }
-
-            .feature p {
-                font-size: 1rem;
-            }
-
-            .contact-section {
-                padding: 50px 20px;
-            }
-
-            .contact-section h2 {
-                font-size: 2.5rem;
-                margin-bottom: 20px;
-            }
-
-            .contact-section p {
-                font-size: 1.2rem;
-                margin-bottom: 40px;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .contact-item {
-                padding: 25px 20px;
-            }
-
-            .contact-item h3 {
-                font-size: 1.3rem;
-            }
-
-            .contact-item p, .contact-item a {
-                font-size: 1rem;
-            }
-
-            .contact-form {
-                margin: 30px 10px 0;
-                padding: 25px 20px;
-            }
-
-            .contact-form h3 {
-                font-size: 1.6rem;
-                margin-bottom: 25px;
-            }
-
-            .auth-buttons {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-            }
-
-            .auth-buttons a {
-                margin-left: 0;
-                font-size: 0.9rem;
-                padding: 8px 15px;
-            }
-
-            footer {
-                padding: 20px 15px;
-                font-size: 1rem;
-            }
-        }
-
-        /* Mobile Landscape */
-        @media (max-width: 667px) and (orientation: landscape) {
-            .hero {
-                flex-direction: row;
-                min-height: 100vh;
-                padding: 20px;
-            }
-
-            .text-container {
-                max-width: 55%;
-            }
-
-            .phone-mockup {
-                max-width: 40%;
-                margin-top: 0;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .cta-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-
-            .features {
-                flex-direction: row;
-                padding: 30px 15px;
-            }
-
-            .feature {
-                padding: 20px 15px;
-            }
-
-            .contact-section {
-                padding: 40px 15px;
-            }
-
-            .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-        }
-
-        /* Small Mobile Devices */
-        @media (max-width: 480px) {
-            header {
-                padding: 12px 15px;
-            }
-
-            nav {
-                gap: 15px;
-            }
-
-            .logo {
-                font-size: 1.6rem;
-            }
-
-            .hero {
-                padding: 30px 15px;
-                min-height: 70vh;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-                line-height: 1.1;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-                margin-top: 12px;
-            }
-
-            .cta-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-                margin-top: 20px;
-            }
-
-            .quiz-info {
-                font-size: 0.9rem;
-                margin-top: 12px;
-            }
-
-            .phone-mockup {
-                max-width: 80%;
-                margin-top: 25px;
-            }
-
-            .overlay-text {
-                font-size: 0.9rem;
-                padding: 8px 12px;
-            }
-
-            .features {
-                padding: 40px 15px;
-                gap: 20px;
-            }
-
-            .feature {
-                padding: 25px 15px;
-            }
-
-            .feature i {
-                font-size: 2.5rem;
-                margin-bottom: 15px;
-            }
-
-            .feature h2 {
-                font-size: 1.3rem;
-                margin-bottom: 12px;
-            }
-
-            .feature p {
-                font-size: 0.95rem;
-            }
-
-            .contact-section {
-                padding: 40px 15px;
-            }
-
-            .contact-section h2 {
-                font-size: 2rem;
-                margin-bottom: 15px;
-            }
-
-            .contact-section p {
-                font-size: 1.1rem;
-                margin-bottom: 30px;
-            }
-
-            .contact-item {
-                padding: 20px 15px;
-            }
-
-            .contact-item i {
-                font-size: 2rem;
-                margin-bottom: 15px;
-            }
-
-            .contact-item h3 {
-                font-size: 1.2rem;
-                margin-bottom: 10px;
-            }
-
-            .contact-item p, .contact-item a {
-                font-size: 0.95rem;
-                line-height: 1.4;
-            }
-
-            .contact-form {
-                margin: 25px 5px 0;
-                padding: 20px 15px;
-            }
-
-            .contact-form h3 {
-                font-size: 1.4rem;
-                margin-bottom: 20px;
-            }
-
-            .form-group {
-                margin-bottom: 20px;
-            }
-
-            .form-group label {
-                font-size: 0.95rem;
-                margin-bottom: 6px;
-            }
-
-            .form-group input,
-            .form-group textarea {
-                padding: 10px 12px;
-                font-size: 0.95rem;
-            }
-
-            .submit-btn {
-                padding: 12px;
-                font-size: 1.1rem;
-            }
-
-            .auth-buttons {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 5px;
-            }
-
-            .auth-buttons a {
-                text-align: center;
-                margin-bottom: 0;
-                font-size: 0.85rem;
-                padding: 8px 12px;
-            }
-
-            footer {
-                padding: 15px 10px;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Extra Small Mobile Devices */
-        @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 1.9rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .cta-btn {
-                padding: 8px 18px;
-                font-size: 0.95rem;
-            }
-
-            .contact-section h2 {
-                font-size: 1.8rem;
-            }
-
-            .contact-section p {
-                font-size: 1rem;
-            }
-
-            .feature i {
-                font-size: 2.2rem;
-            }
-
-            .feature h2 {
-                font-size: 1.2rem;
-            }
-
-            .auth-buttons a {
-                font-size: 0.8rem;
-                padding: 6px 10px;
-            }
-        }
-
-        /* High DPI / Retina Displays */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .phone-mockup img {
-                image-rendering: -webkit-optimize-contrast;
-                image-rendering: crisp-edges;
-            }
-        }
-
-        /* Reduced Motion Preference */
-        @media (prefers-reduced-motion: reduce) {
-            .cta-btn,
-            .feature,
-            .contact-item {
-                transition: none;
-            }
-
-            .cta-btn:hover {
-                transform: none;
-            }
-
-            .feature:hover,
-            .contact-item:hover {
-                transform: none;
-            }
-        }
-
-        /* Dark Mode Support */
-        @media (prefers-color-scheme: dark) {
-            /* Already optimized for dark theme */
-        }
-
-        /* Print Styles */
-        @media print {
-            body {
-                background-color: white !important;
-                color: black !important;
-            }
-
-            header {
-                background-color: white !important;
-                box-shadow: none !important;
-                border-bottom: 2px solid #ccc;
-            }
-
-            .hero,
-            .features,
-            .contact-section {
-                background: white !important;
-                padding: 20px !important;
-            }
-
-            .cta-btn,
-            .auth-buttons {
-                display: none;
-            }
-
-            .contact-form {
-                display: none;
-            }
-
-            .phone-mockup {
-                display: none;
-            }
-
-        }
-
-        /* 🌙 Toggle Button */
-        .toggle-theme {
-            margin-left: 20px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: inherit;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-theme:hover {
-            transform: scale(1.2);
-        }
-
-        /* 🌞 Light Mode */
-        body.light-mode {
-            background-color: #fff;
-            color: #000;
-        }
-
-        /* Header & Footer */
-        body.light-mode header,
-        body.light-mode footer {
-            background-color: #f9f9f9;
-            color: #000;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Hero Section */
-        body.light-mode .hero {
-            background: linear-gradient(135deg, #fafafa 0%, #eaeaea 100%);
-        }
-
-        body.light-mode .hero h1 {
-            color: #ff4f00;
-            /* keep brand color */
-        }
-
-        body.light-mode .hero p {
-            color: #333;
-        }
-
-        /* Buttons */
-        body.light-mode .cta-btn {
-            background-color: #ff4f00;
-            color: #fff;
-        }
-
-        body.light-mode .cta-btn:hover {
-            background-color: #e64300;
-        }
-
-        body.light-mode .auth-buttons .login-btn {
-            background-color: #007bff;
-            color: #fff;
-            border: 1px solid #007bff;
-        }
-
-        body.light-mode .auth-buttons .login-btn:hover {
-            background-color: #0056b3;
-        }
-
-        body.light-mode .auth-buttons .start-now-btn {
-            background-color: #ffc107;
-            color: #000;
-        }
-
-        body.light-mode .auth-buttons .start-now-btn:hover {
-            background-color: #e0a800;
-            color: #fff;
-        }
-
-        /* Features */
-        body.light-mode .features {
-            background: linear-gradient(135deg, #fdfdfd 0%, #f2f2f2 100%);
-        }
-
-        body.light-mode .feature {
-            background-color: #fff;
-            color: #000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .feature p {
-            color: #444;
-        }
-
-        /* Overlay text on image */
-        body.light-mode .overlay-text {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
         }
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIT YOU - Your AI-powered Fitness Coach</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
 <body>
     <header>
         <nav>
-            <div class="logo">
-                <h3>Fit You</h3>
-            </div>
+            <div class="logo">Fit You</div>
             <div class="auth-buttons">
-
-                <a href="/ai-coach" class="start-now-btn animate__animated animate__fadeIn"
-                    style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
-                <a href="/sport" class="login-btn animate__animated animate__fadeIn">Sport Scheduler</a>
-                <a href="/diet" class="start-now-btn animate__animated animate__fadeIn">Get your diet plan</a>
-                <a href="/workout" class="login-btn animate__animated animate__fadeIn">Workout</a>
-                <a href="/gen" class="start-now-btn animate__animated animate__fadeIn">Personalized Routine</a>
-                <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
-
-
-                <a href="/ai-coach" class="start-now-btn" style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
+                <a href="/ai-coach" class="start-now-btn" style="background:linear-gradient(135deg,#00d4aa,#00b894);color:#fff;">🤖 AI Coach</a>
                 <a href="/sport" class="login-btn">Sport Scheduler</a>
                 <a href="/diet" class="start-now-btn">Get your diet plan</a>
                 <a href="/workout" class="login-btn">Workout</a>
                 <a href="/gen" class="start-now-btn">Personalized Routine</a>
-
+                <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
             </div>
         </nav>
     </header>
@@ -1078,27 +322,13 @@
         <section class="hero">
             <div class="text-container">
                 <h1>Your Fitness Coach</h1>
-
-                <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.
-                </p>
-                <a href="/gen" class="cta-btn animate__animated animate__pulse">Get your workout plan now</a>
-                <p class="quiz-info animate__animated animate__fadeInUp">Take the FREE quiz to get personalized
-                    exercises!</p>
-            </div>
-            <div class="phone-mockup animate__animated animate__fadeInRight">
-                <!-- <img src="{{ url_for('static', filename='images/fitai.jpg') }}" alt="FitAi logo">
-
-
-                <div class="overlay-text">FitAi</div> -->
-
                 <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.</p>
                 <a href="/gen" class="cta-btn">Get your workout plan now</a>
                 <p class="quiz-info">Take the FREE quiz to get personalized exercises!</p>
             </div>
             <div class="phone-mockup">
-                <img src="fitai.jpg" alt="FitAi app mockup">
+                <img src="images/fitai.jpg" alt="FitAi app mockup">
                 <div class="overlay-text">FitAi</div>
-
             </div>
         </section>
 
@@ -1119,127 +349,44 @@
                 <p>Keep track of your achievements and progress over time.</p>
             </div>
         </section>
-
-        <section class="contact-section">
-            <h2>Get in Touch</h2>
-            <p>Ready to transform your fitness journey? Contact our team of experts and let us help you achieve your goals.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <h3>Call Us</h3>
-                    <p><a href="tel:+1234567890">+1 (234) 567-8900</a></p>
-                    <p>Mon - Fri: 6AM - 10PM<br>Sat - Sun: 8AM - 8PM</p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email Support</h3>
-                    <p><a href="mailto:support@fityou.com">support@fityou.com</a></p>
-                    <p><a href="mailto:info@fityou.com">info@fityou.com</a></p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <h3>Visit Our Gym</h3>
-                    <p>123 Fitness Street<br>Health City, HC 12345</p>
-                    <p><a href="https://maps.google.com" target="_blank">Get Directions</a></p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-comments"></i>
-                    <h3>Live Chat</h3>
-                    <p>Chat with our fitness experts</p>
-                    <p><a href="#" onclick="startLiveChat()">Start Chat Now</a></p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <h3>WhatsApp</h3>
-                    <p><a href="https://wa.me/1234567890" target="_blank">+1 (234) 567-8900</a></p>
-                    <p>Quick support via WhatsApp</p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-users"></i>
-                    <h3>Social Media</h3>
-                    <p>
-                        <a href="https://facebook.com/fityou" target="_blank" style="margin-right: 15px;"><i class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/fityou" target="_blank" style="margin-right: 15px;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://twitter.com/fityou" target="_blank"><i class="fab fa-twitter"></i></a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <h3>Send us a Message</h3>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Tell us about your fitness goals or any questions you have..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </section>
     </main>
 
+    <!-- <section class="contact-section">
+        <h2>Get in Touch</h2>
+        <p>Ready to transform your fitness journey? Contact our team of experts and let us help you achieve your goals.</p>
+
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Call Us</h3>
+                <p><a href="tel:+1234567890">+1 (234) 567-8900</a></p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Support</h3>
+                <p><a href="mailto:support@fityou.com">support@fityou.com</a></p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Our Gym</h3>
+                <p>123 Fitness Street, Health City</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h3>Send us a Message</h3>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="cta-btn">Send</button>
+            </form>
+        </div>
+    </section> -->
+
     <footer>
-        <p>&copy; 2024 Fit You. All rights reserved.</p>
+        <p>© 2025 Fit You. All Rights Reserved.</p>
     </footer>
-
-    <script>
-
-        const toggleBtn = document.getElementById('themeToggle');
-        const body = document.body;
-
-        toggleBtn.addEventListener('click', () => {
-            body.classList.toggle('light-mode');
-            toggleBtn.innerHTML = body.classList.contains('light-mode')
-                ? '<i class="fas fa-sun"></i>'
-                : '<i class="fas fa-moon"></i>';
-        });
-    </script>
-
-</body>
-
-
-        function startLiveChat() {
-            alert('Live chat feature coming soon! Please use email or phone for now.');
-        }
-
-        // Form submission handler
-        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you within 24 hours.');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
