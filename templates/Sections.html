@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Fitness & Diet Plan</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -27,12 +31,14 @@
             margin-bottom: 0;
         }
 
-        .navbar-brand, .navbar-nav li a {
+        .navbar-brand,
+        .navbar-nav li a {
             color: #ff4f00 !important;
             font-size: 18px;
         }
 
-        .navbar-brand:hover, .navbar-nav li a:hover {
+        .navbar-brand:hover,
+        .navbar-nav li a:hover {
             color: #fff !important;
         }
 
@@ -66,14 +72,18 @@
             top: 120px;
             font-size: 100px;
             right: 50%;
-            transform: translateX(50%); /* Center the text */
+            transform: translateX(50%);
+            /* Center the text */
             color: #fff;
-            font-family: 'Playfair Display', serif; /* Change to Playfair Display */
+            font-family: 'Playfair Display', serif;
+            /* Change to Playfair Display */
             text-align: center;
         }
 
         /* Cards Styling */
-        .lay, .lay1, .lay2 {
+        .lay,
+        .lay1,
+        .lay2 {
             height: 300px;
             border-style: solid;
             border-radius: 15px;
@@ -104,7 +114,9 @@
             background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Wp9ic-f4FvwuCMioKhRG25cFpnarkjREJw&s");
         }
 
-        .lay:hover, .lay1:hover, .lay2:hover {
+        .lay:hover,
+        .lay1:hover,
+        .lay2:hover {
             background-color: #ff4f00;
             color: white;
             cursor: pointer;
@@ -132,6 +144,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -144,6 +157,7 @@
                 <li class="active"><a href="/workout">Home</a></li>
                 <li><a href="/sport">Sports</a></li>
                 <li><a href="/GP">Verified Plan</a></li>
+                <li><a href="/fitness">Workout by Body Part</a></li>
                 <li><a href="/diet">Bodybuilding</a></li>
             </ul>
         </div>
@@ -174,6 +188,14 @@
                 <h2>Verified Plan</h2>
             </div>
 
+            <!-- Workout By Body Part Section -->
+            <div class="col-sm-4">
+                <a href="/fitness" class="box-link">
+                    <div class="lay2"></div>
+                    <h2>Workout By Body Part</h2>
+                </a>
+            </div>
+
             <!-- Bodybuilding Section -->
             <div class="col-sm-4">
                 <a href="/diet">
@@ -181,8 +203,10 @@
                 </a>
                 <h2>Bodybuilding</h2>
             </div>
+
         </div>
     </div>
 
 </body>
+
 </html>

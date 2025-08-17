@@ -4,6 +4,8 @@ import pandas as pd
 import os
 import requests
 import json
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
@@ -421,6 +423,68 @@ def detect_health_conditions_from_text(text):
             detected_conditions.append(condition)
     
     return detected_conditions
+
+# ----- Load & prep data -----
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # directory of app.py
+file_path = os.path.join(BASE_DIR, "workout data", "Workout.csv")
+
+df = pd.read_csv(file_path)
+df['features'] = df['Body Part'] + " " + df['Type of Muscle'] + " " + df['Workout']
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(df['features'])
+
+# ----- Recommender -----
+def recommend_workouts(user_input, threshold=0.4):
+    user_vec = vectorizer.transform([user_input])
+    sim_scores = cosine_similarity(user_vec, tfidf_matrix).flatten()
+
+    mask = sim_scores > threshold
+    if not mask.any():
+        return []
+
+    # Build results with sets/reps (NO similarity in output)
+    hits = df.loc[mask, ['Workout', 'Sets', 'Reps per Set']].copy()
+    hits = hits.sort_index()  # keep original CSV order
+
+    return [
+        {
+            "workout": row['Workout'],
+            "sets": row['Sets'],
+            "reps": row['Reps per Set']
+        }
+        for _, row in hits.iterrows()
+    ]
+
+# ----- Flask route -----
+@app.route('/fitness', methods=['GET', 'POST'], endpoint='fitness')
+def fitness_index():
+    user_query = None
+    threshold = 0.4
+    results = None
+
+    if request.method == 'POST':
+        # take raw input, split on commas (multi-input support)
+        user_query_raw = request.form.get('user_query', '').strip()
+        user_query_list = [q.strip() for q in user_query_raw.split(",") if q.strip()]
+        user_query = " ".join(user_query_list)  # join all as one query string
+
+        # threshold
+        threshold_str = request.form.get('threshold', '0.4').strip()
+        try:
+            threshold = float(threshold_str)
+        except ValueError:
+            threshold = 0.4
+
+        if user_query:
+            results = recommend_workouts(user_query, threshold)
+
+    return render_template(
+        'fitness.html',
+        user_query=user_query,
+        threshold=threshold,
+        results=results
+    )
 
 if __name__ == '__main__':
    
