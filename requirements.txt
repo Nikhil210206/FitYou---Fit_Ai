@@ -4,4 +4,4 @@ flask-cors
 werkzeug
 serverless-wsgi
 requests
-
+scikit-learn
