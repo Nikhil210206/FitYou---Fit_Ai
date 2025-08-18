@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
         * {
             margin: 0;
@@ -33,39 +35,40 @@
         }
 
         .navbar {
-  background: rgba(28, 28, 28, 0.95); /* glassy black */
-  backdrop-filter: blur(10px);
-  padding: 0.8rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 12px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
+            background: rgba(28, 28, 28, 0.95);
+            /* glassy black */
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
 
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
-}
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
 
-.nav-links a:hover {
-  background: #ff4f00;
-  box-shadow: 0 0 12px #ff4f00;
-  color: #000;
-  transform: scale(1.05);
-}
+        .nav-links a:hover {
+            background: #ff4f00;
+            box-shadow: 0 0 12px #ff4f00;
+            color: #000;
+            transform: scale(1.05);
+        }
 
-.nav-links a.active {
-  background: #ff4f00;
-  color: #000;
-  font-weight: bold;
-}
+        .nav-links a.active {
+            background: #ff4f00;
+            color: #000;
+            font-weight: bold;
+        }
 
         .logo {
             font-size: 2rem;
@@ -73,18 +76,57 @@
             color: #ff4f00;
         }
 
-    .auth-btn {
-    padding: 0.5rem 1.2rem;
-    margin-left: 1rem;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #ff6f00, #ff4f00);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff4f00;
+        }
+
+        .login-btn {
+            margin-left: 20px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #ff4f00;
+            color: #fff;
+            border: 1px solid #ff4f00;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #e64300;
+        }
+
+
+        .auth-btn {
+            padding: 0.5rem 1.2rem;
+            margin-left: 1rem;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff6f00, #ff4f00);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
         .auth-buttons a {
             margin-left: 15px;
             padding: 12px 25px;
@@ -294,7 +336,8 @@
             color: #fff;
         }
 
-        .contact-item p, .contact-item a {
+        .contact-item p,
+        .contact-item a {
             font-size: 1.1rem;
             color: #ccc;
             text-decoration: none;
@@ -606,7 +649,8 @@
                 font-size: 1.3rem;
             }
 
-            .contact-item p, .contact-item a {
+            .contact-item p,
+            .contact-item a {
                 font-size: 1rem;
             }
 
@@ -789,7 +833,8 @@
                 margin-bottom: 10px;
             }
 
-            .contact-item p, .contact-item a {
+            .contact-item p,
+            .contact-item a {
                 font-size: 0.95rem;
                 line-height: 1.4;
             }
@@ -881,7 +926,8 @@
         }
 
         /* High DPI / Retina Displays */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
             .phone-mockup img {
                 image-rendering: -webkit-optimize-contrast;
                 image-rendering: crisp-edges;
@@ -890,6 +936,7 @@
 
         /* Reduced Motion Preference */
         @media (prefers-reduced-motion: reduce) {
+
             .cta-btn,
             .feature,
             .contact-item {
@@ -943,6 +990,7 @@
             .phone-mockup {
                 display: none;
             }
+
 
         }
 
@@ -1038,6 +1086,59 @@
         body.light-mode .overlay-text {
             background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
+
+        }
+
+        /* 🌙 Default (Dark Mode) */
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff4f00;
+        }
+
+        .login-btn {
+            margin-left: 20px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #ff4f00;
+            color: #fff;
+            border: 1px solid #ff4f00;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #e64300;
+        }
+
+        /* 🌞 Light Mode (when body has .light-mode) */
+        body.light-mode header {
+            background-color: #f9f9f9;
+            color: #000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .nav-links a {
+            color: #000;
+        }
+
+        body.light-mode .nav-links a:hover {
+            color: #ff4f00;
+        }
+
+        body.light-mode .login-btn {
+            background-color: #ff4f00;
+            color: #fff;
+            /* keep white text inside button */
+            border: 1px solid #ff4f00;
         }
     </style>
     <meta charset="UTF-8">
@@ -1053,23 +1154,23 @@
             <div class="logo">
                 <h3>Fit You</h3>
             </div>
-            <div class="auth-buttons">
 
-                <a href="/ai-coach" class="start-now-btn animate__animated animate__fadeIn"
-                    style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
-                <a href="/sport" class="login-btn animate__animated animate__fadeIn">Sport Scheduler</a>
-                <a href="/diet" class="start-now-btn animate__animated animate__fadeIn">Get your diet plan</a>
-                <a href="/workout" class="login-btn animate__animated animate__fadeIn">Workout</a>
-                <a href="/gen" class="start-now-btn animate__animated animate__fadeIn">Personalized Routine</a>
+            <!-- <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+                <a href="login.html" class="login-btn">Login</a>
                 <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div> -->
 
-
-                <a href="/ai-coach" class="start-now-btn" style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
+            <div class="auth-buttons">
+                <a href="/ai-coach" class="start-now-btn"
+                    style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
                 <a href="/sport" class="login-btn">Sport Scheduler</a>
                 <a href="/diet" class="start-now-btn">Get your diet plan</a>
                 <a href="/workout" class="login-btn">Workout</a>
                 <a href="/gen" class="start-now-btn">Personalized Routine</a>
-
             </div>
         </nav>
     </header>
@@ -1078,124 +1179,16 @@
         <section class="hero">
             <div class="text-container">
                 <h1>Your Fitness Coach</h1>
-
                 <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.
                 </p>
                 <a href="/gen" class="cta-btn animate__animated animate__pulse">Get your workout plan now</a>
                 <p class="quiz-info animate__animated animate__fadeInUp">Take the FREE quiz to get personalized
                     exercises!</p>
             </div>
-            <div class="phone-mockup animate__animated animate__fadeInRight">
-                <!-- <img src="{{ url_for('static', filename='images/fitai.jpg') }}" alt="FitAi logo">
 
-
-                <div class="overlay-text">FitAi</div> -->
-
-                <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.</p>
-                <a href="/gen" class="cta-btn">Get your workout plan now</a>
-                <p class="quiz-info">Take the FREE quiz to get personalized exercises!</p>
-            </div>
             <div class="phone-mockup">
                 <img src="fitai.jpg" alt="FitAi app mockup">
                 <div class="overlay-text">FitAi</div>
-
-            </div>
-        </section>
-
-        <section class="features">
-            <div class="feature">
-                <i class="fas fa-dumbbell"></i>
-                <h2>Personalized Workouts</h2>
-                <p>Tailored fitness plans based on your goals and fitness level.</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-apple-alt"></i>
-                <h2>Nutrition Guidance</h2>
-                <p>Custom diet plans to complement your workout routine.</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-chart-line"></i>
-                <h2>Progress Tracking</h2>
-                <p>Keep track of your achievements and progress over time.</p>
-            </div>
-        </section>
-
-        <section class="contact-section">
-            <h2>Get in Touch</h2>
-            <p>Ready to transform your fitness journey? Contact our team of experts and let us help you achieve your goals.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <h3>Call Us</h3>
-                    <p><a href="tel:+1234567890">+1 (234) 567-8900</a></p>
-                    <p>Mon - Fri: 6AM - 10PM<br>Sat - Sun: 8AM - 8PM</p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email Support</h3>
-                    <p><a href="mailto:support@fityou.com">support@fityou.com</a></p>
-                    <p><a href="mailto:info@fityou.com">info@fityou.com</a></p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <h3>Visit Our Gym</h3>
-                    <p>123 Fitness Street<br>Health City, HC 12345</p>
-                    <p><a href="https://maps.google.com" target="_blank">Get Directions</a></p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-comments"></i>
-                    <h3>Live Chat</h3>
-                    <p>Chat with our fitness experts</p>
-                    <p><a href="#" onclick="startLiveChat()">Start Chat Now</a></p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <h3>WhatsApp</h3>
-                    <p><a href="https://wa.me/1234567890" target="_blank">+1 (234) 567-8900</a></p>
-                    <p>Quick support via WhatsApp</p>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-users"></i>
-                    <h3>Social Media</h3>
-                    <p>
-                        <a href="https://facebook.com/fityou" target="_blank" style="margin-right: 15px;"><i class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/fityou" target="_blank" style="margin-right: 15px;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://twitter.com/fityou" target="_blank"><i class="fab fa-twitter"></i></a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <h3>Send us a Message</h3>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Tell us about your fitness goals or any questions you have..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
             </div>
         </section>
     </main>
@@ -1219,27 +1212,27 @@
 
 </body>
 
+<script>
+    function startLiveChat() {
+        alert('Live chat feature coming soon! Please use email or phone for now.');
+    }
 
-        function startLiveChat() {
-            alert('Live chat feature coming soon! Please use email or phone for now.');
-        }
+    // Form submission handler
+    document.querySelector('.contact-form form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you within 24 hours.');
+    });
 
-        // Form submission handler
-        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            alert('Thank you for your message! We will get back to you within 24 hours.');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>

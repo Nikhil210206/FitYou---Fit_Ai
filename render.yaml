@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: fitai-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    plan: free
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+
+  - type: web
+    name: fitai-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: frontend/build
+    plan: free

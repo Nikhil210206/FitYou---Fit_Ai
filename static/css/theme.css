@@ -1,0 +1,171 @@
+
+:root {
+    /* Light Theme Colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-accent: #ff4f00;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-border: #ced4da;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-heavy: rgba(0, 0, 0, 0.2);
+    --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    --overlay-bg: rgba(255, 255, 255, 0.9);
+    --success-bg: #d4edda;
+    --error-bg: #f8d7da;
+    --warning-bg: #fff3cd;
+}
+
+/* Dark Theme Colors */
+[data-theme="dark"] {
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-tertiary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-accent: #ff4f00;
+    --border-color: #333333;
+    --card-bg: #222222;
+    --input-bg: #333333;
+    --input-border: #444444;
+    --shadow-light: rgba(255, 255, 255, 0.1);
+    --shadow-medium: rgba(255, 255, 255, 0.15);
+    --shadow-heavy: rgba(255, 255, 255, 0.2);
+    --gradient-bg: linear-gradient(135deg, #111111 0%, #222222 100%);
+    --overlay-bg: rgba(0, 0, 0, 0.9);
+    --success-bg: #2a2a2a;
+    --error-bg: #2a2a2a;
+    --warning-bg: #2a2a2a;
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: var(--text-accent);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 16px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow-medium);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-toggle:hover {
+    background: #e64300;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow-heavy);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle i.fa-sun {
+    transform: rotate(180deg);
+}
+
+/* Smooth Transitions for Theme Changes */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Base Theme Application */
+body {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Header and Navigation */
+header {
+    background-color: var(--bg-secondary) !important;
+    box-shadow: 0px 4px 15px var(--shadow-medium) !important;
+}
+
+nav {
+    background: var(--bg-secondary) !important;
+}
+
+.logo {
+    color: var(--text-accent) !important;
+}
+
+/* Cards and Containers */
+.container, .day-plan, .feature, .contact-item, .plan-summary {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 4px 8px var(--shadow-light) !important;
+}
+
+/* Form Elements */
+input, select, textarea {
+    background-color: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--input-border) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--text-accent) !important;
+}
+
+/* Text Colors */
+h1, h2, h3 {
+    color: var(--text-accent) !important;
+}
+
+h4, h5, h6 {
+    color: var(--text-primary) !important;
+}
+
+p, li, span {
+    color: var(--text-secondary) !important;
+}
+
+label {
+    color: var(--text-primary) !important;
+}
+
+/* Chat Interface Specific */
+.chat-container {
+    background-color: var(--card-bg) !important;
+}
+
+.chat-messages {
+    background-color: var(--bg-secondary) !important;
+}
+
+.ai-message {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+#messageInput {
+    background-color: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+        padding: 10px 14px;
+        font-size: 1rem;
+    }
+}
