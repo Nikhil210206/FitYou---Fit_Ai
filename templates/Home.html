@@ -4,6 +4,8 @@
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
     <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
         * {
             margin: 0;
@@ -125,7 +127,19 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-        }
+      }
+    .auth-btn {
+    padding: 0.5rem 1.2rem;
+    margin-left: 1rem;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff6f00, #ff4f00);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
 
         .auth-buttons a {
             margin-left: 15px;
@@ -1173,6 +1187,7 @@
                 <a href="/gen" class="start-now-btn">Personalized Routine</a>
             </div>
         </nav>
+
     </header>
 
     <main>

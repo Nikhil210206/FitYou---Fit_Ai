@@ -17,6 +17,7 @@ import datetime
 from typing import Dict, Any
 
 
+
 app = Flask(__name__)
 
 # Rule-based fitness chatbot for Vercel compatibility
@@ -308,7 +309,6 @@ def chat_api():
             'error': f'Server error: {str(e)}',
             'status': 'error'
         }), 500
-
 
         # ----- Load & prep data -----
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # directory of app.py
