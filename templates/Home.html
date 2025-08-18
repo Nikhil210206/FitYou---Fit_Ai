@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
         * {
             margin: 0;
@@ -35,39 +35,40 @@
         }
 
         .navbar {
-  background: rgba(28, 28, 28, 0.95); /* glassy black */
-  backdrop-filter: blur(10px);
-  padding: 0.8rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 12px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
+            background: rgba(28, 28, 28, 0.95);
+            /* glassy black */
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
 
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
-}
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
 
-.nav-links a:hover {
-  background: #ff4f00;
-  box-shadow: 0 0 12px #ff4f00;
-  color: #000;
-  transform: scale(1.05);
-}
+        .nav-links a:hover {
+            background: #ff4f00;
+            box-shadow: 0 0 12px #ff4f00;
+            color: #000;
+            transform: scale(1.05);
+        }
 
-.nav-links a.active {
-  background: #ff4f00;
-  color: #000;
-  font-weight: bold;
-}
+        .nav-links a.active {
+            background: #ff4f00;
+            color: #000;
+            font-weight: bold;
+        }
 
         .logo {
             font-size: 2rem;
@@ -113,18 +114,18 @@
         }
 
 
-    .auth-btn {
-    padding: 0.5rem 1.2rem;
-    margin-left: 1rem;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #ff6f00, #ff4f00);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
+        .auth-btn {
+            padding: 0.5rem 1.2rem;
+            margin-left: 1rem;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff6f00, #ff4f00);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
 
         .auth-buttons a {
             margin-left: 15px;
@@ -335,7 +336,8 @@
             color: #fff;
         }
 
-        .contact-item p, .contact-item a {
+        .contact-item p,
+        .contact-item a {
             font-size: 1.1rem;
             color: #ccc;
             text-decoration: none;
@@ -647,7 +649,8 @@
                 font-size: 1.3rem;
             }
 
-            .contact-item p, .contact-item a {
+            .contact-item p,
+            .contact-item a {
                 font-size: 1rem;
             }
 
@@ -830,7 +833,8 @@
                 margin-bottom: 10px;
             }
 
-            .contact-item p, .contact-item a {
+            .contact-item p,
+            .contact-item a {
                 font-size: 0.95rem;
                 line-height: 1.4;
             }
@@ -922,7 +926,8 @@
         }
 
         /* High DPI / Retina Displays */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
             .phone-mockup img {
                 image-rendering: -webkit-optimize-contrast;
                 image-rendering: crisp-edges;
@@ -931,6 +936,7 @@
 
         /* Reduced Motion Preference */
         @media (prefers-reduced-motion: reduce) {
+
             .cta-btn,
             .feature,
             .contact-item {
@@ -1171,7 +1177,8 @@
                 <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
 
 
-                <a href="/ai-coach" class="start-now-btn" style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
+                <a href="/ai-coach" class="start-now-btn"
+                    style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
                 <a href="/sport" class="login-btn">Sport Scheduler</a>
                 <a href="/diet" class="start-now-btn">Get your diet plan</a>
                 <a href="/workout" class="login-btn">Workout</a>
@@ -1194,12 +1201,13 @@
                     exercises!</p>
             </div>
             <div class="phone-mockup animate__animated animate__fadeInRight">
-                <!-- <img src="{{ url_for('static', filename='images/fitai.jpg') }}" alt="FitAi logo">
+                <img src='images/fitai.jpg' alt="FitAi logo">
 
 
-                <div class="overlay-text">FitAi</div> -->
+                <div class="overlay-text">FitAi</div>
 
-                <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.</p>
+                <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.
+                </p>
                 <a href="/gen" class="cta-btn">Get your workout plan now</a>
                 <p class="quiz-info">Take the FREE quiz to get personalized exercises!</p>
             </div>
@@ -1230,8 +1238,9 @@
 
         <section class="contact-section">
             <h2>Get in Touch</h2>
-            <p>Ready to transform your fitness journey? Contact our team of experts and let us help you achieve your goals.</p>
-            
+            <p>Ready to transform your fitness journey? Contact our team of experts and let us help you achieve your
+                goals.</p>
+
             <div class="contact-grid">
                 <div class="contact-item">
                     <i class="fas fa-phone-alt"></i>
@@ -1239,41 +1248,43 @@
                     <p><a href="tel:+1234567890">+1 (234) 567-8900</a></p>
                     <p>Mon - Fri: 6AM - 10PM<br>Sat - Sun: 8AM - 8PM</p>
                 </div>
-                
+
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
                     <h3>Email Support</h3>
                     <p><a href="mailto:support@fityou.com">support@fityou.com</a></p>
                     <p><a href="mailto:info@fityou.com">info@fityou.com</a></p>
                 </div>
-                
+
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <h3>Visit Our Gym</h3>
                     <p>123 Fitness Street<br>Health City, HC 12345</p>
                     <p><a href="https://maps.google.com" target="_blank">Get Directions</a></p>
                 </div>
-                
+
                 <div class="contact-item">
                     <i class="fas fa-comments"></i>
                     <h3>Live Chat</h3>
                     <p>Chat with our fitness experts</p>
                     <p><a href="#" onclick="startLiveChat()">Start Chat Now</a></p>
                 </div>
-                
+
                 <div class="contact-item">
                     <i class="fab fa-whatsapp"></i>
                     <h3>WhatsApp</h3>
                     <p><a href="https://wa.me/1234567890" target="_blank">+1 (234) 567-8900</a></p>
                     <p>Quick support via WhatsApp</p>
                 </div>
-                
+
                 <div class="contact-item">
                     <i class="fas fa-users"></i>
                     <h3>Social Media</h3>
                     <p>
-                        <a href="https://facebook.com/fityou" target="_blank" style="margin-right: 15px;"><i class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/fityou" target="_blank" style="margin-right: 15px;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/fityou" target="_blank" style="margin-right: 15px;"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com/fityou" target="_blank" style="margin-right: 15px;"><i
+                                class="fab fa-instagram"></i></a>
                         <a href="https://twitter.com/fityou" target="_blank"><i class="fab fa-twitter"></i></a>
                     </p>
                 </div>
@@ -1300,7 +1311,8 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Tell us about your fitness goals or any questions you have..."></textarea>
+                        <textarea id="message" name="message" required
+                            placeholder="Tell us about your fitness goals or any questions you have..."></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
@@ -1327,27 +1339,27 @@
 
 </body>
 
+<script>
+    function startLiveChat() {
+        alert('Live chat feature coming soon! Please use email or phone for now.');
+    }
 
-        function startLiveChat() {
-            alert('Live chat feature coming soon! Please use email or phone for now.');
-        }
+    // Form submission handler
+    document.querySelector('.contact-form form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you within 24 hours.');
+    });
 
-        // Form submission handler
-        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            alert('Thank you for your message! We will get back to you within 24 hours.');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>
