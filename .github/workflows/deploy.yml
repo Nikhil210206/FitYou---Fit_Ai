@@ -1,0 +1,58 @@
+name: Deploy to Multiple Platforms
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [ closed ]
+
+jobs:
+  deploy-render:
+    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        run: |
+          echo "Render auto-deploys from GitHub automatically"
+          echo "No additional action needed - Render will detect the push"
+
+  deploy-railway:
+    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Railway
+        if: env.RAILWAY_TOKEN != ''
+        run: |
+          npx @railway/cli deploy
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+  deploy-fly:
+    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Fly CLI
+        if: env.FLY_API_TOKEN != ''
+        uses: superfly/flyctl-actions/setup-flyctl@master
+        
+      - name: Deploy to Fly.io
+        if: env.FLY_API_TOKEN != ''
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  notify-deployment:
+    needs: [deploy-render]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Deployment Status
+        run: |
+          echo "🚀 Deployment completed!"
+          echo "✅ Render: Auto-deployed from GitHub"
+          echo "Check your Render dashboard for deployment status"

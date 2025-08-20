@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="logo.jpg">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Fitness & Diet Plan</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
         body, html {
             margin: 0;
@@ -53,13 +56,11 @@
         /* Title Styling */
         .top-right {
             padding: 20px;
-            position: absolute;
             top: 260px;
             font-size: 40px;
             text-shadow: 2px 2px 2px #000;
-            right: 34%;
             color: #ff4f00;
-            text-align: right;
+            text-align: center;
         }
 
         .top-right1 {

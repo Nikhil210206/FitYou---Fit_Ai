@@ -1,0 +1,30 @@
+# Node & build artifacts (if any)
+node_modules
+build
+dist
+
+# Vercel internal
+.verel
+.vercel/output
+
+# Framework-specific cache (if relevant)
+.next/
+__pycache__/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Large media files (exclude these)
+*.mp4
+*.mov
+*.avi
+
+# Keep all essential images and static assets
+# Allow all jpg, png files
+!*.jpg
+!*.png
+
+# Keep static folder for essential assets
+!static/
+!static/images/

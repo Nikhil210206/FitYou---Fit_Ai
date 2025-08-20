@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT YOU - Your AI-powered Fitness Coach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        /* General body and font styling */
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +21,10 @@
             color: #fff;
             font-size: 16px;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Header styling */
         header {
             background-color: #222;
             padding: 20px;
@@ -29,44 +38,173 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
-
-        .logo {
+        
+        .logo h3 {
             font-size: 2rem;
             font-weight: bold;
-            color: #ff4f00; 
+            color: #ff4f00;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff4f00;
         }
 
         .auth-buttons a {
-            margin-left: 15px;
-            padding: 12px 25px;
-            border-radius: 50px;
+            margin-left: 1rem;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: bold;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            border: none;
         }
 
+        /* Specific button styling */
         .auth-buttons .login-btn {
-            background-color: #ff4f00; 
-            color: #fff;
-            border: 1px solid #ff4f00;
+            background: linear-gradient(135deg, #ff6f00, #ff4f00);
+            color: white;
         }
 
         .auth-buttons .login-btn:hover {
-            background-color: #e64300; 
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 79, 0, 0.4);
         }
 
         .auth-buttons .start-now-btn {
-            background-color: #eaff07; 
-            color: #000000;
+            background: linear-gradient(135deg, #00d4aa, #00b894);
+            color: #fff;
         }
 
         .auth-buttons .start-now-btn:hover {
-            background-color: #009d8b; 
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 212, 170, 0.4);
         }
 
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: #ff4f00;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 30px;
+            border-radius: 6px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle .bar {
+            width: 25px;
+            height: 4px;
+            background-color: #fff;
+            margin: 2px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .bar:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .bar:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 20px;
+            background: linear-gradient(135deg, #333, #222);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            border-radius: 20px;
+            overflow: hidden;
+            min-width: 250px;
+            border: 1px solid #444;
+            padding: 10px;
+        }
+        
+        .mobile-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 15px;
+            width: 16px;
+            height: 16px;
+            background: #333;
+            border: 1px solid #444;
+            border-bottom: none;
+            border-right: none;
+            transform: rotate(45deg);
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 5px 0;
+            border-radius: 12px;
+        }
+
+        .mobile-menu .login-btn {
+            background: linear-gradient(135deg, #ff4f00, #e64300);
+            color: #fff;
+        }
+
+        .mobile-menu .start-now-btn {
+            background: linear-gradient(135deg, #eaff07, #c9e000);
+            color: #000;
+        }
+        
+        .mobile-menu a:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hero Section */
         .hero {
             display: flex;
             justify-content: space-between;
@@ -84,7 +222,7 @@
 
         .hero h1 {
             font-size: 4rem;
-            color: #ff4f00; 
+            color: #ff4f00;
             font-weight: bold;
             margin-bottom: 25px;
             line-height: 1.2;
@@ -99,7 +237,7 @@
 
         .cta-btn {
             display: inline-block;
-            background-color: #ff4f00; 
+            background-color: #ff4f00;
             color: #fff;
             padding: 15px 40px;
             border-radius: 50px;
@@ -112,7 +250,7 @@
         }
 
         .cta-btn:hover {
-            background-color: #e64300; 
+            background-color: #e64300;
             transform: translateY(-3px);
         }
 
@@ -150,7 +288,8 @@
             font-weight: bold;
             text-align: center;
         }
-
+        
+        /* Features Section */
         .features {
             display: flex;
             justify-content: space-around;
@@ -189,6 +328,145 @@
             color: #ccc;
         }
 
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #111 0%, #222 100%);
+            padding: 80px 60px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 3rem;
+            color: #ff4f00;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .contact-section p {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            background-color: #333;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 15px 30px rgba(255, 79, 0, 0.2);
+            border-color: #ff4f00;
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: #ff4f00;
+            margin-bottom: 20px;
+        }
+
+        .contact-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .contact-item p, .contact-item a {
+            font-size: 1.1rem;
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #ff4f00;
+        }
+
+        .contact-form {
+            background-color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            margin: 50px auto 0;
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #ff4f00;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #555;
+            border-radius: 10px;
+            background-color: #222;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff4f00;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #ff4f00;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: #e64300;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
         footer {
             background-color: #222;
             color: #fff;
@@ -202,67 +480,218 @@
             margin: 0;
             font-weight: 600;
         }
-        @media (max-width: 768px) {
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 1024px) {
             .hero {
                 flex-direction: column;
-                align-items: center;
                 text-align: center;
+                min-height: 80vh;
+                padding: 50px 30px;
             }
 
-            .text-container, .phone-mockup {
+            .text-container {
                 max-width: 100%;
-                margin-left: 0;
+                margin-bottom: 30px;
             }
 
             .phone-mockup {
-                margin-top: 30px;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.4rem;
-            }
-
-            .cta-btn {
-                padding: 15px 30px;
-                font-size: 1.2rem;
-            }
-
-            .quiz-info {
-                font-size: 1rem;
-            }
-
-            .overlay-text {
-                font-size: 1rem;
-                padding: 10px;
+                max-width: 60%;
+                margin-left: 0;
             }
 
             .features {
-                flex-direction: column;
-                align-items: center;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 50px 30px;
             }
 
             .feature {
-                margin-bottom: 20px;
+                max-width: 280px;
+                margin: 10px;
             }
         }
+        
+        @media (max-width: 768px) {
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+                margin-top: 15px;
+            }
+
+            .cta-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+                margin-top: 25px;
+            }
+
+            .phone-mockup {
+                max-width: 70%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .overlay-text {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .contact-section h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Theme Toggle Button */
+        .toggle-theme {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: inherit;
+            margin-left: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-theme:hover {
+            transform: scale(1.2);
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        body.light-mode header,
+        body.light-mode footer {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .hero {
+            background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+        }
+
+        body.light-mode .hero h1 {
+            color: #ff4f00; /* keep brand color */
+        }
+        
+        body.light-mode .hero p,
+        body.light-mode .quiz-info {
+            color: #555;
+        }
+
+        body.light-mode .features {
+            background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+        }
+        
+        body.light-mode .feature {
+            background-color: #fff;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .contact-section {
+            background: linear-gradient(135deg, #f9f9f9 0%, #e9e9e9 100%);
+        }
+
+        body.light-mode .contact-item {
+            background-color: #fff;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .contact-item:hover {
+            box-shadow: 0px 15px 30px rgba(255, 79, 0, 0.1);
+        }
+        
+        body.light-mode .contact-form {
+            background-color: #fff;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .form-group input,
+        body.light-mode .form-group textarea {
+            background-color: #e9e9e9;
+            color: #333;
+            border-color: #ccc;
+        }
+        
+        body.light-mode .form-group input:focus,
+        body.light-mode .form-group textarea:focus {
+            border-color: #ff4f00;
+        }
+
+        body.light-mode .mobile-menu {
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        body.light-mode .mobile-menu a {
+            color: #333;
+        }
+
+        body.light-mode .mobile-menu::before {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-right: none;
+        }
+
+        body.light-mode .auth-buttons .login-btn {
+            background: linear-gradient(135deg, #ff6f00, #ff4f00);
+            color: white;
+        }
+
+        body.light-mode .auth-buttons .start-now-btn {
+            background: linear-gradient(135deg, #00d4aa, #00b894);
+            color: #fff;
+        }
+
+        body.light-mode .cta-btn {
+            background: linear-gradient(135deg, #ff6f00, #ff4f00);
+            color: #fff;
+
+        }
+        
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="logo.jpg">
-    <title>FIT YOU - Your AI-powered Fitness Coach</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 </head>
+
 <body>
     <header>
         <nav>
             <div class="logo">
                 <h3>Fit You</h3>
             </div>
+            
             <div class="auth-buttons">
                 <a href="about.html" class="start-now-btn animate__animated animate__fadeIn">About</a>
                 <a href="/ai-coach" class="start-now-btn animate__animated animate__fadeIn" style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
@@ -270,41 +699,100 @@
                 <a href="/diet" class="start-now-btn animate__animated animate__fadeIn">Get your diet plan</a>
                 <a href="/workout" class="login-btn animate__animated animate__fadeIn">Workout</a>
                 <a href="/gen" class="start-now-btn animate__animated animate__fadeIn">Personalized Routine</a>
+                <a href="/ai-coach" class="start-now-btn">🤖 AI Coach</a>
+                <a href="/sport" class="login-btn">Sport Scheduler</a>
+                <a href="/diet" class="start-now-btn">Get your diet plan</a>
+                <a href="/workout" class="login-btn">Workout</a>
+                <a href="/gen" class="start-now-btn">Personalized Routine</a>
+                <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="/ai-coach" class="start-now-btn">🤖 AI Coach</a>
+                <a href="/sport" class="login-btn">Sport Scheduler</a>
+                <a href="/diet" class="start-now-btn">Get your diet plan</a>
+                <a href="/workout" class="login-btn">Workout</a>
+                <a href="/gen" class="start-now-btn">Personalized Routine</a>
             </div>
         </nav>
+
     </header>
 
     <main>
         <section class="hero">
-            <div class="text-container animate__animated animate__fadeInLeft">
+            <div class="text-container">
                 <h1>Your Fitness Coach</h1>
                 <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.</p>
-                <a href="/gen" class="cta-btn animate__animated animate__pulse">Get your workout plan now</a>
-                <p class="quiz-info animate__animated animate__fadeInUp">Take the FREE quiz to get personalized exercises!</p>
+                <a href="/gen" class="cta-btn">Get your workout plan now</a>
+                <p class="quiz-info">Take the FREE quiz to get personalized exercises!</p>
             </div>
-            <div class="phone-mockup animate__animated animate__fadeInRight">
+            <div class="phone-mockup">
                 <img src="{{ url_for('static', filename='images/fitai.jpg') }}" alt="FitAi logo">
-
-
                 <div class="overlay-text">FitAi</div>
             </div>
         </section>
 
         <section class="features">
-            <div class="feature animate__animated animate__zoomIn">
+            <div class="feature">
                 <i class="fas fa-dumbbell"></i>
                 <h2>Personalized Workouts</h2>
-                <p>Tailored fitness plans based on your goals and fitness level.</p>
+                <p>Get a workout plan tailored to your goals and fitness level, designed by AI.</p>
             </div>
-            <div class="feature animate__animated animate__zoomIn">
+            <div class="feature">
                 <i class="fas fa-apple-alt"></i>
-                <h2>Nutrition Guidance</h2>
-                <p>Custom diet plans to complement your workout routine.</p>
+                <h2>Diet Plans</h2>
+                <p>Discover nutritious diet plans that complement your exercise routine for optimal results.</p>
             </div>
-            <div class="feature animate__animated animate__zoomIn">
-                <i class="fas fa-chart-line"></i>
-                <h2>Progress Tracking</h2>
-                <p>Keep track of your achievements and progress over time.</p>
+            <div class="feature">
+                <i class="fas fa-robot"></i>
+                <h2>AI Coach</h2>
+                <p>Chat with your AI coach to get answers to all your fitness questions and more.</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Get in Touch</h2>
+            <p>Ready to start your fitness journey? Contact us for more information or to sign up.</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>contact@fityou.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Address</h3>
+                    <p>123 Fit Street, Health City, USA</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
         </section>
     </main>
@@ -312,5 +800,33 @@
     <footer>
         <p>&copy; 2025 Fit You. All rights reserved.</p>
     </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const themeToggle = document.getElementById('themeToggle');
+        
+        function toggleMobileMenu() {
+            mobileMenuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+        // JavaScript for theme toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    </script>
 </body>
+
 </html>

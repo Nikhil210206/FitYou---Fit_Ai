@@ -3,241 +3,986 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="logo.jpg">
-    <title>Fitness Routine</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>FitAi - Your Personal Fitness Companion</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💪</text></svg>">
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    
     <style>
+        :root {
+            --primary-color: #ff4f00;
+            --primary-dark: #e04400;
+            --secondary-color: #1a1a1a;
+            --background-dark: #0a0a0a;
+            --text-light: #ffffff;
+            --text-muted: #b0b0b0;
+            --border-color: #333333;
+            --card-bg: #1e1e1e;
+            --success-color: #28a745;
+            --shadow-light: rgba(255, 255, 255, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #000, #333);
-            color: #fff;
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--background-dark) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        /* Header & Navigation */
         .navbar {
-            margin-bottom: 0;
-            background-color: #ff4f00;
-            border-radius: 0;
-            border: none;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px var(--shadow-dark);
         }
 
-        .navbar-brand, .navbar-nav li a {
-            color: #fff !important;
-            font-size: 18px;
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary-color) !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .navbar-brand:hover, .navbar-nav li a:hover {
-            color: #ff4f00 !important;
+        .navbar-brand:hover {
+            color: var(--text-light) !important;
+            transform: scale(1.05);
         }
 
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-            color: #ff4f00;
-            font-size: 36px;
+        .navbar-toggler {
+            border: 2px solid var(--primary-color);
+            padding: 0.25rem 0.5rem;
         }
 
-        .welcome-message {
-            text-align: center;
-            font-size: 18px;
-            margin: 20px 0;
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 79, 0, 0.25);
         }
 
-        .navbar form {
-            padding: 15px;
-            text-align: center;
-            background-color: #1a1a1a;
-            margin-bottom: 20px;
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 79, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            padding: 0.75rem 1.25rem !important;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        label {
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 16px;
-            color: #fff;
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--text-light) !important;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
         }
 
-        select {
-            padding: 10px;
-            width: 250px;
-            margin-right: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            color: #000;
+        /* Hero Section */
+        .hero-section {
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
         }
 
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #ff4f00;
-            color: white;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 79, 0, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px var(--shadow-dark);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+        }
+
+        .form-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .form-select {
+            background: var(--secondary-color);
+            border: 2px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 79, 0, 0.25);
+            background: var(--secondary-color);
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .form-select option {
+            background: var(--secondary-color);
+            color: var(--text-light);
+        }
+
+        .btn-generate {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
             border: none;
-            border-radius: 4px;
+            color: var(--text-light);
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
+            width: 100%;
         }
 
-        input[type="submit"]:hover {
-            background-color: #e04400;
+        .btn-generate:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 79, 0, 0.4);
         }
 
-        .routine {
-            margin: 20px auto;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #1a1a1a;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+        .btn-generate:active:not(:disabled) {
+            transform: translateY(-1px);
         }
 
-        .routine:hover {
-            transform: scale(1.02);
+        .btn-generate:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
-        h2 {
-            color: #ff4f00;
-            margin-bottom: 20px;
+        /* Form Responsive Layout */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-container {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 3rem;
+            }
+
+            .form-group-wrapper {
+                flex: 1;
+                max-width: 400px;
+            }
+
+            .btn-container {
+                flex: 0 0 auto;
+                margin-top: 2rem;
+            }
+
+            .btn-generate {
+                width: auto;
+                min-width: 200px;
+            }
+        }
+
+        /* Fix form validation tooltip positioning */
+        .form-select:invalid {
+            position: relative;
+        }
+
+        .validation-message {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            z-index: 10;
+        }
+
+        /* Routine Results */
+        .routine-container {
+            margin: 3rem 0;
+        }
+
+        .routine-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .routine-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .routine-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-dark);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-dark);
+        }
+
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .exercise-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .exercise-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .exercise-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .exercise-item {
+            background: var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin: 0.75rem 0;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .exercise-item:hover {
+            background: rgba(255, 79, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* Quotes Section - Continuous Moving Carousel */
+        .quotes-section {
+            padding: 4rem 0;
+            margin: 4rem 0;
+            background: linear-gradient(135deg, rgba(255, 79, 0, 0.05) 0%, rgba(26, 26, 26, 0.1) 100%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .quotes-section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quotes-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .quotes-section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .quotes-carousel {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            margin-top: 2rem;
+            mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+            -webkit-mask: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+        }
+
+        .quotes-track {
+            display: flex;
+            width: max-content;
+            animation: scrollQuotes 80s linear infinite;
+            gap: 2rem;
+            align-items: center;
+            height: 100%;
+        }
+
+        .quotes-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollQuotes {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .quote-item {
+            flex: none;
+            width: 400px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-dark);
+            position: relative;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quote-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-dark);
+        }
+
+        .quote-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        .quote-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quote-text::before {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: absolute;
+            top: -0.5rem;
+            left: -1rem;
+            font-family: serif;
+            opacity: 0.7;
+        }
+
+        .quote-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: absolute;
+            bottom: -1rem;
+            right: -1rem;
+            font-family: serif;
+            opacity: 0.7;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-color);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
             text-align: center;
         }
 
-        .exercise-box {
-            background-color: #1a1a1a;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #ff4f00;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
-        .exercise-box:hover {
-            transform: scale(1.02);
-        }
-
-        h3 {
-            color: #ff4f00;
-            font-size: 22px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-        }
-
-        .ele {
-            padding-left: 10px;
-            margin: 5px 0;
-        }
-
-        .quote {
-            font-size: 16px;
-            color: #ff4f00;
-            margin: 20px 0;
-            font-style: italic;
-        }
-
-        .quote-left {
-            float: left;
-            width: 200px;
-            margin: 20px;
-        }
-
-        .quote-right {
-            float: right;
-            width: 200px;
-            margin: 20px;
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .quote-left, .quote-right {
-                float: none;
-                width: 100%;
-                text-align: center;
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .form-section {
+                padding: 2rem 1rem;
+                margin: 1rem;
+            }
+
+            .exercise-card {
+                padding: 1.5rem;
+            }
+
+            .quotes-section-title {
+                font-size: 2rem;
+            }
+
+            .quote-item {
+                width: 300px;
+                padding: 1.5rem;
+            }
+
+            .quote-text {
+                font-size: 1rem;
+            }
+
+            .navbar-collapse {
+                background: rgba(26, 26, 26, 0.98);
+                border-radius: 8px;
+                margin-top: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--text-light);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Smooth Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Equal Height Cards */
+        .exercise-cards-row {
+            display: flex;
+            align-items: stretch;
+        }
+
+        @media (max-width: 991px) {
+            .exercise-cards-row {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">FitAi</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-dumbbell"></i> FitAi
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home" onclick="setActiveNav(this)">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#workouts" onclick="setActiveNav(this)">
+                            <i class="fas fa-running"></i> Workouts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#nutrition" onclick="setActiveNav(this)">
+                            <i class="fas fa-apple-alt"></i> Nutrition
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
+                            <i class="fas fa-user-friends"></i> Coaches
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Workouts</a></li>
-                <li><a href="#">Nutrition</a></li>
-                <li><a href="#">Coaches</a></li>
-            </ul>
         </div>
     </nav>
 
-    <h1>Fitness Routine</h1>
-    <p class="welcome-message">Select your fitness level to generate a personalized routine.</p>
-
-    <div class="navbar">
-        <form method="POST">
-            <label for="fitness_level">Select your fitness level:</label>
-            <select name="fitness_level" id="fitness_level" required>
-                <option value="">--Select--</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-            <input type="submit" value="Generate Routine">
-        </form>
-    </div>
-
-    {% if routine %}
-    <div class="routine">
-        <h2>Fitness Routine for {{ request.form.get('fitness_level').capitalize() }} Level:</h2>
-
-        <div class="exercise-box">
-            <h3>Strength Training:</h3>
-            {% for exercise in routine['strength'] %}
-                <p class="ele">- {{ exercise['exercise'] }}: 
-                    {% if 'duration' in exercise %}
-                        {{ exercise['duration'] }}
-                    {% else %}
-                        {{ exercise['sets'] }} sets of {{ exercise['reps'] }} reps
-                    {% endif %}
-                </p>
-            {% endfor %}
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h1 class="hero-title">Transform Your Fitness Journey</h1>
+            <p class="hero-subtitle">
+                Get personalized workout routines tailored to your fitness level. 
+                Start your transformation today with AI-powered fitness planning.
+            </p>
         </div>
+    </section>
 
-        <div class="exercise-box">
-            <h3>Cardio:</h3>
-            {% for exercise in routine['cardio'] %}
-                <p class="ele">- {{ exercise['exercise'] }}: {{ exercise['duration'] }}</p>
-            {% endfor %}
+    <!-- Form Section -->
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="form-section">
+                    <h2 class="form-title">
+                        <i class="fas fa-chart-line"></i> Create Your Routine
+                    </h2>
+                    <form method="POST" id="fitnessForm" onsubmit="handleSubmit(event)">
+                        <div class="form-container">
+                            <div class="form-group-wrapper">
+                                <div class="form-group">
+                                    <label for="fitness_level" class="form-label">
+                                        <i class="fas fa-level-up-alt"></i> Select Your Fitness Level
+                                    </label>
+                                    <select name="fitness_level" id="fitness_level" class="form-select" required>
+                                        <option value="">Choose your level...</option>
+                                        <option value="beginner">🌱 Beginner - Just starting out</option>
+                                        <option value="intermediate">💪 Intermediate - Some experience</option>
+                                        <option value="advanced">🔥 Advanced - Experienced athlete</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="btn-container">
+                                <button type="submit" class="btn-generate" id="generateBtn">
+                                    <i class="fas fa-magic"></i> Generate Routine
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="exercise-box">
-            <h3>Flexibility:</h3>
-            {% for exercise in routine['flexibility'] %}
-                <p class="ele">- {{ exercise['exercise'] }}: {{ exercise['duration'] }}</p>
-            {% endfor %}
+    <!-- Routine Results -->
+    <section id="routineResults" style="display: none;">
+        <div class="container">
+            <div class="routine-container fade-in">
+                <div class="routine-header">
+                    <h2 class="routine-title" id="routineTitle">Your Personalized Routine</h2>
+                    <p class="routine-subtitle">Follow this scientifically designed workout plan</p>
+                </div>
+
+                <div class="row exercise-cards-row">
+                    <!-- Strength Training -->
+                    <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <div class="exercise-icon">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h3 class="exercise-title">Strength Training</h3>
+                            </div>
+                            <ul class="exercise-list" id="strengthExercises">
+                                <!-- Dynamic content -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Cardio -->
+                    <div class="col-lg-4 col-md-6 mb-4 d-flex">
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <div class="exercise-icon">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <h3 class="exercise-title">Cardiovascular</h3>
+                            </div>
+                            <ul class="exercise-list" id="cardioExercises">
+                                <!-- Dynamic content -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Flexibility -->
+                    <div class="col-lg-4 col-md-12 mb-4 d-flex">
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <div class="exercise-icon">
+                                    <i class="fas fa-spa"></i>
+                                </div>
+                                <h3 class="exercise-title">Flexibility</h3>
+                            </div>
+                            <ul class="exercise-list" id="flexibilityExercises">
+                                <!-- Dynamic content -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    {% endif %}
+    </section>
 
-    <div class="quote-left">
-        <p class="quote">"Push yourself because no one else is going to do it for you."</p>
-        <p class="quote">"Success starts with self-discipline."</p>
-    </div>
+    <!-- Quotes Section -->
+    <section class="quotes-section">
+        <div class="container">
+            <div class="quotes-section-header">
+                <h2 class="quotes-section-title">Stay Motivated</h2>
+                <p class="quotes-section-subtitle">Fuel your journey with inspiration</p>
+            </div>
+            
+            <div class="quotes-carousel">
+                <div class="quotes-track">
+                    <div class="quote-item">
+                        <div class="quote-text">Push yourself because no one else is going to do it for you.</div>
+                        <div class="quote-author">Motivation</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Success starts with self-discipline.</div>
+                        <div class="quote-author">Discipline</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">The pain you feel today will be the strength you feel tomorrow.</div>
+                        <div class="quote-author">Growth</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Champions train, losers complain.</div>
+                        <div class="quote-author">Excellence</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Don't stop when you're tired. Stop when you're done.</div>
+                        <div class="quote-author">Persistence</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Train like a beast, look like a beauty.</div>
+                        <div class="quote-author">Dedication</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">The only bad workout is the one that didn't happen.</div>
+                        <div class="quote-author">Consistency</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Every workout is progress, no matter how small.</div>
+                        <div class="quote-author">Progress</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Great things never come from comfort zones.</div>
+                        <div class="quote-author">Challenge</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Make yourself stronger than your excuses.</div>
+                        <div class="quote-author">Determination</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">A one hour workout is only 4% of your day. No excuses.</div>
+                        <div class="quote-author">Time Management</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Take care of your body. It's the only place you have to live.</div>
+                        <div class="quote-author">Health</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Your only limit is your mind.</div>
+                        <div class="quote-author">Mindset</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Strong is what happens when you run out of weak.</div>
+                        <div class="quote-author">Strength</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Fitness is not about being better than someone else. It's about being better than you used to be.</div>
+                        <div class="quote-author">Personal Growth</div>
+                    </div>
+                    <!-- Exact duplicate for seamless loop -->
+                    <div class="quote-item">
+                        <div class="quote-text">Push yourself because no one else is going to do it for you.</div>
+                        <div class="quote-author">Motivation</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Success starts with self-discipline.</div>
+                        <div class="quote-author">Discipline</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">The pain you feel today will be the strength you feel tomorrow.</div>
+                        <div class="quote-author">Growth</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Champions train, losers complain.</div>
+                        <div class="quote-author">Excellence</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Don't stop when you're tired. Stop when you're done.</div>
+                        <div class="quote-author">Persistence</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Train like a beast, look like a beauty.</div>
+                        <div class="quote-author">Dedication</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">The only bad workout is the one that didn't happen.</div>
+                        <div class="quote-author">Consistency</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Every workout is progress, no matter how small.</div>
+                        <div class="quote-author">Progress</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Great things never come from comfort zones.</div>
+                        <div class="quote-author">Challenge</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Make yourself stronger than your excuses.</div>
+                        <div class="quote-author">Determination</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">A one hour workout is only 4% of your day. No excuses.</div>
+                        <div class="quote-author">Time Management</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Take care of your body. It's the only place you have to live.</div>
+                        <div class="quote-author">Health</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Your only limit is your mind.</div>
+                        <div class="quote-author">Mindset</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Strong is what happens when you run out of weak.</div>
+                        <div class="quote-author">Strength</div>
+                    </div>
+                    <div class="quote-item">
+                        <div class="quote-text">Fitness is not about being better than someone else. It's about being better than you used to be.</div>
+                        <div class="quote-author">Personal Growth</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="quote-right">
-        <p class="quote">"Don’t stop when you’re tired. Stop when you’re done."</p>
-        <p class="quote">"Train like a beast, look like a beauty."</p>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                © 2025 FitAi. Empowering your fitness journey with intelligent workout planning.
+            </p>
+        </div>
+    </footer>
 
-</body>
-</html>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Sample workout data for demonstration
+        const workoutData = {
+            beginner: {
+                strength: [
+                    { exercise: "Push-ups", sets: 2, reps: "8-12" },
+                    { exercise: "Squats", sets: 2, reps: "10-15" },
+                    { exercise: "Plank", duration: "20-30 seconds" },
+                    { exercise: "Lunges", sets: 2, reps: "8 each leg" }
+                ],
+                cardio: [
+                    { exercise: "Brisk Walking", duration: "20-30 minutes" },
+                    { exercise: "Stationary Bike", duration: "15-20 minutes" },
+                    { exercise: "Swimming", duration: "15-20 minutes" }
+                ],
+                flexibility: [
+                    { exercise: "Hamstring Stretch", duration: "30 seconds each leg" },
+                    { exercise: "Shoulder Rolls", duration: "1 minute" },
+                    { exercise: "Calf Stretch", duration: "30 seconds each leg" }
+                ]
+            },
+            intermediate: {
+                strength: [
+                    { exercise: "Push-ups", sets: 3, reps: "12-20" },
+                    { exercise: "Squats", sets: 3, reps: "15-25" },
+                    { exercise: "Plank", duration: "45-60 seconds" },
+                    { exercise: "Burpees", sets: 2, reps: "8-12" },
+                    { exercise: "Pull-ups", sets: 2, reps: "5-10" }
+                ],
+                cardio: [
+                    { exercise: "Jogging", duration: "25-35 minutes" },
+                    { exercise: "HIIT Training", duration: "20-25 minutes" },
+                    { exercise: "Cycling", duration: "30-40 minutes" }
+                ],
+                flexibility: [
+                    { exercise: "Dynamic Stretching", duration: "10 minutes" },
+                    { exercise: "Yoga Flow", duration: "15-20 minutes" },
+                    { exercise: "Foam Rolling", duration: "10 minutes" }
+                ]
+            },
+            advanced: {
+                strength: [
+                    { exercise: "Weighted Push-ups", sets: 4, reps: "15-25" },
+                    { exercise: "Jump Squats", sets: 4, reps: "20-30" },
+                    { exercise: "Plank to Push-up", sets: 3, reps: "10-15" },
+                    { exercise: "Burpees", sets: 3, reps: "15-20" },
+                    { exercise: "Pull-ups", sets: 3, reps: "12-20" },
+                    { exercise: "Deadlifts", sets: 4, reps: "8-12" }
+                ],
+                cardio: [
+                    { exercise: "Running", duration: "35-45 minutes" },
+                    { exercise: "Advanced HIIT", duration: "30-40 minutes" },
+                    { exercise: "Sprint Intervals", duration: "20-25 minutes" }
+                ],
+                flexibility: [
+                    { exercise: "Advanced Yoga", duration: "30 minutes" },
+                    { exercise: "Deep Stretching", duration: "20 minutes" },
+                    { exercise: "Mobility Work", duration: "15 minutes" }
+                ]
+            }
+        };
+
+        // Navigation functionality
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');}

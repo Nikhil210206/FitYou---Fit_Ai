@@ -7,50 +7,53 @@ import json
 
 app = Flask(__name__)
 
-# Ollama API configuration
-OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "YOUR_MODEL_NAME"  # Replace with your actual model name
-
-# Ollama client functions
-def chat_with_ollama(message, context=""):
+# Rule-based fitness chatbot for Vercel compatibility
+def chat_with_fitness_ai(message, context=""):
     """
-    Send a message to Ollama API and get AI response
+    Rule-based fitness AI response system that works in Vercel
     """
-    try:
-        fitness_context = f"""
-You are FitAI, an expert fitness and health coach. You provide personalized advice on:
-- Workout routines and exercise techniques
-- Nutrition and diet planning
-- Fitness goal setting and motivation
-- Health and wellness tips
-- Form corrections and injury prevention
-
-Always be encouraging, professional, and provide actionable advice. Keep responses concise but informative.
-
-{context}
-
-User: {message}
-FitAI:"""
-        
-        payload = {
-            "model": OLLAMA_MODEL,
-            "prompt": fitness_context,
-            "stream": False
-        }
-        
-        response = requests.post(f"{OLLAMA_BASE_URL}/api/generate", json=payload, timeout=30)
-        
-        if response.status_code == 200:
-            return response.json().get('response', 'Sorry, I could not generate a response.')
+    message_lower = message.lower()
+    
+    # Fitness advice patterns
+    if any(word in message_lower for word in ['workout', 'exercise', 'training']):
+        if 'beginner' in message_lower:
+            return "For beginners, start with 20-30 minutes of cardio 3 times a week. Focus on form over intensity. Try walking, cycling, or swimming to build endurance safely."
+        elif 'strength' in message_lower:
+            return "Start with bodyweight exercises: push-ups, squats, lunges, and planks. Do 2-3 sets of 10-15 reps. Rest 1-2 minutes between sets."
         else:
-            return f"Error: Unable to connect to AI model (Status: {response.status_code})"
-            
-    except requests.exceptions.ConnectionError:
-        return "Error: Unable to connect to Ollama. Please make sure Ollama is running with 'ollama serve' and the qwen2:0.5b model is installed."
-    except requests.exceptions.Timeout:
-        return "Error: Request timed out. The AI model might be processing a complex request."
-    except Exception as e:
-        return f"Error: {str(e)}"
+            return "A good workout routine includes: 1) 5-10 min warm-up, 2) 20-40 min main exercise, 3) 5-10 min cool-down. Aim for 150 minutes of moderate activity weekly."
+    
+    elif any(word in message_lower for word in ['diet', 'nutrition', 'food', 'eat']):
+        if 'weight loss' in message_lower:
+            return "For weight loss: Create a 500-calorie daily deficit, eat protein-rich foods, include vegetables, and stay hydrated. Track your meals and be consistent."
+        elif 'muscle' in message_lower:
+            return "For muscle building: Eat 1.6-2.2g protein per kg body weight daily. Include complex carbs, healthy fats, and eat in a slight calorie surplus."
+        else:
+            return "A balanced diet includes: lean proteins, whole grains, fruits, vegetables, and healthy fats. Stay hydrated with 8-10 glasses of water daily."
+    
+    elif any(word in message_lower for word in ['motivation', 'motivated', 'tired']):
+        return "Remember why you started! Set small, achievable goals. Celebrate progress, not perfection. Find a workout buddy or join a fitness community for support."
+    
+    elif any(word in message_lower for word in ['injury', 'pain', 'hurt']):
+        return "If you're experiencing pain, stop exercising immediately. Rest, ice, compress, and elevate (RICE). Consult a healthcare professional for persistent pain."
+    
+    elif any(word in message_lower for word in ['goal', 'target', 'aim']):
+        return "Set SMART goals: Specific, Measurable, Achievable, Relevant, and Time-bound. Break big goals into smaller milestones. Track your progress regularly."
+    
+    elif any(word in message_lower for word in ['form', 'technique', 'proper']):
+        return "Proper form is crucial! Start with lighter weights, focus on controlled movements, and consider working with a certified trainer. Quality over quantity always."
+    
+    elif any(word in message_lower for word in ['rest', 'recovery', 'sleep']):
+        return "Rest days are essential! Aim for 7-9 hours of sleep, take 1-2 rest days per week, and listen to your body. Recovery is when your body gets stronger."
+    
+    elif any(word in message_lower for word in ['cardio', 'aerobic', 'endurance']):
+        return "Cardio improves heart health and burns calories. Start with 20-30 minutes of moderate activity like brisk walking, cycling, or swimming. Gradually increase duration and intensity."
+    
+    elif any(word in message_lower for word in ['hiit', 'interval', 'intense']):
+        return "HIIT workouts are great for burning fat and improving fitness. Try 30 seconds of high-intensity exercise followed by 30 seconds of rest. Repeat for 10-20 minutes."
+    
+    else:
+        return "I'm FitAI, your fitness coach! I can help with workout routines, nutrition advice, motivation, injury prevention, and fitness goals. What specific fitness topic would you like to discuss?"
 
 def get_fitness_context(user_data=None):
     """
@@ -59,13 +62,21 @@ def get_fitness_context(user_data=None):
     if user_data:
         return f"User context: Weight: {user_data.get('weight', 'N/A')}kg, Height: {user_data.get('height', 'N/A')}cm, Goal: {user_data.get('goal', 'general fitness')}"
     return ""
+
 def load_exercises():
-    return pd.read_csv('exercises.csv')
+    try:
+        return pd.read_csv('exercises.csv')
+    except Exception as e:
+        print(f"Error loading exercises: {e}")
+        return pd.DataFrame()
 
 # Routine generator logic using the dataset
 def output(intensity):
     df = load_exercises()  # Load dataset
     routine_list = []
+    
+    if df.empty:
+        return ["No exercises available. Please check your exercises.csv file."]
 
     def add_exercises(category, max_intensity_ratio):
         max_intensity = intensity * max_intensity_ratio
@@ -114,11 +125,14 @@ def index():
 
 @app.route('/generate', methods=['POST'])
 def generate():
-    weight = float(request.form['weight'])
-    height = float(request.form['height'])
-    intensity = calculate_intensity(weight, height)
-    routine = output(intensity)
-    return render_template('index.html', routine=routine)
+    try:
+        weight = float(request.form['weight'])
+        height = float(request.form['height'])
+        intensity = calculate_intensity(weight, height)
+        routine = output(intensity)
+        return render_template('index.html', routine=routine)
+    except Exception as e:
+        return render_template('index.html', error=f"Error generating routine: {str(e)}")
 
 @app.route("/")
 def diet():
@@ -126,7 +140,11 @@ def diet():
 
 # Load diet data from CSV
 def load_diet_data():
-    return pd.read_csv('diet_data.csv')
+    try:
+        return pd.read_csv('diet_data.csv')
+    except Exception as e:
+        print(f"Error loading diet data: {e}")
+        return pd.DataFrame()
 
 class WeeklyDietPlan:
     def __init__(self, age, height, weight, goal, duration, diet_type, gender, activity_level):
@@ -167,30 +185,43 @@ class WeeklyDietPlan:
 
     def get_meal_plan(self, day, diet_type):
         # Filter the dataset by diet_type
+        if self.diet_data.empty:
+            return {"Error": "Diet data not available"}
+            
         meals = self.diet_data[self.diet_data['diet_type'] == diet_type]
+        if meals.empty:
+            return {"Error": f"No meals found for {diet_type}"}
+            
         meal_plan = {}
 
         # Group meals by meal_type and generate the plan
         for meal_type in ['Breakfast', 'Mid-Morning', 'Lunch', 'Afternoon Snack', 'Dinner', 'Before Bed']:
-            selected_meal = meals[meals['meal_type'] == meal_type].sample(1).iloc[0]  # Pick one random meal for each type
-            meal_plan[meal_type] = f"{selected_meal['food_item']} - {selected_meal['calories']} calories"
+            try:
+                selected_meal = meals[meals['meal_type'] == meal_type].sample(1).iloc[0]  # Pick one random meal for each type
+                meal_plan[meal_type] = f"{selected_meal['food_item']} - {selected_meal['calories']} calories"
+            except Exception as e:
+                meal_plan[meal_type] = f"Meal not available - {meal_type}"
         
         return meal_plan
+
 @app.route("/diet", methods=["GET", "POST"])
 def diet_plan():
     diet_plan = None
     if request.method == "POST":
-        age = int(request.form["age"])
-        height = float(request.form["height"])
-        weight = float(request.form["weight"])
-        goal = request.form["goal"]
-        duration = request.form["duration"]
-        diet_type = request.form["diet_type"]
-        gender = request.form["gender"]
-        activity_level = request.form["activity_level"]
+        try:
+            age = int(request.form["age"])
+            height = float(request.form["height"])
+            weight = float(request.form["weight"])
+            goal = request.form["goal"]
+            duration = request.form["duration"]
+            diet_type = request.form["diet_type"]
+            gender = request.form["gender"]
+            activity_level = request.form["activity_level"]
 
-        user = WeeklyDietPlan(age, height, weight, goal, duration, diet_type, gender, activity_level)
-        diet_plan = user.plan
+            user = WeeklyDietPlan(age, height, weight, goal, duration, diet_type, gender, activity_level)
+            diet_plan = user.plan
+        except Exception as e:
+            return render_template("diet.html", error=f"Error creating diet plan: {str(e)}")
 
     return render_template("diet.html", diet_plan=diet_plan)
 
@@ -207,17 +238,14 @@ def home():
     
     return render_template('sports.html', routine=None)
 
-
-
-
 @app.route("/workout")
 def work():
     return render_template("Sections.html")
 
-
 @app.route("/GP")
 def gp():
     return render_template("page5.html")
+
 @app.route("/D1")
 def d1():
     return render_template("day1.html")
@@ -225,11 +253,10 @@ def d1():
 @app.route("/D3")
 def d3():
     return render_template("day3.html")
+
 @app.route("/D4")
 def d4():
     return render_template("day4.html")
-
-
 
 @app.route("/D2")
 def d2():
@@ -256,7 +283,7 @@ def chat_api():
         context = get_fitness_context(user_context)
         
         # Get AI response
-        ai_response = chat_with_ollama(message, context)
+        ai_response = chat_with_fitness_ai(message, context)
         
         return jsonify({
             'response': ai_response,
@@ -270,6 +297,6 @@ def chat_api():
         }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 
 
