@@ -398,11 +398,12 @@
         }
 
         .contact-form {
-            background-color: #333;
+            background: linear-gradient(180deg, #333, #2b2b2b);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
-            max-width: 600px;
+            border-radius: 18px;
+            border: 1px solid #444;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+            max-width: 640px;
             margin: 50px auto 0;
         }
 
@@ -427,19 +428,25 @@
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px 16px;
             border: 2px solid #555;
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: #222;
             color: #fff;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+            border-color: #666;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: #ff4f00;
+            box-shadow: 0 0 0 3px rgba(255, 79, 0, 0.15);
         }
 
         .form-group textarea {
@@ -457,51 +464,132 @@
             font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
         }
 
         .submit-btn:hover {
             background-color: #e64300;
             transform: translateY(-2px);
         }
-
         .form-group input::placeholder,
         .form-group textarea::placeholder {
           color: #888;
           opacity: 1;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ff4f00;
-            box-shadow: 0 0 10px rgba(255, 79, 0, 0.5);
-        }
-
+        /* Error message and invalid state */
         .error-message {
             color: #ff4f4f;
             font-size: 0.9rem;
-            display: block;
-            margin-top: 5px;
-            height: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            min-height: 1.1rem;
+        }
+        .error-message i {
+            color: #ff4f4f;
+        }
+        .form-group .invalid {
+            border-color: #ff4f4f !important;
+            box-shadow: 0 0 0 2px rgba(255, 79, 0, 0.25);
+        }
+
+        /* Ensure valid/autofilled fields keep dark background (no white) */
+        .form-group input:valid,
+        .form-group textarea:valid {
+            background-color: #222;
+            border-color: #555;
+            color: #fff;
+        }
+        /* Chrome/Edge autofill fix (normal, hover, focus, active) */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        textarea:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0px 1000px #222 inset !important;
+            box-shadow: 0 0 0px 1000px #222 inset !important;
+            -webkit-text-fill-color: #fff !important;
+            background-color: #222 !important;
+            color: #fff !important;
+            caret-color: #fff;
+        }
+        /* Firefox autofill */
+        input:-moz-autofill,
+        textarea:-moz-autofill {
+            box-shadow: 0 0 0px 1000px #222 inset !important;
+            -moz-text-fill-color: #fff !important;
+            background-color: #222 !important;
+            color: #fff !important;
+            caret-color: #fff;
         }
 
         #successMessage {
-            color: #4CAF50;
-            background-color: #e9f5e9;
-            border: 1px solid #4CAF50;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
+            display: none; /* shown by JS */
+            align-items: center;
+            gap: 12px;
+            color: #a6f3a6;
+            background: linear-gradient(180deg, rgba(76,175,80,0.12), rgba(76,175,80,0.08));
+            border: 1px solid rgba(76,175,80,0.35);
+            border-left: 4px solid #38c172;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 18px; /* sits above the form */
+            text-align: left;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            animation: fadeSlideIn 260ms ease-out;
         }
 
-        #successMessage p {
-            margin: 0;
-            color: #000;
+        #successMessage .success-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: rgba(56, 193, 114, 0.18);
+            color: #8be58b;
+            flex: 0 0 26px;
         }
 
+        #successMessage .success-text {
+            color: #c5f7c5;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        #successMessage .success-close {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: 1px solid rgba(76,175,80,0.35);
+            border-radius: 6px;
+            color: #e6ffe6;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        #successMessage .success-close:hover,
+        #successMessage .success-close:focus {
+            background: rgba(76,175,80,0.18);
+            outline: none;
+        }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         /* Footer */
         footer {
             background-color: #222;
@@ -808,6 +896,9 @@
             </div>
             <div class="contact-form">
                 <h3>Send us a Message</h3>
+                <div id="successMessage">
+                    <!-- filled by JS -->
+                </div>
                 <form id="contactForm" method="post" novalidate>
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -826,9 +917,6 @@
                     </div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
-                <div id="successMessage" style="display: none;">
-                    <p>Your message has been sent successfully!</p>
-                </div>
             </div>
         </section>
     </main>
@@ -863,7 +951,7 @@
             }
         });
     </script>
-    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="../static/js/validation.js"></script>
 </body>
 
 </html>
