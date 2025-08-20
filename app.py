@@ -1,59 +1,57 @@
+# Step 1: Added necessary imports
+import os
+import google.generativeai as genai
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
 import random
 import pandas as pd
-import os
-import requests
 import json
+
+# Step 2: Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
-# Rule-based fitness chatbot for Vercel compatibility
+
+# Step 3: Replaced the old function with the new Gemini-powered function
 def chat_with_fitness_ai(message, context=""):
     """
-    Rule-based fitness AI response system that works in Vercel
+    Handles conversation with the Gemini API to provide fitness advice.
     """
-    message_lower = message.lower()
-    
-    # Fitness advice patterns
-    if any(word in message_lower for word in ['workout', 'exercise', 'training']):
-        if 'beginner' in message_lower:
-            return "For beginners, start with 20-30 minutes of cardio 3 times a week. Focus on form over intensity. Try walking, cycling, or swimming to build endurance safely."
-        elif 'strength' in message_lower:
-            return "Start with bodyweight exercises: push-ups, squats, lunges, and planks. Do 2-3 sets of 10-15 reps. Rest 1-2 minutes between sets."
-        else:
-            return "A good workout routine includes: 1) 5-10 min warm-up, 2) 20-40 min main exercise, 3) 5-10 min cool-down. Aim for 150 minutes of moderate activity weekly."
-    
-    elif any(word in message_lower for word in ['diet', 'nutrition', 'food', 'eat']):
-        if 'weight loss' in message_lower:
-            return "For weight loss: Create a 500-calorie daily deficit, eat protein-rich foods, include vegetables, and stay hydrated. Track your meals and be consistent."
-        elif 'muscle' in message_lower:
-            return "For muscle building: Eat 1.6-2.2g protein per kg body weight daily. Include complex carbs, healthy fats, and eat in a slight calorie surplus."
-        else:
-            return "A balanced diet includes: lean proteins, whole grains, fruits, vegetables, and healthy fats. Stay hydrated with 8-10 glasses of water daily."
-    
-    elif any(word in message_lower for word in ['motivation', 'motivated', 'tired']):
-        return "Remember why you started! Set small, achievable goals. Celebrate progress, not perfection. Find a workout buddy or join a fitness community for support."
-    
-    elif any(word in message_lower for word in ['injury', 'pain', 'hurt']):
-        return "If you're experiencing pain, stop exercising immediately. Rest, ice, compress, and elevate (RICE). Consult a healthcare professional for persistent pain."
-    
-    elif any(word in message_lower for word in ['goal', 'target', 'aim']):
-        return "Set SMART goals: Specific, Measurable, Achievable, Relevant, and Time-bound. Break big goals into smaller milestones. Track your progress regularly."
-    
-    elif any(word in message_lower for word in ['form', 'technique', 'proper']):
-        return "Proper form is crucial! Start with lighter weights, focus on controlled movements, and consider working with a certified trainer. Quality over quantity always."
-    
-    elif any(word in message_lower for word in ['rest', 'recovery', 'sleep']):
-        return "Rest days are essential! Aim for 7-9 hours of sleep, take 1-2 rest days per week, and listen to your body. Recovery is when your body gets stronger."
-    
-    elif any(word in message_lower for word in ['cardio', 'aerobic', 'endurance']):
-        return "Cardio improves heart health and burns calories. Start with 20-30 minutes of moderate activity like brisk walking, cycling, or swimming. Gradually increase duration and intensity."
-    
-    elif any(word in message_lower for word in ['hiit', 'interval', 'intense']):
-        return "HIIT workouts are great for burning fat and improving fitness. Try 30 seconds of high-intensity exercise followed by 30 seconds of rest. Repeat for 10-20 minutes."
-    
-    else:
-        return "I'm FitAI, your fitness coach! I can help with workout routines, nutrition advice, motivation, injury prevention, and fitness goals. What specific fitness topic would you like to discuss?"
+    # Get the API key from the .env file
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        print("Error: Gemini API key not configured in .env file.")
+        return "Error: The AI Coach is not configured correctly. Please contact the administrator."
+
+    try:
+        # Configure the Gemini library with your key
+        genai.configure(api_key=api_key)
+
+        # Define the AI's persona and instructions
+        system_prompt = (
+            "You are FitAI, a professional, friendly, and encouraging AI fitness coach. "
+            "Your expertise includes workout routines, nutrition, injury prevention, and motivation. "
+            "Provide safe, clear, and actionable advice. If a question is outside the scope of "
+            "fitness, health, or nutrition, you must politely state that you can only answer fitness-related questions. "
+            "Keep your responses focused and easy to understand."
+        )
+
+        # Combine your instructions with the user's actual question
+        full_prompt = f"{system_prompt}\n\nUser's question: {message}"
+
+        # Call the Gemini model to get a response
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(full_prompt)
+
+        # Send the AI's text response back to the user
+        return response.text
+
+    except Exception as e:
+        # This will catch any errors if the API fails
+        print(f"An error occurred with the Gemini API: {e}")
+        return "Sorry, I'm having a little trouble connecting to my brain right now. Please try again in a moment."
+
 
 def get_fitness_context(user_data=None):
     """
@@ -74,7 +72,7 @@ def load_exercises():
 def output(intensity):
     df = load_exercises()  # Load dataset
     routine_list = []
-    
+
     if df.empty:
         return ["No exercises available. Please check your exercises.csv file."]
 
@@ -91,7 +89,7 @@ def output(intensity):
                 reps_max = exercise['reps_max']
 
                 if pd.notnull(reps_min) and pd.notnull(reps_max):
-                    reps = random.randint(reps_min, reps_max)
+                    reps = random.randint(int(reps_min), int(reps_max))
                     routine_list.append(f"{exercise['exercise_name']} - {reps} reps")
                 else:
                     routine_list.append(f"{exercise['exercise_name']} - Duration-based")
@@ -187,11 +185,11 @@ class WeeklyDietPlan:
         # Filter the dataset by diet_type
         if self.diet_data.empty:
             return {"Error": "Diet data not available"}
-            
+
         meals = self.diet_data[self.diet_data['diet_type'] == diet_type]
         if meals.empty:
             return {"Error": f"No meals found for {diet_type}"}
-            
+
         meal_plan = {}
 
         # Group meals by meal_type and generate the plan
@@ -201,7 +199,7 @@ class WeeklyDietPlan:
                 meal_plan[meal_type] = f"{selected_meal['food_item']} - {selected_meal['calories']} calories"
             except Exception as e:
                 meal_plan[meal_type] = f"Meal not available - {meal_type}"
-        
+
         return meal_plan
 
 @app.route("/diet", methods=["GET", "POST"])
@@ -228,14 +226,14 @@ def diet_plan():
 @app.route('/sport', methods=['GET', 'POST'])
 def home():
     routine = {'beginner': 'Beginner Routine', 'intermediate': 'Intermediate Routine', 'advanced': 'Advanced Routine'}  # Example routines
-    
+
     if request.method == 'POST':
         fitness_level = request.form.get('fitness_level')
         if fitness_level in routine:  # Check if fitness level exists in routine dictionary
             return render_template('sports.html', routine=routine[fitness_level])  # Return the specific routine
         else:
             return render_template('sports.html', error="Invalid fitness level")  # Handle invalid fitness level case
-    
+
     return render_template('sports.html', routine=None)
 
 @app.route("/workout")
@@ -275,21 +273,21 @@ def chat_api():
         data = request.json
         message = data.get('message', '').strip()
         user_context = data.get('context', {})
-        
+
         if not message:
             return jsonify({'error': 'Message is required'}), 400
-        
+
         # Generate context from user data if available
         context = get_fitness_context(user_context)
-        
+
         # Get AI response
         ai_response = chat_with_fitness_ai(message, context)
-        
+
         return jsonify({
             'response': ai_response,
             'status': 'success'
         })
-        
+
     except Exception as e:
         return jsonify({
             'error': f'Server error: {str(e)}',
@@ -298,5 +296,3 @@ def chat_api():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
-
