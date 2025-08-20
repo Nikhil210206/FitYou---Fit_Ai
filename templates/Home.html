@@ -151,233 +151,275 @@
     </header>
 
     <main>
-        <section id="home" class="container mx-auto px-4 sm:px-6 lg:px-8 py-16  md:py-24">
+
+
+        <section id="home" class="relative overflow-hidden container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+                <div class="text-center lg:text-left fade-in-up">
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
                         Your Personal
-                        <span class="text-primary">AI Fitness</span>
+                        <span class="bg-gradient-to-r from-primary to-orange-400 text-transparent bg-clip-text">AI
+                            Fitness</span>
                         Coach
                     </h1>
                     <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0">
                         With the Fit You Coach workout app, you get a personalized fitness program that delivers real
                         results. Start your journey today.
                     </p>
-                    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <a href="/gen"
-                            class="px-8 py-3 font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-transform transform hover:scale-105">
+                            class="px-8 py-4 font-semibold text-white bg-gradient-to-r from-primary to-orange-500 rounded-full hover:scale-105 shadow-lg shadow-primary/30 transition-transform transform">
                             Get Your Plan Now
                         </a>
                         <a href="#"
-                            class="px-8 py-3 font-semibold bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                            class="px-8 py-4 font-semibold bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
                             Learn More
                         </a>
                     </div>
                 </div>
-                <div class="flex justify-center">
+                <div class="flex justify-center fade-in-up" style="transition-delay: 200ms;">
                     <div class="relative w-full max-w-sm">
-                        <img src="fitai.jpg" alt="FitAi app mockup"
+                        <img src="/templates/fitai.jpg" alt="FitAi app mockup"
                             class="rounded-3xl shadow-2xl shadow-slate-900/20 dark:shadow-primary/10">
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="features" class="bg-slate-50 dark:bg-[#212121] py-16 sm:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold">Everything You Need to Succeed</h2>
+                <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+                    Our AI-powered platform provides a holistic approach to fitness, covering every aspect of your
+                    health and wellness journey.
+                </p>
+            </div>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="bg-white cursor-pointer  dark:bg-[#333333] p-8 rounded-xl border border-slate-200 dark:border-slate-800 text-center transition-transform transform hover:-translate-y-2 card">
+                    <div
+                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
+                        <i class="fas fa-dumbbell text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Personalized Workouts</h3>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400">Tailored fitness plans based on your goals,
+                        experience, and available equipment.</p>
+                </div>
+                <div
+                    class="bg-white  cursor-pointer  dark:bg-[#333333] p-8 rounded-xl border border-slate-200 dark:border-slate-800 text-center transition-transform transform hover:-translate-y-2 card">
+                    <div
+                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
+                        <i class="fas fa-apple-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Nutrition Guidance</h3>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400">Custom diet plans and macro tracking to
+                        complement your workout routine.</p>
+                </div>
+                <div
+                    class="bg-white cursor-pointer   dark:bg-[#333333] p-8 rounded-xl border border-slate-200 dark:border-slate-800 text-center transition-transform transform hover:-translate-y-2 card">
+                    <div
+                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Progress Tracking</h3>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400">Visualize your achievements and stay
+                        motivated with detailed progress charts.</p>
+                </div>
+            </div>
+        </div>
+        </section>
+        <section id="features" class="py-16 sm:py-24">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto fade-in-up">
                     <h2 class="text-3xl sm:text-4xl font-bold">Everything You Need to Succeed</h2>
                     <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
                         Our AI-powered platform provides a holistic approach to fitness, covering every aspect of your
                         health and wellness journey.
                     </p>
                 </div>
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div
-                        class="bg-white cursor-pointer  dark:bg-[#333333] p-8 rounded-xl border border-slate-200 dark:border-slate-800 text-center transition-transform transform hover:-translate-y-2 card">
+                        class="lg:col-span-2 lg:row-span-2 p-8 rounded-xl bg-white dark:bg-zinc-800/50 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-primary/20 glowing-card fade-in-up 
+                        transition-all duration-300 ease-in-out hover-scale-105 hover:scale-95 cursor-pointer transition-transform">
                         <div
-                            class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
-                            <i class="fas fa-dumbbell text-2xl"></i>
+                            class="flex items-center justify-center w-16 h-16 bg-primary/10 text-primary rounded-full mb-6">
+                            <i class="fas fa-robot text-3xl"></i>
                         </div>
-                        <h3 class="text-xl font-semibold">Personalized Workouts</h3>
-                        <p class="mt-2 text-slate-600 dark:text-slate-400">Tailored fitness plans based on your goals,
-                            experience, and available equipment.</p>
+                        <h3 class="text-2xl font-semibold mb-2">Your Personal AI Coach</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Get guidance that adapts in real-time to your performance and feedback. Our AI analyzes your
+                            progress to optimize every workout, ensuring you're always challenged but never overwhelmed.
+                            It's like having a personal trainer, available 24/7.
+                        </p>
                     </div>
+
                     <div
-                        class="bg-white  cursor-pointer  dark:bg-[#333333] p-8 rounded-xl border border-slate-200 dark:border-slate-800 text-center transition-transform transform hover:-translate-y-2 card">
+                        class="p-8 rounded-xl hover:scale-95 cursor-pointer transition-transform bg-white dark:bg-zinc-800/50 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-primary/20 glowing-card fade-in-up">
                         <div
-                            class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
+                            class="flex items-center justify-center w-16 h-16 bg-primary/10 text-primary rounded-full mb-6">
                             <i class="fas fa-apple-alt text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-semibold">Nutrition Guidance</h3>
-                        <p class="mt-2 text-slate-600 dark:text-slate-400">Custom diet plans and macro tracking to
-                            complement your workout routine.</p>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Custom diet plans and macro tracking.</p>
                     </div>
+
                     <div
-                        class="bg-white cursor-pointer   dark:bg-[#333333] p-8 rounded-xl border border-slate-200 dark:border-slate-800 text-center transition-transform transform hover:-translate-y-2 card">
+                        class="p-8 rounded-xl hover:scale-95 cursor-pointer transition-transform  bg-white dark:bg-zinc-800/50 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-primary/20 glowing-card fade-in-up">
                         <div
-                            class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
+                            class="flex items-center justify-center w-16 h-16 bg-primary/10 text-primary rounded-full mb-6">
                             <i class="fas fa-chart-line text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-semibold">Progress Tracking</h3>
-                        <p class="mt-2 text-slate-600 dark:text-slate-400">Visualize your achievements and stay
-                            motivated with detailed progress charts.</p>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Visualize achievements and stay motivated.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="contact">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mt-20">Contact US</h2>
 
-            <div class="mt-16 ml-10 mr-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 group/grid">
-
-
-                <div class="group dark:bg-[#333333] p-8 rounded-xl border dark:border-slate-300 text-center 
-                transition-all duration-300 ease-in-out
-                group-hover/grid:opacity-50 hover:!opacity-100 
-                hover:scale-105 hover:border-primary hover:shadow-2xl hover:shadow-primary/5">
-
-                    <div
-                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
-                        <i class="fas fa-phone-alt text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold dark:text-slate-100 mb-2">Call Us</h3>
-                    <p class="dark:text-slate-300">
-                        <a href="tel:+1234567890" class="hover:text-primary transition-colors">+1 (234) 567-8900</a>
-                    </p>
-                    <p class="text-sm dark:text-slate-500 mt-1">Mon - Sun: 6AM - 10PM</p>
-                </div>
-
-                <div class="group dark:bg-[#333333] p-8 rounded-xl border dark:border-slate-300 text-center 
-                transition-all duration-300 ease-in-out
-                group-hover/grid:opacity-50 hover:!opacity-100 
-                hover:scale-105 hover:border-primary hover:shadow-2xl hover:shadow-primary/5">
-
-                    <div
-                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
-                        <i class="fas fa-envelope text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold dark:text-slate-100 mb-2">Email Support</h3>
-                    <p class="dark:text-slate-300">
-                        <a href="mailto:support@fityou.com"
-                            class="hover:text-primary transition-colors">support@fityou.com</a>
-                    </p>
-                    <p class="text-sm dark:text-slate-500 mt-1">We reply within 24 hours</p>
-                </div>
-
-                <div class="group dark:bg-[#333333] p-8 rounded-xl border border-slate-300 text-center 
-                transition-all duration-300 ease-in-out
-                group-hover/grid:opacity-50 hover:!opacity-100 
-                hover:scale-105 hover:border-primary hover:shadow-2xl hover:shadow-primary/5">
-
-                    <div
-                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
-                        <i class="fas fa-map-marker-alt text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold dark:text-slate-100 mb-2">Visit Our Gym</h3>
-                    <p class="dark:text-slate-300">123 Fitness Street, Health City</p>
-                    <p class="text-sm dark:text-slate-500 mt-1">
-                        <a href="#" target="_blank" class="hover:text-primary transition-colors">Get Directions</a>
-                    </p>
-                </div>
-
-                <div class="group dark:bg-[#333333] p-8 rounded-xl border border-slate-300 text-center 
-                transition-all duration-300 ease-in-out
-                group-hover/grid:opacity-50 hover:!opacity-100 
-                hover:scale-105 hover:border-primary hover:shadow-2xl hover:shadow-primary/5">
-
-                    <div
-                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
-                        <i class="fas fa-comments text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold dark:text-slate-100 mb-2">Live Chat</h3>
-                    <p class="dark:text-slate-300">Chat with our fitness experts</p>
-                    <p class="text-sm drak:text-slate-500 mt-1">
-                        <a href="#" onclick="startLiveChat()" class="hover:text-primary transition-colors">Start Chat
-                            Now</a>
-                    </p>
-                </div>
-
-                <div class="group dark:bg-[#333333] p-8 rounded-xl border dark:border-slate-300 text-center 
-                transition-all duration-300 ease-in-out
-                group-hover/grid:opacity-50 hover:!opacity-100 
-                hover:scale-105 hover:border-primary hover:shadow-2xl hover:shadow-primary/10">
-
-                    <div
-                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/5 text-primary rounded-full mb-6">
-                        <i class="fab fa-whatsapp text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold dark:text-slate-100 mb-2">WhatsApp</h3>
-                    <p class="dark:text-slate-300">
-                        <a href="https://wa.me/1234567890" target="_blank"
-                            class="hover:text-primary transition-colors">+1
-                            (234) 567-8900</a>
-                    </p>
-                    <p class="text-sm dark:text-slate-500 mt-1">Quick support via WhatsApp</p>
-                </div>
-
-                <div class="group dark:bg-[#333333] p-8 rounded-xl border border-slate-300 text-center 
-                transition-all duration-300 ease-in-out
-                group-hover/grid:opacity-50 hover:!opacity-100 
-                hover:scale-105 hover:border-primary hover:shadow-2xl hover:shadow-primary/5">
-
-                    <div
-                        class="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 text-primary rounded-full mb-6">
-                        <i class="fas fa-users text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold dark:text-slate-100 mb-2">Social Media</h3>
-                    <p class="dark:text-slate-300">Follow us for updates and tips</p>
-                    <div class="flex justify-center gap-6 mt-4">
-                        <a href="https://facebook.com/fityou" target="_blank"
-                            class="text-2xl dark:text-slate-400 hover:text-primary transition-colors"><i
-                                class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/fityou" target="_blank"
-                            class="text-2xl dark:text-slate-400 hover:text-primary transition-colors"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="https://twitter.com/fityou" target="_blank"
-                            class="text-2xl dark:text-slate-400 hover:text-primary transition-colors"><i
-                                class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-
+        <section id="contact"
+            class="py-20 bg-slate-50 dark:bg-[#1c1c1c] text-slate-900 dark:text-white transition-colors">
+            <div>
+                <h2 id="contact" class="text-4xl text-center">Contact Us</h2>
             </div>
-        </section>
 
-        <section class="py-16 sm:py-24">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto">
-                    <h2 class="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
-                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
-                        Ready to transform your fitness journey? Contact our team and let us help you achieve your
-                        goals.
-                    </p>
-                </div>
-                <div class="mt-16 max-w-xl mx-auto">
-                    <form action="#" method="POST" class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium">Full Name</label>
-                            <input type="text" id="name" name="name" required
-                                class="mt-1 block w-full px-4 py-2 bg-slate-100  dark:bg-[#333333] border-transparent rounded-md focus:ring-primary focus:border-transparent focus:outline-none">
+            <div class="container mx-auto mt-20 px-6 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                    <!-- LEFT SIDE: Contact Options -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                        <!-- Call Us -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Call Us</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">+1 (234) 567-8900</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-500">Mon - Sun: 6AM - 10PM</p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium">Email Address</label>
-                            <input type="email" id="email" name="email" required
-                                class="mt-1 block w-full px-4 py-2 bg-slate-100  dark:bg-[#333333] border-transparent rounded-md focus:ring-primary focus:border-transparent focus:outline-none">
+
+                        <!-- Email Support -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Email Support</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">support@fityou.com</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-500">Reply within 24 hours</p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium">Message</label>
-                            <textarea id="message" name="message" rows="4" required
-                                class="mt-1 block w-full px-4 py-2 bg-slate-100  dark:bg-[#333333] border-transparent rounded-md focus:ring-primary focus:border-transparent focus:outline-none"></textarea>
+
+                        <!-- Visit Gym -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Visit Our Gym</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">123 Fitness Street</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-500">Get Directions</p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
+
+                        <!-- Live Chat + WhatsApp Combined -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-comments text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Live Chat</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">Chat with our experts</p>
+                                    <a href="#" class="text-xs text-orange-500 hover:underline">Start Now</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 mt-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-green-600/10 dark:bg-green-600/20 text-green-500">
+                                    <i class="fab fa-whatsapp text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">WhatsApp</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">+1 (234) 567-8900</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-users text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Social Media</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">Follow us for tips</p>
+                                    <div class="flex gap-3 mt-2">
+                                        <a href="#" class="hover:text-orange-500"><i class="fab fa-facebook"></i></a>
+                                        <a href="#" class="hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" class="hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT SIDE: Contact Form -->
+                    <div
+                        class="bg-white dark:bg-[#2a2a2a] p-8 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-2xl font-bold mb-4">Get in Touch</h2>
+                        <p class="text-slate-600 dark:text-gray-400 mb-6">
+                            Ready to transform your fitness journey? Fill out the form below.
+                        </p>
+                        <form action="#" method="POST" class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium">Full Name</label>
+                                <input type="text" name="name" required
+                                    class="mt-1 w-full px-4 py-2 rounded-lg outline-none bg-slate-100 dark:bg-[#1c1c1c] border border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500/20">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium">Email Address</label>
+                                <input type="email" name="email" required
+                                    class="mt-1 w-full px-4 py-2  outline-none rounded-lg bg-slate-100 dark:bg-[#1c1c1c] border border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500/20">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium">Message</label>
+                                <textarea name="message" rows="4" required
+                                    class="mt-1 w-full px-4 py-2 outline-none rounded-lg bg-slate-100 dark:bg-[#1c1c1c] border border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500/20"></textarea>
+                            </div>
                             <button type="submit"
-                                class="w-full px-6 py-3 font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-colors">
+                                class="w-full py-3 rounded-lg bg-orange-600 hover:bg-orange-700 transition text-white font-semibold">
                                 Send Message
                             </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </div>
             </div>
+        </section>
         </section>
     </main>
 
