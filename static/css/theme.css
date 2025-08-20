@@ -5,7 +5,7 @@
     --bg-secondary: #f8f9fa;
     --bg-tertiary: #e9ecef;
     --text-primary: #212529;
-    --text-secondary: #6c757d;
+    /* --text-secondary: #6c757d; */
     --text-accent: #ff4f00;
     --border-color: #dee2e6;
     --card-bg: #ffffff;
@@ -27,7 +27,7 @@
     --bg-secondary: #111111;
     --bg-tertiary: #1a1a1a;
     --text-primary: #ffffff;
-    --text-secondary: #cccccc;
+    /* --text-secondary: #cccccc; */
     --text-accent: #ff4f00;
     --border-color: #333333;
     --card-bg: #222222;
@@ -41,6 +41,9 @@
     --success-bg: #2a2a2a;
     --error-bg: #2a2a2a;
     --warning-bg: #2a2a2a;
+}
+.dark-label-front {
+    color: white;
 }
 
 /* Theme Toggle Button Styles */
