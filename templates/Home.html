@@ -1,1169 +1,538 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIT YOU - Your AI-powered Fitness Coach</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script>
+        // Custom Tailwind CSS Configuration
+        tailwind.config = {
+            darkMode: 'class', // Enable class-based dark mode
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        'primary': '#ff4f00',
+                        'primary-hover': '#e64300',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* General body and font styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
+        /* Small style adjustments to complement Tailwind */
         body {
-            background-color: #020202;
-            color: #fff;
-            font-size: 16px;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            /* Set background color to black */
         }
 
-        /* Header styling */
-        header {
-            background-color: #d4ae81;
-            padding: 20px;
-            box-shadow: 0px 4px 15px rgba(232, 138, 37, 0.81);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        /* Define the fade-in animation */
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-        
-        .logo h3 {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #664223;
-        }
-
-        .auth-buttons {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #96ebe3;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #cdc758;
-        }
-
-        .auth-buttons a {
-            margin-left: 1rem;
-            padding: 0.8rem 1.6rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: bold;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(162, 117, 117, 0.4);
-            border: none;
-        }
-
-        /* Specific button styling */
-        .auth-buttons .login-btn {
-            background: linear-gradient(135deg, #d37228, #d37228);
-            color: white;
-        }
-
-        .auth-buttons .login-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 6px 15px rgba(206, 100, 51, 0.922);
-        }
-
-        .auth-buttons .start-now-btn {
-            background: linear-gradient(135deg, #d37228, #d37228);
-            color: #f1e9e9;
-        }
-
-        .auth-buttons .start-now-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 6px 15px rgb(198, 108, 34);
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: #d37343;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 35px;
-            height: 30px;
-            border-radius: 6px;
-            z-index: 1001;
-        }
-
-        .mobile-menu-toggle .bar {
-            width: 25px;
-            height: 4px;
-            background-color: #fff;
-            margin: 2px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        .mobile-menu-toggle.active .bar:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-
-        .mobile-menu-toggle.active .bar:nth-child(2) {
+        .fade-in {
+            animation: fadeInAnimation 1s ease-in-out;
             opacity: 0;
+            animation-fill-mode: forwards;
         }
-
-        .mobile-menu-toggle.active .bar:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: calc(100% + 10px);
-            right: 20px;
-            background: linear-gradient(135deg, #f7c775, #f9f4f8);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 8px 25px rgba(208, 157, 70, 0.4);
-            z-index: 999;
-            border-radius: 20px;
-            overflow: hidden;
-            min-width: 250px;
-            border: 1px solid #615c5c;
-            padding: 10px;
-        }
-        
-        .mobile-menu::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            right: 15px;
-            width: 16px;
-            height: 16px;
-            background: #333;
-            border: 1px solid #444;
-            border-bottom: none;
-            border-right: none;
-            transform: rotate(45deg);
-            z-index: 1000;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 12px 20px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #fff;
-            transition: all 0.3s ease;
-            position: relative;
-            margin: 5px 0;
-            border-radius: 12px;
-        }
-
-        .mobile-menu .login-btn {
-            background: linear-gradient(135deg, #d46d3e, #d45f31);
-            color: #fff;
-        }
-
-        .mobile-menu .start-now-btn {
-            background: linear-gradient(135deg, #d46d3e, #d45f31);
-            color: #f5f0f0;
-        }
-        
-        .mobile-menu a:hover {
-            transform: translateX(8px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 60px;
-            min-height: 89vh;
-            background: linear-gradient(135deg, #8360355e 0%, #7f693755 100%);
-            position: relative;
-        }
-
-        .text-container {
-            max-width: 50%;
-            flex: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            color: #f56207;
-            font-weight: bold;
-            margin-bottom: 25px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            margin-top: 20px;
-            color: #c8a36d;
-            font-size: 1.6rem;
-            line-height: 1.6;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            background-color: #d9823a;
-            color: #e7d8d8;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 30px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 8px 15px rgba(239, 164, 93, 0.985);
-        }
-
-        .cta-btn:hover {
-            background-color: #f07a0a;
-            transform: translateY(-3px);
-        }
-
-        .quiz-info {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #dea453;
-        }
-
-        .phone-mockup {
-            position: relative;
-            max-width: 40%;
-            margin-left: 20px;
-            flex: 1;
-        }
-
-        .phone-mockup img {
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0px 8px 15px rgb(223, 161, 91);
-        }
-
-        .overlay-text {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(231, 140, 49, 0.9);
-            padding: 15px;
-            border-radius: 25px;
-            box-shadow: 0px 4px 10px rgb(227, 170, 46);
-            font-size: 1.3rem;
-            color: #f3cb8f;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        /* Features Section */
-        .features {
-            display: flex;
-            justify-content: space-around;
-            padding: 60px;
-            background: linear-gradient(135deg, #83603561 0%, #7f693759 100%);
-            gap: 20px;
-        }
-
-        .feature {
-            text-align: center;
-            max-width: 300px;
-            padding: 25px;
-            background-color: #ca703f;
-            border-radius: 15px;
-            box-shadow: 0px 8px 15px rgba(232, 157, 72, 0.856);
-            transition: transform 0.3s ease;
-        }
-
-        .feature:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature i {
-            font-size: 3rem;
-            color: #573927;
-            margin-bottom: 20px;
-        }
-
-        .feature h2 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-        }
-
-        .feature p {
-            font-size: 1.1rem;
-            color: #ecc86d;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            background: linear-gradient(135deg, #83603561  0%, #7f693759 100%);
-            padding: 80px 60px;
-            text-align: center;
-        }
-
-        .contact-section h2 {
-            font-size: 3rem;
-            color: #e29d14;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-
-        .contact-section p {
-            font-size: 1.3rem;
-            color: #e1a545;
-            margin-bottom: 50px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-item {
-            background-color: #f3ab47;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0px 8px 20px rgba(230, 156, 59, 0.937);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0px 15px 30px rgb(215, 125, 36);
-            border-color: #e7730d;
-        }
-
-        .contact-item i {
-            font-size: 2.5rem;
-            color: #ab5317;
-            margin-bottom: 20px;
-        }
-
-        .contact-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #da781d;
-        }
-
-        .contact-item p, .contact-item a {
-            font-size: 1.1rem;
-            color: #dd7814;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: #ff4f00;
-        }
-
-        .contact-form {
-            background-color: #f3ab47;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0px 8px 20px rgba(232, 147, 57, 0.989);
-            max-width: 600px;
-            margin: 50px auto 0;
-        }
-
-        .contact-form h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: #da781d;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #da8128;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #df982e;
-            border-radius: 10px;
-            background-color: #f3b35afe;
-            color: #fff;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #d96729;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: #ec7f2c;
-            color: #ab5317;
-            padding: 15px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 15px rgba(216, 149, 47, 0.988);
-        }
-
-        .submit-btn:hover {
-            background-color: #e58f18;
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #fff;
-            padding: 60px 40px 30px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-section {
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            color: #ff4f00;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(90deg, #ff4f00, #ff6f00);
-            border-radius: 2px;
-        }
-
-        .footer-section p {
-            color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-section ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-            display: inline-block;
-            position: relative;
-        }
-
-        .footer-section ul li a:hover {
-            color: #ff4f00;
-            transform: translateX(5px);
-        }
-
-        .footer-section ul li a::before {
-            content: '→';
-            margin-right: 8px;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .footer-section ul li a:hover::before {
-            opacity: 1;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #ff4f00, #ff6f00);
-            color: #fff;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(255, 79, 0, 0.3);
-        }
-
-        .social-links a:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 6px 15px rgba(255, 79, 0, 0.5);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #444;
-            padding-top: 25px;
-            background-color: #83603561 ;
-            color: #ffffff;
-            text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            color: #999;
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        .footer-bottom .heart {
-            color: #ff4f00;
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid #444;
-            border-radius: 25px;
-            background-color: #333;
-            color: #fff;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .newsletter-form input:focus {
-            outline: none;
-            border-color: #ff4f00;
-        }
-
-        .newsletter-form button {
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #ff4f00, #ff6f00);
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .newsletter-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(255, 79, 0, 0.4);
-        }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 1024px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                min-height: 80vh;
-                padding: 50px 30px;
-            }
-
-            .text-container {
-                max-width: 100%;
-                margin-bottom: 30px;
-            }
-
-            .phone-mockup {
-                max-width: 60%;
-                margin-left: 0;
-            }
-
-            .features {
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 50px 30px;
-            }
-
-            .feature {
-                max-width: 280px;
-                margin: 10px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .auth-buttons {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
-            .hero {
-                padding: 40px 20px;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-                margin-bottom: 20px;
-            }
-
-            .hero p {
-                font-size: 1.3rem;
-                margin-top: 15px;
-            }
-
-            .cta-btn {
-                padding: 12px 25px;
-                font-size: 1.1rem;
-                margin-top: 25px;
-            }
-
-            .phone-mockup {
-                max-width: 70%;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .overlay-text {
-                font-size: 0.8rem;
-                padding: 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .contact-section h2 {
-                font-size: 2.5rem;
-            }
-
-            footer {
-                padding: 40px 20px 20px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .footer-section {
-                text-align: center;
-            }
-
-            .footer-section h3::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .newsletter-form button {
-                width: 100%;
-            }
-        }
-
-        /* Theme Toggle Button */
-        .toggle-theme {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: inherit;
-            margin-left: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-theme:hover {
-            transform: scale(1.2);
-        }
-
-        /* Light Mode Styles */
-        body.light-mode {
-            background-color: #f0f2f5;
-            color: #333;
-        }
-
-        body.light-mode header,
-        body.light-mode footer {
-            background-color: #f1c7f1;
-            color: #0e0e0e;
-            box-shadow: 0px 4px 10px rgba(154, 60, 127, 0.1);
-        }
-        
-        body.light-mode .hero {
-            background: linear-gradient(135deg, #fbf9fb 0%, #f7dcf2 100%);
-        }
-
-        body.light-mode .hero h1 {
-            color: #f68114; /* keep brand color */
-        }
-        
-        body.light-mode .hero p,
-        body.light-mode .quiz-info {
-            color: #555;
-        }
-
-        body.light-mode .features {
-            background: linear-gradient(135deg, #f9f9f9 0%, #f7dcf2 100%);
-        }
-        
-        body.light-mode .feature {
-            background-color: #fcfcfc;
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .contact-section {
-            background: linear-gradient(135deg, #f9f9f9 0%, #f7dcf2 100%);
-        }
-
-        body.light-mode .contact-item {
-            background-color: #fff;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .contact-item:hover {
-            box-shadow: 0px 15px 30px rgba(255, 79, 0, 0.1);
-        }
-        
-        body.light-mode .contact-form {
-            background-color: #fff;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.light-mode .form-group input,
-        body.light-mode .form-group textarea {
-            background-color: #e9e9e9;
-            color: #333;
-            border-color: #ccc;
-        }
-        
-        body.light-mode .form-group input:focus,
-        body.light-mode .form-group textarea:focus {
-            border-color: #ff4f00;
-        }
-
-        body.light-mode .mobile-menu {
-            background: #fff;
-            border: 1px solid #ddd;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        
-        body.light-mode .mobile-menu a {
-            color: #333;
-        }
-
-        body.light-mode .mobile-menu::before {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-bottom: none;
-            border-right: none;
-        }
-
-        body.light-mode .auth-buttons .login-btn {
-            background: linear-gradient(135deg, #e382ea, #00b894);
-            color: white;
-        }
-
-        body.light-mode .auth-buttons .start-now-btn {
-            background: linear-gradient(135deg, #e382ea, #00b894);
-            color: #fff;
-        }
-
-        body.light-mode .cta-btn {
-            background: linear-gradient(135deg, #ff6f00, #ff4f00);
-            color: #fff;
-        }
-
-        /* Light Mode Footer Styles */
-        body.light-mode footer {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            color: #333;
-            border-top: 3px solid #ff4f00;
-        }
-
-        body.light-mode .footer-section h3 {
-            color: #ff4f00;
-        }
-
-        body.light-mode .footer-section h3::after {
-            background: linear-gradient(90deg, #ff4f00, #ff6f00);
-        }
-
-        body.light-mode .footer-section p {
-            color: #555;
-        }
-
-        body.light-mode .footer-section ul li a {
-            color: #555;
-        }
-
-        body.light-mode .footer-section ul li a:hover {
-            color: #ff4f00;
-        }
-
-        body.light-mode .social-links a {
-            background: linear-gradient(135deg, #ff4f00, #ff6f00);
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(255, 79, 0, 0.2);
-        }
-
-        body.light-mode .social-links a:hover {
-            box-shadow: 0 6px 15px rgba(255, 79, 0, 0.4);
-        }
-
-        body.light-mode .footer-bottom {
-            border-top: 1px solid #dee2e6;
-        }
-
-        body.light-mode .footer-bottom p {
-            color: #6c757d;
-        }
-
-        body.light-mode .footer-bottom .heart {
-            color: #ff4f00;
-        }
-            background: linear-gradient(135deg, #e7b4f3, #b6f1da);
-            color: #f45f19;
-        body.light-mode .newsletter-form input {
-            background-color: #fff;
-            color: #333;
-            border-color: #ced4da;
-        }
-
-        body.light-mode .newsletter-form input:focus {
-            border-color: #ff4f00;
-        }
-
-        body.light-mode .newsletter-form button {
-            background: linear-gradient(135deg, #ff4f00, #ff6f00);
-            color: #fff;
-        }
-        
     </style>
 </head>
 
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h3>Fit You</h3>
-            </div>
-            
-            <div class="auth-buttons">
-                <a href="/ai-coach" class="start-now-btn" >🤖 AI Coach</a>
-                <a href="/sport" class="login-btn">Sport Scheduler</a>
-                <a href="/diet" class="start-now-btn">Get your diet plan</a>
-                <a href="/workout" class="login-btn">Workout</a>
-                <a href="/gen" class="start-now-btn">Personalized Routine</a>
-                <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
+<body
+    class="bg-white dark:bg-gradient-to-br dark:from-[#111] dark:to-[#222] text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <header
+        class="sticky top-0 z-50 w-full bg-white/80 dark:bg-[#212121] backdrop-blur-sm border-b border-slate-200 dark:border-slate-800 "
+        class="fade-in-section" style="animation-delay: 0.3s;">
+        <nav class="container mx-auto px-4  drak:bg-[#212121] sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary">
+                Fit You
+            </a>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="hover:text-primary transition-colors">Home</a>
+                <a href="#features" class="hover:text-primary transition-colors">Features</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact Us</a>
             </div>
 
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </button>
+            <div class="hidden md:flex items-center space-x-4  ">
+                <a href="/login"
+                    class="px-5 py-2 text-sm font-medium text-white bg-primary rounded-full hover:bg-primary-hover transition-colors">Login</a>
+                <button id="theme-toggle"
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-moon text-lg"></i>
+                </button>
+            </div>
 
-            <div class="mobile-menu" id="mobileMenu">
-                <a href="/ai-coach" class="start-now-btn">🤖 AI Coach</a>
-                <a href="/sport" class="login-btn">Sport Scheduler</a>
-                <a href="/diet" class="start-now-btn">Get your diet plan</a>
-                <a href="/workout" class="login-btn">Workout</a>
-                <a href="/gen" class="start-now-btn">Personalized Routine</a>
+            <div class="md:hidden flex items-center">
+                <button id="theme-toggle-mobile"
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors mr-2">
+                    <i class="fas fa-moon text-lg"></i>
+                </button>
+                <button id="mobile-menu-button" class="w-10 h-10 flex items-center justify-center">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
         </nav>
 
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home"
+                    class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">Home</a>
+                <a href="#features"
+                    class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">Features</a>
+                <a href="#contact"
+                    class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-200 dark:hover:bg-slate-800">Contact</a>
+                <a href="/login"
+                    class="block px-3 py-2 mt-2 rounded-full text-base font-medium text-white text-center bg-primary hover:bg-primary-hover">Login</a>
+            </div>
+        </div>
+        <div
+            class="sticky top-[73px] z-40 bg-white/80 dark:bg-[#212121] backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 dark:bg-[#212121]">
+                <div
+                    class="flex items-center justify-start md:justify-center gap-3 sm:gap-4 py-3 overflow-x-auto whitespace-nowrap  ">
+
+                    <a href="/templates/chatbot.html"
+                        class="flex-shrink-0 inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
+                        <i class="fas fa-robot mr-2"></i>
+                        AI Coach
+                    </a>
+
+                    <a href="./sports"
+                        class="flex-shrink-0 inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Sport Scheduler
+                    </a>
+
+                    <a href="./diet"
+                        class="flex-shrink-0 inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
+                        <i class="fas fa-utensils mr-2"></i>
+                        Diet Plan
+                    </a>
+
+                    <a href="./sections"
+                        class="flex-shrink-0 inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
+                        <i class="fas fa-dumbbell mr-2"></i>
+                        Workout
+                    </a>
+
+                    <a href="/templates/index.html"
+                        class="flex-shrink-0 inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 bg-primary text-white shadow-md shadow-primary/30">
+                        <i class="fas fa-magic-wand-sparkles mr-2"></i>
+                        Personalized Routine
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="text-container">
-                <h1>Your Fitness Coach</h1>
-                <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.</p>
-                <a href="/gen" class="cta-btn">Get your workout plan now</a>
-                <p class="quiz-info">Take the FREE quiz to get personalized exercises!</p>
-            </div>
-            <div class="phone-mockup">
-                <img src="{{ url_for('static', filename='images/fitai.jpg') }}" alt="FitAi logo">
-                <div class="overlay-text">FitAi</div>
+
+
+        <section id="home" class="relative overflow-hidden container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left fade-in-up">
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
+                        Your Personal
+                        <span class="bg-gradient-to-r from-primary to-orange-400 text-transparent bg-clip-text">AI
+                            Fitness</span>
+                        Coach
+                    </h1>
+                    <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0">
+                        With the Fit You Coach workout app, you get a personalized fitness program that delivers real
+                        results. Start your journey today.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="/gen"
+                            class="px-8 py-4 font-semibold text-white bg-gradient-to-r from-primary to-orange-500 rounded-full hover:scale-105 shadow-lg shadow-primary/30 transition-transform transform">
+                            Get Your Plan Now
+                        </a>
+                        <a href="#"
+                            class="px-8 py-4 font-semibold bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center fade-in-up" style="transition-delay: 200ms;">
+                    <div class="relative w-full max-w-sm">
+                        <img src="/templates/images/fitai.jpg" alt="FitAi app mockup"
+                            class="rounded-3xl shadow-2xl shadow-slate-900/20 dark:shadow-primary/10">
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="features">
-            <div class="feature">
-                <i class="fas fa-dumbbell"></i>
-                <h2>Personalized Workouts</h2>
-                <p>Get a workout plan tailored to your goals and fitness level, designed by AI.</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-apple-alt"></i>
-                <h2>Diet Plans</h2>
-                <p>Discover nutritious diet plans that complement your exercise routine for optimal results.</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-robot"></i>
-                <h2>AI Coach</h2>
-                <p>Chat with your AI coach to get answers to all your fitness questions and more.</p>
+
+        <section id="features" class="py-16 sm:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto fade-in-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold">Everything You Need to Succeed</h2>
+                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+                        Our AI-powered platform provides a holistic approach to fitness, covering every aspect of your
+                        health and wellness journey.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 lg:row-span-2 p-8 rounded-xl bg-white dark:bg-zinc-800/50 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-primary/20 glowing-card fade-in-up 
+                        transition-all duration-300 ease-in-out hover-scale-105 hover:scale-95 cursor-pointer ">
+                        <div
+                            class="flex items-center justify-center w-16 h-16 bg-primary/10 text-primary rounded-full mb-6">
+                            <i class="fas fa-robot text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-2">Your Personal AI Coach</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Get guidance that adapts in real-time to your performance and feedback. Our AI analyzes your
+                            progress to optimize every workout, ensuring you're always challenged but never overwhelmed.
+                            It's like having a personal trainer, available 24/7.
+                        </p>
+                    </div>
+
+                    <div
+                        class="p-8 rounded-xl hover:scale-95 cursor-pointer transition-transform bg-white dark:bg-zinc-800/50 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-primary/20 glowing-card fade-in-up">
+                        <div
+                            class="flex items-center justify-center w-16 h-16 bg-primary/10 text-primary rounded-full mb-6">
+                            <i class="fas fa-apple-alt text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Nutrition Guidance</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Custom diet plans and macro tracking.</p>
+                    </div>
+
+                    <div
+                        class="p-8 rounded-xl hover:scale-95 cursor-pointer transition-transform  bg-white dark:bg-zinc-800/50 border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-primary/20 glowing-card fade-in-up">
+                        <div
+                            class="flex items-center justify-center w-16 h-16 bg-primary/10 text-primary rounded-full mb-6">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Progress Tracking</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Visualize achievements and stay motivated.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="contact-section">
-            <h2>Get in Touch</h2>
-            <p>Ready to start your fitness journey? Contact us for more information or to sign up.</p>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email</h3>
-                    <p>contact@fityou.com</p>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <h3>Phone</h3>
-                    <p>+1 (555) 123-4567</p>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <h3>Address</h3>
-                    <p>123 Fit Street, Health City, USA</p>
+        <section id="contact"
+            class="py-20 bg-slate-50 dark:bg-[#1c1c1c] text-slate-900 dark:text-white transition-colors">
+            <div>
+                <h2 id="contact" class="text-4xl text-center">Contact Us</h2>
+            </div>
+
+            <div class="container mx-auto mt-20 px-6 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                    <!-- LEFT SIDE: Contact Options -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                        <!-- Call Us -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Call Us</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">+1 (234) 567-8900</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-500">Mon - Sun: 6AM - 10PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email Support -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Email Support</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">support@fityou.com</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-500">Reply within 24 hours</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Visit Gym -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Visit Our Gym</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">123 Fitness Street</p>
+                                    <p class="text-xs text-slate-500 dark:text-gray-500">Get Directions</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Chat + WhatsApp Combined -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-comments text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Live Chat</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">Chat with our experts</p>
+                                    <a href="#" class="text-xs text-orange-500 hover:underline">Start Now</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 mt-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-green-600/10 dark:bg-green-600/20 text-green-500">
+                                    <i class="fab fa-whatsapp text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">WhatsApp</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">+1 (234) 567-8900</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div
+                            class="bg-white dark:bg-[#2a2a2a] p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-orange-600/10 dark:bg-orange-600/20 text-orange-500">
+                                    <i class="fas fa-users text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold">Social Media</h3>
+                                    <p class="text-sm text-slate-600 dark:text-gray-400">Follow us for tips</p>
+                                    <div class="flex gap-3 mt-2">
+                                        <a href="#" class="hover:text-orange-500"><i class="fab fa-facebook"></i></a>
+                                        <a href="#" class="hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" class="hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT SIDE: Contact Form -->
+                    <div
+                        class="bg-white dark:bg-[#2a2a2a] p-8 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-2xl font-bold mb-4">Get in Touch</h2>
+                        <p class="text-slate-600 dark:text-gray-400 mb-6">
+                            Ready to transform your fitness journey? Fill out the form below.
+                        </p>
+                        <form action="#" method="POST" class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium">Full Name</label>
+                                <input type="text" name="name" required
+                                    class="mt-1 w-full px-4 py-2 rounded-lg outline-none bg-slate-100 dark:bg-[#1c1c1c] border border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500/20">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium">Email Address</label>
+                                <input type="email" name="email" required
+                                    class="mt-1 w-full px-4 py-2  outline-none rounded-lg bg-slate-100 dark:bg-[#1c1c1c] border border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500/20">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium">Message</label>
+                                <textarea name="message" rows="4" required
+                                    class="mt-1 w-full px-4 py-2 outline-none rounded-lg bg-slate-100 dark:bg-[#1c1c1c] border border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500/20"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full py-3 rounded-lg bg-orange-600 hover:bg-orange-700 transition text-white font-semibold">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
-            <div class="contact-form">
-                <h3>Send us a Message</h3>
-                <form action="#" method="post">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
+        </section>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Fit You</h3>
-                <p>Your AI-powered fitness companion that transforms your health journey with personalized workouts, diet plans, and expert guidance.</p>
-                <div class="social-links">
-                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="bg-slate-100 dark:text-white dark:bg-[#333333] border-t border-slate-200 dark:border-[#333333]">
+        <div class="max-w-7xl mx-auto px-6 py-12 lg:py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+            <!-- Fit You Section -->
+            <div>
+                <h3 class="text-orange-500 font-bold text-lg mb-4 border-b-2 border-orange-500 inline-block">Fit You
+                </h3>
+                <p class="text-gray-500 dark:text-white-900 mb-6">
+                    Your AI-powered fitness companion that transforms your health journey with personalized workouts,
+                    diet plans, and expert guidance.
+                </p>
+                <div class="flex gap-3">
+                    <a href="#" class="bg-orange-500 p-3 rounded-full hover:bg-orange-600 transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="bg-orange-500 p-3 rounded-full hover:bg-orange-600 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="bg-orange-500 p-3 rounded-full hover:bg-orange-600 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="bg-orange-500 p-3 rounded-full hover:bg-orange-600 transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="bg-orange-500 p-3 rounded-full hover:bg-orange-600 transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
                 </div>
             </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/ai-coach">AI Coach</a></li>
-                    <li><a href="/sport">Sport Scheduler</a></li>
-                    <li><a href="/diet">Diet Plans</a></li>
-                    <li><a href="/workout">Workout Routines</a></li>
-                    <li><a href="/gen">Personalized Routine</a></li>
+
+            <!-- Quick Links Section -->
+            <div>
+                <h3 class="text-orange-500 font-bold text-lg mb-4 border-b-2 border-orange-500 inline-block">Quick Links
+                </h3>
+                <ul class="space-y-2 text-gray-500 dark:text-white-900">
+                    <li><a href="/ai-coach" class="hover:text-orange-500 transition">AI Coach</a></li>
+                    <li><a href="/sport" class="hover:text-orange-500 transition">Sport Scheduler</a></li>
+                    <li><a href="/diet" class="hover:text-orange-500 transition">Diet Plans</a></li>
+                    <li><a href="/workout" class="hover:text-orange-500 transition">Workout Routines</a></li>
+                    <li><a href="/gen" class="hover:text-orange-500 transition">Personalized Routine</a></li>
                 </ul>
             </div>
-            
-            <div class="footer-section">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">FAQ</a></li>
+
+            <!-- Support Section -->
+            <div>
+                <h3 class="text-orange-500 font-bold text-lg mb-4 border-b-2 border-orange-500 inline-block">Support
+                </h3>
+                <ul class="space-y-2 text-gray-500 dark:text-white-900">
+                    <li><a href="#" class="hover:text-orange-500 transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition">FAQ</a></li>
                 </ul>
             </div>
-            
-            <div class="footer-section">
-                <h3>Newsletter</h3>
-                <p>Stay updated with the latest fitness tips, workout routines, and exclusive offers!</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit">Subscribe</button>
+
+            <!-- Newsletter Section -->
+            <div>
+                <h3 class="text-orange-500 font-bold text-lg mb-4 border-b-2 border-orange-500 inline-block">Newsletter
+                </h3>
+                <p class="text-gray-500 dark:text-white-900 mb-4">
+                    Stay updated with the latest fitness tips, workout routines, and exclusive offers!
+                </p>
+                <form class="flex gap-2">
+                    <input type="email" placeholder="Enter your email" required
+                        class="flex-1 px-4 py-2 rounded-lg bg-gray-800 dark:bg-gray-200 text-gray-500 dark:text-white-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    <button type="submit"
+                        class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">Subscribe</button>
                 </form>
             </div>
+
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 Fit You. All Rights Reserved. Made with <span class="heart">❤</span> for fitness enthusiasts.</p>
+
+        <!-- Footer Bottom -->
+        <div
+            class="border-t border-gray-700 dark:border-gray-300 py-6 text-center text-gray-500 dark:text-white-900 text-sm">
+            &copy; 2024 Fit You. All Rights Reserved. Made with <span class="text-red-500">❤</span> for fitness
+            enthusiasts.
         </div>
     </footer>
 
+
+
+
     <script>
-        // JavaScript for mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const themeToggle = document.getElementById('themeToggle');
-        
-        function toggleMobileMenu() {
-            mobileMenuToggle.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        }
+        // ========== MOBILE MENU SCRIPT ==========
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        mobileMenuButton.addEventListener('click', () => {
+            const icon = mobileMenuButton.querySelector('i');
+            mobileMenu.classList.toggle('hidden');
 
-        // JavaScript for theme toggle
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('light-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
             }
         });
+
+        // ========== DARK/LIGHT THEME TOGGLE SCRIPT ==========
+        const themeToggleBtns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        const htmlElement = document.documentElement;
+
+        // Function to set the theme
+        const setTheme = (isDark) => {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtns.forEach(btn => btn.innerHTML = '<i class="fas fa-sun text-lg"></i>');
+            } else {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeToggleBtns.forEach(btn => btn.innerHTML = '<i class="fas fa-moon text-lg"></i>');
+            }
+        };
+
+        // Check for saved theme in localStorage or user's system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        // Add click listener to toggle buttons
+        themeToggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDarkMode = htmlElement.classList.contains('dark');
+                setTheme(!isDarkMode);
+            });
+        });
+
+        // Add fade-in class with delay to each section
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.5}s`;
+                section.classList.add('fade-in');
+            });
+
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.3}s`;
+                card.classList.add('fade-in');
+            });
+        });
     </script>
-
-    <!-- Back to Top Button -->
-<button onclick="scrollToTop()" id="backToTopBtn" title="Go to top">⬆</button>
-
-<style>
-#backToTopBtn {
-  display: none; 
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 100;
-  font-size: 18px;
-  border: none;
-  outline: none;
-  background-color: #007BFF;
-  color: white;
-  cursor: pointer;
-  padding: 10px 15px;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  transition: background-color 0.3s ease;
-}
-#backToTopBtn:hover {
-  background-color: #0056b3;
-}
-</style>
-
-<script>
-let btn = document.getElementById("backToTopBtn");
-
-// Show button when user scrolls down
-window.onscroll = function() {
-  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-    btn.style.display = "block";
-  } else {
-    btn.style.display = "none";
-  }
-};
-
-// Smooth scroll back to top
-function scrollToTop() {
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-</script>
 
 </body>
 

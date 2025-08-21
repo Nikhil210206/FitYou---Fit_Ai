@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Fitness & Diet Plan</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -31,12 +35,14 @@
             margin-bottom: 0;
         }
 
-        .navbar-brand, .navbar-nav li a {
+        .navbar-brand,
+        .navbar-nav li a {
             color: #d1741c !important;
             font-size: 18px;
         }
 
-        .navbar-brand:hover, .navbar-nav li a:hover {
+        .navbar-brand:hover,
+        .navbar-nav li a:hover {
             color: #efa65d !important;
         }
 
@@ -70,14 +76,18 @@
             top: 120px;
             font-size: 95px;
             right: 50%;
-            transform: translateX(50%); /* Center the text */
+            transform: translateX(50%);
+            /* Center the text */
             color: #ef9324;
-            font-family: 'Playfair Display', serif; /* Change to Playfair Display */
+            font-family: 'Playfair Display', serif;
+            /* Change to Playfair Display */
             text-align: center;
         }
 
         /* Cards Styling */
-        .lay, .lay1, .lay2 {
+        .lay,
+        .lay1,
+        .lay2 {
             height: 180px;
             border-style: round;
             border-radius: 12px;
@@ -94,7 +104,7 @@
             justify-content: center;
             align-items: center;
             border-color: #e77d19;
-            background-color:  #e77d19;
+            background-color: #e77d19;
 
         }
 
@@ -110,7 +120,9 @@
             background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Wp9ic-f4FvwuCMioKhRG25cFpnarkjREJw&s");
         }
 
-        .lay:hover, .lay1:hover, .lay2:hover {
+        .lay:hover,
+        .lay1:hover,
+        .lay2:hover {
             background-color: #d28d1e;
             color: rgb(245, 163, 21);
             cursor: pointer;
@@ -138,6 +150,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -191,4 +204,5 @@
     </div>
 
 </body>
+
 </html>
