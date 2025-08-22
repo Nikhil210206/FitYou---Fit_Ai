@@ -3,8 +3,7 @@
 
 FitAi redefines fitness with AI-driven personalized plans for workouts and diets. Empowering your fitness journey with technology and expertise, FitAi adapts to your goals and lifestyle.
 
-🌐 **Live Deployment:** https://fit--ai.vercel.app
-**Netlify** https://fityou-fitai.netlify.app (link needed to be fixed)
+🌐 **Live Deployment:** https://fityou-fit-ai.onrender.com/
 
 **Points for issues on leaderboard:** (Currently not started yet)
 1 star - 5 points | 
