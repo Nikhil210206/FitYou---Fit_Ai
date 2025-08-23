@@ -5,145 +5,449 @@
     <meta charset="UTF-8">
     <title>FitYou - Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fa;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ff4f00' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
         }
 
         .register-container {
-            background: white;
-            padding: 30px;
+            background: rgba(28, 28, 28, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 40px;
             width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 79, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 1s forwards ease-in;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .register-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255, 79, 0, 0.1), transparent, rgba(255, 79, 0, 0.1));
+            transform: rotate(30deg);
+            z-index: 0;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff8a00, #ff4f00, #ff0050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 15px;
+            animation: glow 2s infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 79, 0, 0.3);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 79, 0, 0.7);
+            }
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #ff4f00);
+            border-radius: 2px;
+        }
+
+        form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            flex: 1;
+            position: relative;
         }
 
         label {
             display: block;
-            margin-top: 12px;
-            text-align: left;
-            font-weight: bold;
-            color: #555;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #ff8a00;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
         }
 
-        input,
-        select {
+        label i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        input, select {
             width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 16px 20px 16px 50px;
+            background-color: rgba(46, 46, 46, 0.7);
+            border: 2px solid rgba(255, 79, 0, 0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.4s;
+            box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.5), 
+                        inset -4px -4px 10px rgba(255, 255, 255, 0.05);
+            appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ff4f00' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12L8 12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+            padding-right: 50px;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff4f00;
+            box-shadow: 0 0 15px rgba(255, 79, 0, 0.5), 
+                        inset 4px 4px 10px rgba(0, 0, 0, 0.5);
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff4f00;
+            font-size: 18px;
+        }
+
+        .error {
+            color: #ff4f00;
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: left;
+            display: block;
+            min-height: 20px;
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            background: #333;
-            color: white;
-            font-size: 16px;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff8a00, #ff4f00);
+            color: #fff;
             border: none;
-            border-radius: 6px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 10px 20px rgba(255, 79, 0, 0.3);
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        button:hover::before {
+            left: 100%;
         }
 
         button:hover {
-            background: #ff9800;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 79, 0, 0.5);
         }
 
         .login-link {
             text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
+            margin-top: 25px;
+            font-size: 15px;
+            color: #ccc;
+            position: relative;
+            z-index: 1;
         }
 
         .login-link a {
-            color: #ff9800;
+            color: #ff8a00;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .login-link a:hover {
-            text-decoration: underline;
+        .login-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff8a00;
+            transition: width 0.3s;
+        }
+
+        .login-link a:hover::after {
+            width: 100%;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 79, 0, 0.2);
+            z-index: 0;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 7%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(4) {
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 5px;
+            margin-top: 8px;
+            border-radius: 3px;
+            background: #2e2e2e;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background 0.3s;
+            border-radius: 3px;
         }
 
         /* Responsive */
-        @media (max-width: 480px) {
-            .register-container {
-                padding: 20px;
-            }
-
-            h2 {
-                font-size: 20px;
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
             }
         }
 
-        .error {
-            color: red;
-            font-size: 13px;
-            margin-top: 3px;
-            text-align: left;
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 30px 20px;
+            }
+            
+            h2 {
+                font-size: 26px;
+            }
+            
+            button {
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            .floating-icon {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- Animated background icons -->
+    <i class="floating-icon fas fa-dumbbell"></i>
+    <i class="floating-icon fas fa-running"></i>
+    <i class="floating-icon fas fa-heartbeat"></i>
+    <i class="floating-icon fas fa-bicycle"></i>
+
     <div class="register-container">
         <h2>Create an Account</h2>
         <form id="registerForm">
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Enter your name">
-            <div class="error" id="nameError"></div>
+            <div class="form-group">
+                <label for="name"><i class="fas fa-user"></i> Name</label>
+                <div class="input-with-icon">
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                </div>
+                <div class="error" id="nameError"></div>
+            </div>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email">
-            <div class="error" id="emailError"></div>
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                <div class="input-with-icon">
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div class="error" id="emailError"></div>
+            </div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter a password (min 6 chars)">
-            <div class="error" id="passwordError"></div>
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <div class="input-with-icon">
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <input type="password" id="password" placeholder="Create a password (min 6 chars)">
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                </div>
+                <div class="error" id="passwordError"></div>
+            </div>
 
-            <label for="age">Age</label>
-            <input type="number" id="age" placeholder="Enter your age">
-            <div class="error" id="ageError"></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+                    <div class="input-with-icon">
+                        <div class="input-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <input type="number" id="age" placeholder="Your age">
+                    </div>
+                    <div class="error" id="ageError"></div>
+                </div>
 
-            <label for="gender">Gender</label>
-            <select id="gender">
-                <option value="">--Select Gender--</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
-            <div class="error" id="genderError"></div>
+                <div class="form-group">
+                    <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                    <div class="input-with-icon">
+                        <div class="input-icon">
+                            <i class="fas fa-venus-mars"></i>
+                        </div>
+                        <select id="gender">
+                            <option value="">--Select Gender--</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="error" id="genderError"></div>
+                </div>
+            </div>
 
-            <label for="goal">Fitness Goal</label>
-            <select id="goal">
-                <option value="">--Select Goal--</option>
-                <option value="weight_loss">Weight Loss</option>
-                <option value="muscle_gain">Muscle Gain</option>
-                <option value="general_fitness">General Fitness</option>
-                <option value="strength_training">Strength Training</option>
-            </select>
-            <div class="error" id="goalError"></div>
+            <div class="form-group">
+                <label for="goal"><i class="fas fa-bullseye"></i> Fitness Goal</label>
+                <div class="input-with-icon">
+                    <div class="input-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <select id="goal">
+                        <option value="">--Select Goal--</option>
+                        <option value="weight_loss">Weight Loss</option>
+                        <option value="muscle_gain">Muscle Gain</option>
+                        <option value="general_fitness">General Fitness</option>
+                        <option value="strength_training">Strength Training</option>
+                    </select>
+                </div>
+                <div class="error" id="goalError"></div>
+            </div>
 
-            <button type="submit">Register</button>
+            <button type="submit"><i class="fas fa-user-plus"></i> Register</button>
         </form>
 
         <div class="login-link">
@@ -153,6 +457,44 @@
 
     <script>
         const form = document.getElementById('registerForm');
+        const passwordInput = document.getElementById('password');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+
+        // Add subtle animation to form elements when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const formElements = document.querySelectorAll('.form-group, button, .login-link');
+            formElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
+
+        // Password strength indicator
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            
+            if (password.length >= 6) strength += 25;
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            
+            passwordStrengthBar.style.width = strength + '%';
+            
+            if (strength < 50) {
+                passwordStrengthBar.style.background = '#ff4f00';
+            } else if (strength < 75) {
+                passwordStrengthBar.style.background = '#ff8a00';
+            } else {
+                passwordStrengthBar.style.background = '#2ecc71';
+            }
+        });
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -186,7 +528,7 @@
 
             // Age
             const age = document.getElementById('age').value;
-            if (age < 13 || age > 100) {
+            if (age < 13 || age > 100 || age === "") {
                 document.getElementById('ageError').textContent = "Enter a valid age (13-100).";
                 valid = false;
             }
@@ -206,8 +548,19 @@
             }
 
             if (valid) {
-                alert("Registration successful!");
-                window.location.href = "login.html"; // Temporary redirect (until backend added)
+                // Add loading animation to button
+                const button = document.querySelector('button');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+                button.disabled = true;
+                
+                // Simulate registration process
+                setTimeout(() => {
+                    alert("Registration successful!");
+                    window.location.href = "login.html";
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 1500);
             }
         });
     </script>

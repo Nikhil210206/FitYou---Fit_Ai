@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="logo.jpg">
     <title>Chest and Triceps Workout</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-    
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
         * {
             margin: 0;
@@ -19,57 +18,173 @@
         }
 
         body {
-            background-color: #db8828;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
             overflow-x: hidden;
         }
 
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ff4f00' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
+        }
+
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: #222;
-            padding: 20px;
-            border-radius: 10px; /* Slightly increased border radius */
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            margin: 30px auto;
+            background: rgba(28, 28, 28, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 79, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 1s forwards ease-in;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255, 79, 0, 0.1), transparent, rgba(255, 79, 0, 0.1));
+            transform: rotate(30deg);
+            z-index: 0;
         }
 
         h1 {
             text-align: center;
-            color: #d68215;
-            font-size: 36px; /* Increased font size */
+            margin-bottom: 30px;
+            font-size: 42px;
             font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Added text shadow */
+            background: linear-gradient(45deg, #ff8a00, #ff4f00, #ff0050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 15px;
+            animation: glow 2s infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 79, 0, 0.3);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 79, 0, 0.7);
+            }
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #ff4f00);
+            border-radius: 2px;
         }
 
         h2 {
-            color: #ff4f00;
+            color: #ff8a00;
             border-bottom: 2px solid #ff4f00;
-            padding-bottom: 5px;
-            font-size: 28px; /* Increased font size */
+            padding-bottom: 10px;
+            font-size: 28px;
             font-weight: 600;
-            margin-top: 20px; /* Added margin for spacing */
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 i {
+            margin-right: 10px;
         }
 
         .exercise {
-            margin-bottom: 15px;
-            padding: 15px; /* Increased padding for more space */
-            border: 1px solid #444;
-            border-radius: 5px;
-            background: #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(46, 46, 46, 0.7);
+            transition: all 0.4s ease;
             position: relative;
-            overflow: hidden; /* Ensures no overflow on hover */
+            overflow: hidden;
+            z-index: 1;
+            border-left: 5px solid #ff4f00;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .exercise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff8a00, #ff4f00);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .exercise:hover {
-            transform: translateY(-8px); /* Increased hover effect */
-            box-shadow: 0 6px 15px rgba(255, 79, 0, 0.4); /* Enhanced shadow */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .exercise:hover::before {
+            opacity: 1;
         }
 
         .exercise h3 {
-            margin-bottom: 10px; /* Spacing between heading and content */
-            font-size: 20px; /* Slightly smaller heading size */
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: #ff8a00;
+            display: flex;
+            align-items: center;
+        }
+
+        .exercise h3 i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .exercise p {
+            margin: 8px 0;
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .exercise p strong {
+            color: #ff8a00;
         }
 
         ul {
@@ -78,61 +193,146 @@
         }
 
         ul li {
-            margin: 5px 0;
+            margin: 10px 0;
             font-size: 16px;
             color: #ddd;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        ul li:before {
+            content: '•';
+            color: #ff4f00;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
         }
 
         .cool-down, .additional-tips {
-            background: #333;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
+            background: rgba(46, 46, 46, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+            border-left: 5px solid #ff4f00;
         }
 
         .cool-down h2, .additional-tips h2 {
-            color: #ff4f00;
+            border: none;
+            margin-top: 0;
         }
 
         .cool-down p, .additional-tips ul li {
             font-size: 16px;
             color: #ddd;
+            margin: 10px 0;
         }
 
         .additional-tips ul li strong {
-            color: #ff4f00;
+            color: #ff8a00;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 79, 0, 0.2);
+            z-index: 0;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 7%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(4) {
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
         }
 
         /* Responsive Styles */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .exercise {
                 padding: 15px;
             }
+            
+            .exercise h3 {
+                font-size: 20px;
+            }
+        }
 
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
             h1 {
-                font-size: 28px; /* Adjusted font size for smaller screens */
+                font-size: 28px;
             }
-
+            
             h2 {
-                font-size: 24px; /* Adjusted font size for smaller screens */
+                font-size: 22px;
             }
-
-            .exercise {
-                padding: 10px; /* Adjusted padding for smaller screens */
-            }
-
-            ul li {
-                font-size: 14px; /* Smaller font size for smaller screens */
+            
+            .floating-icon {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated background icons -->
+    <i class="floating-icon fas fa-dumbbell"></i>
+    <i class="floating-icon fas fa-running"></i>
+    <i class="floating-icon fas fa-heartbeat"></i>
+    <i class="floating-icon fas fa-bicycle"></i>
+
     <div class="container">
-        <h1 class="animate__animated animate__fadeInDown">Chest and Triceps Workout</h1>
+        <h1>Chest and Triceps Workout</h1>
         
-        <section class="warm-up animate__animated animate__fadeInUp">
-            <h2>Warm-Up (5-10 minutes)</h2>
+        <section class="warm-up">
+            <h2><i class="fas fa-fire"></i> Warm-Up (5-10 minutes)</h2>
             <ul>
                 <li>Arm circles</li>
                 <li>Push-ups (light intensity)</li>
@@ -141,73 +341,73 @@
         </section>
 
         <section class="workout">
-            <h2 class="animate__animated animate__fadeInUp">Workout Routine</h2>
+            <h2><i class="fas fa-dumbbell"></i> Workout Routine</h2>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Push-Ups</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-hands"></i> Push-Ups</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-15</p>
                 <p><strong>Tip:</strong> Keep your body straight and lower yourself until your chest nearly touches the floor.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Dumbbell Bench Press</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-weight-hanging"></i> Dumbbell Bench Press</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-12</p>
                 <p><strong>Tip:</strong> Lie on a bench, press dumbbells above your chest, and lower them to the sides.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Incline Dumbbell Press</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-angle-up"></i> Incline Dumbbell Press</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-12</p>
                 <p><strong>Tip:</strong> Set the bench to a 30-45 degree angle and press the dumbbells upward.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Chest Fly (Dumbbells)</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-expand-arrows-alt"></i> Chest Fly (Dumbbells)</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-12</p>
                 <p><strong>Tip:</strong> Lie on a bench, keep a slight bend in your elbows, and open your arms wide before bringing them together.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Tricep Dips</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-hands-helping"></i> Tricep Dips</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-15</p>
                 <p><strong>Tip:</strong> Use a bench or chair; lower your body with elbows close to your sides.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Overhead Tricep Extension</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-hand-holding"></i> Overhead Tricep Extension</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-12</p>
                 <p><strong>Tip:</strong> Hold a dumbbell with both hands above your head and lower it behind your head.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Close-Grip Push-Ups</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-hands"></i> Close-Grip Push-Ups</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-12</p>
                 <p><strong>Tip:</strong> Keep your hands close together under your chest to target the triceps.</p>
             </div>
 
-            <div class="exercise animate__animated animate__fadeInUp">
-                <h3>Tricep Kickbacks</h3>
+            <div class="exercise">
+                <h3><i class="fas fa-fist-raised"></i> Tricep Kickbacks</h3>
                 <p><strong>Sets:</strong> 3</p>
                 <p><strong>Reps:</strong> 10-12</p>
                 <p><strong>Tip:</strong> Bend at the waist, extend your arms back while holding dumbbells.</p>
             </div>
         </section>
 
-        <section class="cool-down animate__animated animate__fadeInUp">
-            <h2>Cool Down (5-10 minutes)</h2>
+        <section class="cool-down">
+            <h2><i class="fas fa-wind"></i> Cool Down (5-10 minutes)</h2>
             <p>Stretch your chest and triceps (e.g., doorway stretch, overhead tricep stretch).</p>
             <p>Deep breathing to relax.</p>
         </section>
 
-        <section class="additional-tips animate__animated animate__fadeInUp">
-            <h2>Additional Tips</h2>
+        <section class="additional-tips">
+            <h2><i class="fas fa-lightbulb"></i> Additional Tips</h2>
             <ul>
                 <li><strong>Rest:</strong> Take 30-60 seconds between sets.</li>
                 <li><strong>Progression:</strong> Increase weights or reps as you get stronger.</li>
@@ -216,9 +416,21 @@
         </section>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
-        gsap.from(".animate__animated", { duration: 1, y: 100, opacity: 0, stagger: 0.2, ease: "power2.out" });
+        // Add subtle animation to elements when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('section, .exercise');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
     </script>
 </body>
 </html>

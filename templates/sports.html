@@ -13,9 +13,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
-    
     <style>
         :root {
             --primary-color: #ff4f00;
@@ -29,6 +26,8 @@
             --success-color: #28a745;
             --shadow-light: rgba(255, 255, 255, 0.1);
             --shadow-dark: rgba(0, 0, 0, 0.3);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), #ff8c00);
+            --gradient-dark: linear-gradient(135deg, var(--secondary-color), #0d0d0d);
         }
 
         * {
@@ -39,10 +38,28 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--background-dark) 0%, var(--secondary-color) 100%);
+            background: var(--gradient-dark);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
 
         /* Header & Navigation */
@@ -64,6 +81,9 @@
             color: var(--primary-color) !important;
             text-decoration: none;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .navbar-brand:hover {
@@ -92,32 +112,57 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-nav .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .navbar-nav .nav-link:hover::before,
+        .navbar-nav .nav-link.active::before {
+            width: 80%;
         }
 
         .navbar-nav .nav-link:hover,
         .navbar-nav .nav-link.active {
             color: var(--text-light) !important;
-            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
         }
 
         /* Hero Section */
         .hero-section {
-            padding: 4rem 0;
+            padding: 6rem 0 4rem;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .hero-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
             background: radial-gradient(circle at center, rgba(255, 79, 0, 0.1) 0%, transparent 70%);
             pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.7; }
         }
 
         .hero-title {
@@ -125,20 +170,66 @@
             font-size: 3.5rem;
             font-weight: 700;
             color: var(--text-light);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             background: linear-gradient(45deg, var(--text-light), var(--primary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-subtitle {
             font-size: 1.25rem;
             color: var(--text-muted);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button {
+            background: var(--gradient-primary);
+            border: none;
+            color: var(--text-light);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 79, 0, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
         }
 
         /* Form Section */
@@ -160,7 +251,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            background: var(--gradient-primary);
         }
 
         .form-title {
@@ -170,10 +261,15 @@
             color: var(--primary-color);
             margin-bottom: 2rem;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
         }
 
         .form-group {
             margin-bottom: 2rem;
+            position: relative;
         }
 
         .form-label {
@@ -181,6 +277,9 @@
             color: var(--text-light);
             margin-bottom: 0.75rem;
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .form-select {
@@ -192,6 +291,11 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             width: 100%;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ff4f00' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12L8 12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
         }
 
         .form-select:focus {
@@ -208,7 +312,7 @@
         }
 
         .btn-generate {
-            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            background: var(--gradient-primary);
             border: none;
             color: var(--text-light);
             padding: 1rem 2.5rem;
@@ -221,6 +325,27 @@
             letter-spacing: 0.5px;
             box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-generate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-generate:hover::before {
+            left: 100%;
         }
 
         .btn-generate:hover:not(:disabled) {
@@ -270,25 +395,6 @@
             }
         }
 
-        /* Fix form validation tooltip positioning */
-        .form-select:invalid {
-            position: relative;
-        }
-
-        .validation-message {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(220, 53, 69, 0.9);
-            color: white;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-            z-index: 10;
-        }
-
         /* Routine Results */
         .routine-container {
             margin: 3rem 0;
@@ -332,7 +438,7 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: var(--primary-color);
+            background: var(--gradient-primary);
         }
 
         .exercise-card:hover {
@@ -349,7 +455,7 @@
         .exercise-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            background: var(--gradient-primary);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -381,11 +487,29 @@
             border-left: 3px solid var(--primary-color);
             transition: all 0.3s ease;
             font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .exercise-item:hover {
             background: rgba(255, 79, 0, 0.1);
             transform: translateX(5px);
+        }
+
+        .exercise-details {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .exercise-sets {
+            background: rgba(255, 79, 0, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-color);
         }
 
         /* Quotes Section - Continuous Moving Carousel */
@@ -395,11 +519,25 @@
             background: linear-gradient(135deg, rgba(255, 79, 0, 0.05) 0%, rgba(26, 26, 26, 0.1) 100%);
             border-radius: 20px;
             overflow: hidden;
+            position: relative;
+        }
+
+        .quotes-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff4f00' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
         }
 
         .quotes-section-header {
             text-align: center;
             margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .quotes-section-title {
@@ -479,7 +617,7 @@
             transform: translateX(-50%);
             width: 60px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            background: var(--gradient-primary);
             border-radius: 2px;
         }
 
@@ -534,6 +672,17 @@
             margin-top: 4rem;
             border-top: 1px solid var(--border-color);
             text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-primary);
         }
 
         .footer-text {
@@ -624,9 +773,96 @@
                 flex-direction: column;
             }
         }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 79, 0, 0.1);
+            filter: blur(20px);
+            z-index: 1;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 120px;
+            height: 120px;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+            50% { transform: translateY(10px) translateX(-10px) rotate(-5deg); }
+            75% { transform: translateY(-10px) translateX(-5px) rotate(3deg); }
+        }
+
+        /* Particles Background */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 79, 0, 0.2);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Floating Elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <!-- Particles Background -->
+    <div class="particles-container" id="particles"></div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -673,6 +909,9 @@
                 Get personalized workout routines tailored to your fitness level. 
                 Start your transformation today with AI-powered fitness planning.
             </p>
+            <button class="cta-button" onclick="document.getElementById('fitness_level').focus()">
+                <i class="fas fa-rocket"></i> Get Started
+            </button>
         </div>
     </section>
 
@@ -980,9 +1219,150 @@
             }
         };
 
+        // Create particles for background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 20;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `-${delay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
         // Navigation functionality
         function setActiveNav(element) {
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
-            element.classList.add('active');}
+            element.classList.add('active');
+        }
+
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const fitnessLevel = document.getElementById('fitness_level').value;
+            const generateBtn = document.getElementById('generateBtn');
+            
+            if (!fitnessLevel) return;
+            
+            // Show loading state
+            generateBtn.innerHTML = '<i class="fas fa-spinner loading"></i> Generating...';
+            generateBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                displayWorkoutRoutine(fitnessLevel);
+                
+                // Reset button
+                generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Routine';
+                generateBtn.disabled = false;
+                
+                // Scroll to results
+                document.getElementById('routineResults').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }, 1500);
+        }
+
+        // Display workout routine
+        function displayWorkoutRoutine(level) {
+            const routine = workoutData[level];
+            const routineTitle = document.getElementById('routineTitle');
+            const strengthList = document.getElementById('strengthExercises');
+            const cardioList = document.getElementById('cardioExercises');
+            const flexibilityList = document.getElementById('flexibilityExercises');
+            
+            // Update title
+            routineTitle.textContent = `Your ${level.charAt(0).toUpperCase() + level.slice(1)} Routine`;
+            
+            // Clear previous content
+            strengthList.innerHTML = '';
+            cardioList.innerHTML = '';
+            flexibilityList.innerHTML = '';
+            
+            // Add strength exercises
+            routine.strength.forEach(ex => {
+                const li = document.createElement('li');
+                li.className = 'exercise-item';
+                
+                let content = `<span class="exercise-name">${ex.exercise}</span>`;
+                content += `<div class="exercise-details">`;
+                
+                if (ex.sets) {
+                    content += `<span class="exercise-sets">${ex.sets} sets</span>`;
+                }
+                
+                if (ex.reps) {
+                    content += `<span class="exercise-reps">${ex.reps} reps</span>`;
+                }
+                
+                if (ex.duration) {
+                    content += `<span class="exercise-duration">${ex.duration}</span>`;
+                }
+                
+                content += `</div>`;
+                
+                li.innerHTML = content;
+                strengthList.appendChild(li);
+            });
+            
+            // Add cardio exercises
+            routine.cardio.forEach(ex => {
+                const li = document.createElement('li');
+                li.className = 'exercise-item';
+                
+                let content = `<span class="exercise-name">${ex.exercise}</span>`;
+                
+                if (ex.duration) {
+                    content += `<span class="exercise-duration">${ex.duration}</span>`;
+                }
+                
+                li.innerHTML = content;
+                cardioList.appendChild(li);
+            });
+            
+            // Add flexibility exercises
+            routine.flexibility.forEach(ex => {
+                const li = document.createElement('li');
+                li.className = 'exercise-item';
+                
+                let content = `<span class="exercise-name">${ex.exercise}</span>`;
+                
+                if (ex.duration) {
+                    content += `<span class="exercise-duration">${ex.duration}</span>`;
+                }
+                
+                li.innerHTML = content;
+                flexibilityList.appendChild(li);
+            });
+            
+            // Show results section
+            document.getElementById('routineResults').style.display = 'block';
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add event listener to form
+            document.getElementById('fitnessForm').addEventListener('submit', handleSubmit);
+        });
+    </script>
+</body>
+</html>
