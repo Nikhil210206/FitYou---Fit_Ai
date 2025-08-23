@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitAI - Your Personal Fitness Coach</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
@@ -59,65 +57,26 @@
             opacity: 0.9;
         }
 
-
         .back-btn {
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: #090909;
+            background-color: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
             padding: 10px 15px;
             border-radius: 50px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap;
-            /* prevent wrapping */
         }
 
         .back-btn:hover {
-            background-color: #fd7f4d;
-            color: white;
-            text-decoration: none;
-            transform: translateY(-2px);
-        }
-
-        /* Tablet screens */
-        @media (max-width: 768px) {
-            .back-btn {
-                top: 15px;
-                left: 15px;
-                padding: 8px 12px;
-                font-size: 0.9rem;
-                gap: 6px;
-            }
-        }
-
-        /* Small phones */
-        @media (max-width: 480px) {
-            .back-btn {
-                top: 10px;
-                left: 10px;
-                padding: 6px 10px;
-                font-size: 0.8rem;
-                gap: 5px;
-            }
-
-            /* Hide text, keep only icon for tiny screens */
-            .back-btn span {
-                display: none;
-            }
-        }
-
-
-        .back-btn:hover {
-            /* background-color: rgba(255, 255, 255, 0.3); */
-            background-color: #fd7f4d;
+            background-color: rgba(255, 255, 255, 0.3);
             color: white;
             text-decoration: none;
         }
@@ -142,15 +101,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .user-message {
@@ -173,45 +125,34 @@
             font-weight: 600;
             color: #ff4f00;
         }
-
+        
         /* NEW: STYLES FOR BETTER MARKDOWN FORMATTING */
         .ai-message p {
-            margin-bottom: 0.5em;
-            /* Add space between paragraphs */
+            margin-bottom: 0.5em; /* Add space between paragraphs */
         }
-
         .ai-message p:last-child {
             margin-bottom: 0;
         }
-
-        .ai-message ul,
-        .ai-message ol {
-            padding-left: 1.5em;
-            /* Indent lists */
+        .ai-message ul, .ai-message ol {
+            padding-left: 1.5em; /* Indent lists */
             margin-top: 0.5em;
             margin-bottom: 0.5em;
         }
-
         .ai-message li {
-            margin-bottom: 0.25em;
-            /* Space between list items */
+            margin-bottom: 0.25em; /* Space between list items */
         }
-
         .ai-message pre {
             background-color: #1e1e1e;
             padding: 1em;
             border-radius: 8px;
             margin: 0.5em 0;
-            white-space: pre-wrap;
-            /* Wrap long lines of code */
+            white-space: pre-wrap; /* Wrap long lines of code */
             word-wrap: break-word;
         }
-
         .ai-message code {
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.9em;
         }
-
         .ai-message blockquote {
             border-left: 4px solid #ff4f00;
             padding-left: 1em;
@@ -242,27 +183,12 @@
             animation: typingAnimation 1.4s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: -0.16s;
-        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
 
         @keyframes typingAnimation {
-
-            0%,
-            80%,
-            100% {
-                transform: scale(0.8);
-                opacity: 0.5;
-            }
-
-            40% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
         }
 
         .chat-input-container {
@@ -316,6 +242,36 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
+
+        #micBtn {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #444, #ff4f00);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        #micBtn:hover { 
+            background: linear-gradient(135deg, #ff4f00, #e64300); 
+        }
+
+        #muteBtn {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #444, #888);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        #muteBtn:hover { background: linear-gradient(135deg, #888, #444); }
 
         .welcome-message {
             text-align: center;
@@ -384,8 +340,7 @@
                 padding: 15px;
             }
 
-            #messageInput,
-            #sendBtn {
+            #messageInput, #sendBtn {
                 padding: 12px 18px;
             }
 
@@ -420,13 +375,12 @@
         }
     </style>
 </head>
-
 <body>
     <div class="chat-container">
         <div class="chat-header">
             <a href="/" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
-                Back
+                Back to Home
             </a>
             <h1>🤖 FitAI Coach</h1>
             <p>Your Personal AI Fitness & Nutrition Expert</p>
@@ -435,28 +389,31 @@
         <div class="chat-messages" id="chatMessages">
             <div class="welcome-message">
                 <h2>Welcome to FitAI! 💪</h2>
-                <p>I'm your personal fitness coach powered by AI. I can help you with workout routines, nutrition
-                    advice, form corrections, and motivation!</p>
+                <p>I'm your personal fitness coach powered by AI. I can help you with workout routines, nutrition advice, form corrections, and motivation!</p>
                 <p><strong>Try asking me about:</strong></p>
                 <div class="quick-questions">
-                    <div class="quick-question" onclick="sendQuickQuestion('What workout should I do today?')">What
-                        workout should I do today?</div>
-                    <div class="quick-question" onclick="sendQuickQuestion('How to lose weight effectively?')">How to
-                        lose weight effectively?</div>
-                    <div class="quick-question" onclick="sendQuickQuestion('Best exercises for beginners?')">Best
-                        exercises for beginners?</div>
-                    <div class="quick-question" onclick="sendQuickQuestion('Nutrition tips for muscle building?')">
-                        Nutrition tips for muscle building?</div>
+                    <div class="quick-question" onclick="sendQuickQuestion('What workout should I do today?')">What workout should I do today?</div>
+                    <div class="quick-question" onclick="sendQuickQuestion('How to lose weight effectively?')">How to lose weight effectively?</div>
+                    <div class="quick-question" onclick="sendQuickQuestion('Best exercises for beginners?')">Best exercises for beginners?</div>
+                    <div class="quick-question" onclick="sendQuickQuestion('Nutrition tips for muscle building?')">Nutrition tips for muscle building?</div>
                 </div>
             </div>
         </div>
 
         <div class="chat-input-container">
             <div class="input-group">
-                <input type="text" id="messageInput"
-                    placeholder="Ask me anything about fitness, nutrition, or health..." autocomplete="off">
+                <input type="text" 
+                       id="messageInput" 
+                       placeholder="Ask me anything about fitness, nutrition, or health..." 
+                       autocomplete="off">
                 <button id="sendBtn" onclick="sendMessage()">
                     <i class="fas fa-paper-plane"></i>
+                </button>
+                <button id="micBtn" onclick="startListening()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button id="muteBtn" onclick="toggleMute()" title="Mute/Unmute">
+                    <i class="fas fa-volume-mute"></i>
                 </button>
             </div>
         </div>
@@ -464,9 +421,10 @@
 
     <script>
         let isLoading = false;
+        let isMuted = false;
 
         // Send message when Enter is pressed
-        document.getElementById('messageInput').addEventListener('keypress', function (e) {
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && !isLoading) {
                 sendMessage();
             }
@@ -480,7 +438,7 @@
         async function sendMessage() {
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value.trim();
-
+            
             if (!message || isLoading) return;
 
             const chatMessages = document.getElementById('chatMessages');
@@ -543,33 +501,71 @@
             }
         }
 
+        // --- TEXT TO SPEECH ---
+        function speakText(text) {
+            if (isMuted) return; // Don't speak if muted
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
         function addMessage(content, type) {
             const chatMessages = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
-
             if (type === 'ai') {
-                // For AI messages, parse the Markdown into HTML
                 messageDiv.innerHTML = marked.parse(content);
+                speakText(content); // <-- TTS here
             } else {
-                // For user messages, use plain text to be safe
                 messageDiv.textContent = content;
             }
-
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // NEW: Initialize syntax highlighting on the new content
             hljs.highlightAll();
+        }
+
+        // --- SPEECH TO TEXT ---
+        let recognition;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('messageInput').value = transcript;
+            };
+            recognition.onerror = function(event) {
+                showError('Speech recognition error: ' + event.error);
+            };
+        }
+
+        function startListening() {
+            if (recognition) recognition.start();
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const muteBtn = document.getElementById('muteBtn');
+            muteBtn.innerHTML = isMuted
+                ? '<i class="fas fa-volume-up"></i>'
+                : '<i class="fas fa-volume-mute"></i>';
+            if (isMuted && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop any ongoing speech
+            }
         }
 
         function showError(message) {
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.textContent = message;
-
+            
             document.querySelector('.chat-messages').appendChild(errorDiv);
-
+            
             setTimeout(() => {
                 errorDiv.remove();
             }, 5000);
@@ -580,5 +576,4 @@
         });
     </script>
 </body>
-
 </html>
