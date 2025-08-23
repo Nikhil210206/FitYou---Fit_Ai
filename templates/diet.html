@@ -6,140 +6,310 @@
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Personalized Diet Plan</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
    
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
 
     <style>
-        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #e6962c;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: #fff;
+            min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Container */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ff4f00' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
+        }
+
         .container {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #dd8526;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgb(239, 158, 18);
+            margin: 30px auto;
+            background: rgba(28, 28, 28, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 79, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 1s forwards ease-in;
         }
 
-        /* Headings */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255, 79, 0, 0.1), transparent, rgba(255, 79, 0, 0.1));
+            transform: rotate(30deg);
+            z-index: 0;
+        }
+
         h1 {
             text-align: center;
-            color: #d57826;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff8a00, #ff4f00, #ff0050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 15px;
+            animation: glow 2s infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 79, 0, 0.3);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 79, 0, 0.7);
+            }
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #ff4f00);
+            border-radius: 2px;
         }
 
         h2 {
-            margin-top: 40px;
-            color: #ba641eec;
-            text-align: center;
+            color: #ff8a00;
+            border-bottom: 2px solid #ff4f00;
+            padding-bottom: 10px;
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
         }
 
         h3 {
             margin-top: 30px;
-            color: #ff4f00;
-            text-transform: uppercase;
-            font-size: 20px;
-            border-bottom: 2px solid #ddd;
+            color: #ff8a00;
+            font-size: 22px;
             padding-bottom: 5px;
+            border-bottom: 1px solid rgba(255, 79, 0, 0.3);
         }
 
         h4 {
             margin-top: 20px;
             font-size: 18px;
-            color: #e8a342;
-            text-transform: capitalize;
+            color: #ff8a00;
         }
 
         /* Form Styles */
         form {
             margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
         }
 
         label {
             display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #fff;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #ff8a00;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        label i {
+            margin-right: 10px;
+            font-size: 18px;
         }
 
         input[type="number"], input[type="file"], select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 16px 20px;
+            background-color: rgba(46, 46, 46, 0.7);
+            border: 2px solid rgba(255, 79, 0, 0.3);
+            border-radius: 12px;
             font-size: 16px;
-            background-color: #333;
             color: #fff;
+            transition: all 0.4s;
+            box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.5), 
+                        inset -4px -4px 10px rgba(255, 255, 255, 0.05);
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: #ff4f00;
+            box-shadow: 0 0 15px rgba(255, 79, 0, 0.5), 
+                        inset 4px 4px 10px rgba(0, 0, 0, 0.5);
+            outline: none;
         }
 
         button[type="submit"] {
             width: 100%;
-            padding: 15px;
-            background-color: #ff4f00;
-            color: white;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff8a00, #ff4f00);
+            color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 50px;
             font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 10px 20px rgba(255, 79, 0, 0.3);
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        button[type="submit"]:hover::before {
+            left: 100%;
         }
 
         button[type="submit"]:hover {
-            background-color: #e04400;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 79, 0, 0.5);
         }
 
         button[type="submit"]:disabled {
-            background-color: #666;
+            background: linear-gradient(135deg, #666, #888);
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        button[type="submit"]:disabled:hover::before {
+            left: -100%;
         }
 
         /* Diet Plan */
         .diet-plan {
             display: none;
             margin-top: 40px;
+            position: relative;
+            z-index: 1;
         }
 
         .day-plan {
-            background-color: #2a2a2a;
+            background: rgba(46, 46, 46, 0.7);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid #ff4f00;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-plan::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff8a00, #ff4f00);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .day-plan:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .day-plan:hover::before {
+            opacity: 1;
         }
 
         .meal ul {
-            list-style: disc;
-            margin-left: 20px;
+            list-style-type: none;
+            padding: 0;
         }
 
-        ul li {
-            margin: 5px 0;
+        .meal ul li {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #ddd;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .meal ul li:before {
+            content: '•';
+            color: #ff4f00;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
         }
 
         .calories {
@@ -151,60 +321,152 @@
         .loading {
             text-align: center;
             padding: 20px;
-            color: #ff4f00;
+            color: #ff8a00;
         }
 
         .error {
-            background-color: #dc3545;
+            background: rgba(220, 53, 69, 0.8);
             color: white;
-            padding: 10px;
-            border-radius: 4px;
-            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #dc3545;
         }
 
         .success {
-            background-color: #28a745;
+            background: rgba(40, 167, 69, 0.8);
             color: white;
-            padding: 10px;
-            border-radius: 4px;
-            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
         }
 
         #healthProblems {
-            background-color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
+            background-color: rgba(46, 46, 46, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 79, 0, 0.3);
+            color: #ddd;
+            min-height: 50px;
         }
 
         .file-upload-status {
             margin-top: 10px;
-            padding: 8px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 10px;
             font-size: 14px;
         }
 
         .plan-summary {
-            background-color: #2a2a2a;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ff4f00;
+            background: rgba(46, 46, 46, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid #ff4f00;
         }
 
         .plan-summary h4 {
-            margin: 0 0 10px 0;
-            color: #ff4f00;
+            margin: 0 0 15px 0;
+            color: #ff8a00;
         }
 
         .plan-summary p {
-            margin: 5px 0;
+            margin: 8px 0;
             color: #ddd;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 79, 0, 0.2);
+            z-index: 0;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 7%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(4) {
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            input[type="number"], input[type="file"], select {
+                padding: 14px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            .floating-icon {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- Animated background icons -->
+    <i class="floating-icon fas fa-apple-alt"></i>
+    <i class="floating-icon fas fa-utensils"></i>
+    <i class="floating-icon fas fa-heartbeat"></i>
+    <i class="floating-icon fas fa-weight"></i>
+
     <div class="container">
         <h1>Personalized Weekly Diet Plan</h1>
         
@@ -214,48 +476,48 @@
         
         <form id="dietForm" action="/diet" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="age">Age</label>
+                <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
                 <input type="number" id="age" name="age" min="1" max="120" 
                        value="{{ form_data.age if form_data else '' }}" required>
             </div>
             <div class="form-group">
-                <label for="height">Height (cm)</label>
+                <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm)</label>
                 <input type="number" id="height" name="height" min="50" max="300" 
                        value="{{ form_data.height if form_data else '' }}" required>
             </div>
             <div class="form-group">
-                <label for="weight">Weight (kg)</label>
+                <label for="weight"><i class="fas fa-weight"></i> Weight (kg)</label>
                 <input type="number" id="weight" name="weight" min="20" max="500" 
                        value="{{ form_data.weight if form_data else '' }}" required>
             </div>
             <div class="form-group">
-                <label for="goal">Goal</label>
+                <label for="goal"><i class="fas fa-bullseye"></i> Goal</label>
                 <select id="goal" name="goal" required>
                     <option value="weight gain" {{ 'selected' if form_data and form_data.goal == 'weight gain' else '' }}>Weight Gain</option>
                     <option value="weight loss" {{ 'selected' if form_data and form_data.goal == 'weight loss' else '' }}>Weight Loss</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="duration">Duration (Weeks)</label>
+                <label for="duration"><i class="fas fa-calendar-alt"></i> Duration (Weeks)</label>
                 <input type="number" id="duration" name="duration" min="1" max="52" 
                        value="{{ form_data.duration if form_data else '' }}" required>
             </div>
             <div class="form-group">
-                <label for="diet_type">Diet Type</label>
+                <label for="diet_type"><i class="fas fa-leaf"></i> Diet Type</label>
                 <select id="diet_type" name="diet_type" required>
                     <option value="vegetarian" {{ 'selected' if form_data and form_data.diet_type == 'vegetarian' else '' }}>Vegetarian</option>
                     <option value="non-vegetarian" {{ 'selected' if form_data and form_data.diet_type == 'non-vegetarian' else '' }}>Non-Vegetarian</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="gender">Gender</label>
+                <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
                 <select id="gender" name="gender" required>
                     <option value="male" {{ 'selected' if form_data and form_data.gender == 'male' else '' }}>Male</option>
                     <option value="female" {{ 'selected' if form_data and form_data.gender == 'female' else '' }}>Female</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="activity_level">Activity Level</label>
+                <label for="activity_level"><i class="fas fa-running"></i> Activity Level</label>
                 <select id="activity_level" name="activity_level" required>
                     <option value="sedentary" {{ 'selected' if form_data and form_data.activity_level == 'sedentary' else '' }}>Sedentary</option>
                     <option value="moderate" {{ 'selected' if form_data and form_data.activity_level == 'moderate' else '' }}>Moderate</option>
@@ -265,13 +527,13 @@
 
             <!-- Medical Certificate Upload -->
             <div class="form-group">
-                <label for="medical_certificate">Upload Medical Certificate (Optional)</label>
+                <label for="medical_certificate"><i class="fas fa-file-medical"></i> Upload Medical Certificate (Optional)</label>
                 <input type="file" id="medical_certificate" accept=".pdf,.docx,.txt">
                 <small style="color: #ccc;">Supported formats: PDF, DOCX, TXT (Max 10MB)</small>
                 <div id="uploadStatus" class="file-upload-status" style="display: none;"></div>
             </div>
             <div class="form-group">
-                <label for="healthProblems">Detected Health Conditions</label>
+                <label for="healthProblems"><i class="fas fa-stethoscope"></i> Detected Health Conditions</label>
                 <p id="healthProblems">None</p>
                 <!-- Hidden input to pass health conditions to backend -->
                 <input type="hidden" id="healthConditionsInput" name="health_conditions" value="">
@@ -281,7 +543,7 @@
         </form>
 
         <div class="diet-plan" id="dietPlan">
-            <h2>Your Personalized Diet Plan</h2>
+            <h2><i class="fas fa-utensils"></i> Your Personalized Diet Plan</h2>
             
             {% if diet_plan %}
             <div class="plan-summary">
@@ -327,6 +589,21 @@
         if (hasDietPlan === true || hasDietPlan === 'true') {
             document.getElementById("dietPlan").style.display = "block";
         }
+
+        // Add subtle animation to form elements when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const formElements = document.querySelectorAll('.form-group, button');
+            formElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
 
         // Handle medical certificate upload
         document.getElementById("medical_certificate").addEventListener("change", function(event) {

@@ -4,191 +4,448 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
-    <title>Fitness & Diet Plan</title>
+    <title>FitYou - Fitness & Diet Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
-        body, html {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body, html {
             height: 100%;
-            font-family: 'Roboto', sans-serif;
-            background-color: #d1752f;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ff4f00' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
         }
 
         /* Navbar Styles */
         .navbar {
-            color: #d38628;
-            background-color: #de7b19;
+            background: rgba(28, 28, 28, 0.9) !important;
+            backdrop-filter: blur(10px);
             border: none;
+            border-bottom: 1px solid rgba(255, 79, 0, 0.2);
             border-radius: 0;
             margin-bottom: 0;
+            padding: 15px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1000;
         }
 
         .navbar-brand, .navbar-nav li a {
-            color: #d1741c !important;
+            color: #ff8a00 !important;
             font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-size: 24px !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+            color: #ff4f00;
+        }
+
+        .navbar-nav li a {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav li a i {
+            margin-right: 8px;
+            font-size: 16px;
         }
 
         .navbar-brand:hover, .navbar-nav li a:hover {
-            color: #efa65d !important;
+            color: #ff4f00 !important;
+            transform: translateY(-2px);
         }
 
         .navbar-nav li.active a {
-            background-color: #df6c14 !important;
-            color: #eba63f !important;
+            background: linear-gradient(135deg, #ff8a00, #ff4f00) !important;
+            color: white !important;
+            border-radius: 20px;
+            padding: 10px 20px;
         }
 
-        /* Background gradient */
-        .bg {
-            background: linear-gradient(#c9891188, #996636);
-            height: 40%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        /* Title Styling */
-        .top-right {
-            padding: 25px;
-            top: 260px;
-            font-size: 40px;
-            text-shadow: 2px 2px 2px #d38628;
-            color: #cd7f11e1;
-            text-align: center;
-        }
-
-        .top-right1 {
-            padding: 30px;
-            position: absolute;
-            top: 120px;
-            font-size: 95px;
-            right: 50%;
-            transform: translateX(50%); /* Center the text */
-            color: #ef9324;
-            font-family: 'Playfair Display', serif; /* Change to Playfair Display */
-            text-align: center;
-        }
-
-        /* Cards Styling */
-        .lay, .lay1, .lay2 {
-            height: 180px;
-            border-style: round;
-            border-radius: 12px;
-            padding: 20px;
-            width: 230px;
-            box-shadow: 2px 2px 5px rgba(222, 195, 61, 0.981);
-            color: #e38c22;
-            padding: 20px 4px;
-            text-align: center;
-            font-size: 24px;
-            transition: .5s;
-            opacity: .85;
+        /* Hero Section */
+        .hero-section {
+            height: 70vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-color: #e77d19;
-            background-color:  #e77d19;
-
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .lay {
-            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp5NRQ0gddcpsX-zHHNGapKE8__lJbKUqVYg&s");
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
         }
 
-        .lay1 {
-            background-image: url("https://images.pexels.com/photos/6815702/pexels-photo-6815702.jpeg?auto=compress&cs=tinysrgb&w=600");
+        .main-title {
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff8a00, #ff4f00, #ff0050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: glow 2s infinite alternate;
         }
 
-        .lay2 {
-            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Wp9ic-f4FvwuCMioKhRG25cFpnarkjREJw&s");
-        }
-
-        .lay:hover, .lay1:hover, .lay2:hover {
-            background-color: #d28d1e;
-            color: rgb(245, 163, 21);
-            cursor: pointer;
-            opacity: 1;
-        }
-
-        /* Form Styles */
-        .container {
-            max-width: 80%;
-            margin: 20px auto;
-        }
-
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .top-right {
-                position: static;
-                text-align: center;
-                margin-top: 20px;
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 79, 0, 0.3);
             }
+            to {
+                text-shadow: 0 0 15px rgba(255, 79, 0, 0.7);
+            }
+        }
 
-            h2 {
-                font-weight: 200;
-                font-size: 10px;
+        .subtitle {
+            font-size: 1.5rem;
+            color: #ddd;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Cards Section */
+        .cards-section {
+            padding: 60px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card-item {
+            text-align: center;
+            width: 300px;
+            transition: all 0.4s ease;
+        }
+
+        .card {
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            border: none;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            z-index: 2;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ff8a00;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255, 79, 0, 0.3);
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.1);
+        }
+
+        .card h2 {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ff8a00;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .card-item:hover h2 {
+            color: #ff4f00;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 79, 0, 0.2);
+            z-index: 0;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 20%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 30%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 7%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(4) {
+            bottom: 30%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-title {
+                font-size: 4rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card-item {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .navbar-brand {
+                font-size: 20px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-section {
+                height: 60vh;
+            }
+            
+            .floating-icon {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated background icons -->
+    <i class="floating-icon fas fa-dumbbell"></i>
+    <i class="floating-icon fas fa-running"></i>
+    <i class="floating-icon fas fa-heartbeat"></i>
+    <i class="floating-icon fas fa-apple-alt"></i>
 
     <!-- Navbar -->
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">FitLife</a>
+                <a class="navbar-brand" href="/"><i class="fas fa-dumbbell"></i> FitYou</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/workout">Home</a></li>
-                <li><a href="/sport">Sports</a></li>
-                <li><a href="/GP">Verified Plan</a></li>
-                <li><a href="/diet">Bodybuilding</a></li>
+                <li class="active"><a href="/workout"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/sport"><i class="fas fa-basketball-ball"></i> Sports</a></li>
+                <li><a href="/GP"><i class="fas fa-check-circle"></i> Verified Plan</a></li>
+                <li><a href="/diet"><i class="fas fa-weight"></i> Bodybuilding</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Gradient Background Section -->
-    <div class="bg"></div>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="main-title">FitYou</h1>
+            <p class="subtitle">Stronger every rep, fitter every step!</p>
+        </div>
+    </div>
 
-    <!-- Top Right Title -->
-    <h1 class="top-right1">FitYou</h1>
-    <h2 class="top-right"><b>Stronger every rep, fitter every step!</b></h2>
+    <!-- Cards Section -->
+    <div class="cards-section">
+        <div class="card-container">
+            <div class="card-row">
+                <!-- Sports Section -->
+                <div class="card-item">
+                    <a href="/sport" style="text-decoration: none;">
+                        <div class="card">
+                            <img src="https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sports" class="card-image">
+                            <div class="card-content">
+                                <div class="card-title">Sports</div>
+                            </div>
+                        </div>
+                        <h2>Sports</h2>
+                    </a>
+                </div>
 
-    <div class="container justify-center  bg-orange-400">
-        <div class="row">
-            <!-- Sports Section -->
-            <div class="col-sm-4">
-                <a href="/sport">
-                    <div class="lay"></div>
-                </a>
-                <h2>Sports</h2>
-            </div>
+                <!-- Verified Plan Section -->
+                <div class="card-item">
+                    <a href="/GP" style="text-decoration: none;">
+                        <div class="card">
+                            <img src="https://images.pexels.com/photos/6551146/pexels-photo-6551146.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Verified Plan" class="card-image">
+                            <div class="card-content">
+                                <div class="card-title">Verified Plan</div>
+                            </div>
+                        </div>
+                        <h2>Verified Plan</h2>
+                    </a>
+                </div>
 
-            <!-- Verified Plan Section -->
-            <div class="col-sm-4">
-                <a href="/GP">
-                    <div class="lay1"></div>
-                </a>
-                <h2>Verified Plan</h2>
-            </div>
-
-            <!-- Bodybuilding Section -->
-            <div class="col-sm-4">
-                <a href="/diet">
-                    <div class="lay2"></div>
-                </a>
-                <h2>Bodybuilding</h2>
+                <!-- Bodybuilding Section -->
+                <div class="card-item">
+                    <a href="/diet" style="text-decoration: none;">
+                        <div class="card">
+                            <img src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Bodybuilding" class="card-image">
+                            <div class="card-content">
+                                <div class="card-title">Bodybuilding</div>
+                            </div>
+                        </div>
+                        <h2>Bodybuilding</h2>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
+    <script>
+        // Add subtle animation to elements when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroContent = document.querySelector('.hero-content');
+            const cardItems = document.querySelectorAll('.card-item');
+            
+            // Animate hero content
+            heroContent.style.opacity = '0';
+            heroContent.style.transform = 'translateY(30px)';
+            heroContent.style.transition = 'opacity 1s ease, transform 1s ease';
+            
+            setTimeout(() => {
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Animate cards with delay
+            cardItems.forEach((item, index)=> {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 500 + (index * 200));
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(28, 28, 28, 0.95) !important';
+                    navbar.style.padding = '10px 0';
+                } else {
+                    navbar.style.background = 'rgba(28, 28, 28, 0.9) !important';
+                    navbar.style.padding = '15px 0';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

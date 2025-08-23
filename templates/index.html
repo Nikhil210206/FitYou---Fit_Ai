@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Workout Routine Scheduler</title>
-     <link rel="icon" type="image/png" sizes="32x32" href="FY.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="FY.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
         /* General Styling */
         * {
@@ -20,12 +21,28 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #000 40%, #111 100%);
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: #fff;
             padding: 20px;
+            min-height: 100vh;
             transition: background 0.3s ease;
             opacity: 0;
             animation: fadeIn 1s forwards ease-in;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ff4f00' fill-opacity='0.1' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
         }
 
         @keyframes fadeIn {
@@ -36,12 +53,28 @@
 
         .container {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #1c1c1c;
-            border-radius: 20px;
+            margin: 30px auto;
+            padding: 40px;
+            background: rgba(28, 28, 28, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 79, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255, 79, 0, 0.1), transparent, rgba(255, 79, 0, 0.1));
+            transform: rotate(30deg);
+            z-index: 0;
         }
 
         .container:hover {
@@ -51,157 +84,362 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-size: 42px;
-            font-weight: 600;
-            color: #ff4f00;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff8a00, #ff4f00, #ff0050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             letter-spacing: 1px;
             position: relative;
-            animation: bounce 2s infinite;
+            padding-bottom: 15px;
+            animation: glow 2s infinite alternate;
         }
 
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #ff4f00);
+            border-radius: 2px;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 79, 0, 0.3);
             }
-            50% {
-                transform: translateY(-10px);
+            to {
+                text-shadow: 0 0 15px rgba(255, 79, 0, 0.7);
             }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
         }
 
         label {
             font-weight: 500;
-            margin-bottom: 8px;
-            color: #ff4f00;
+            margin-bottom: 12px;
+            color: #ff8a00;
             font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        label i {
+            margin-right: 10px;
+            font-size: 20px;
         }
 
         input[type="number"], select {
             width: 100%;
-            padding: 12px;
-            background-color: #2e2e2e;
-            border: 1px solid #444;
-            border-radius: 10px;
+            padding: 16px 20px;
+            background-color: rgba(46, 46, 46, 0.7);
+            border: 2px solid rgba(255, 79, 0, 0.3);
+            border-radius: 12px;
             font-size: 16px;
             color: #fff;
-            transition: border-color 0.4s, box-shadow 0.4s;
-            box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.8), inset -4px -4px 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s;
+            box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.5), 
+                        inset -4px -4px 10px rgba(255, 255, 255, 0.05);
         }
 
         input[type="number"]:focus {
             border-color: #ff4f00;
-            box-shadow: 0 0 10px #ff4f00, inset -4px -4px 10px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 79, 0, 0.5), 
+                        inset 4px 4px 10px rgba(0, 0, 0, 0.5);
             outline: none;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff4f00;
+            font-size: 18px;
         }
 
         button[type="submit"] {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #ff4f00, #e64a00);
+            padding: 18px;
+            background: linear-gradient(135deg, #ff8a00, #ff4f00);
             color: #fff;
             border: none;
             border-radius: 50px;
             font-size: 20px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.4s ease, transform 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 10px 20px rgba(255, 79, 0, 0.3);
+            letter-spacing: 1px;
         }
 
         button[type="submit"]::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transition: transform 0.6s ease;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
         }
 
         button[type="submit"]:hover::before {
-            transform: translate(-50%, -50%) scale(1);
+            left: 100%;
         }
 
         button[type="submit"]:hover {
             transform: translateY(-5px);
-            background: linear-gradient(135deg, #ff6f00, #ff4f00);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 15px 25px rgba(255, 79, 0, 0.5);
         }
 
         /* Workout Routine List */
+        .routine-container {
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+            color: #ff8a00;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff8a00, #ff4f00);
+            border-radius: 2px;
+        }
+
+        .list-group {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
         .list-group-item {
-            background-color: #2e2e2e;
-            border-color: #444;
+            background: rgba(46, 46, 46, 0.7);
+            border: 1px solid rgba(255, 79, 0, 0.2);
             color: #fff;
             font-size: 18px;
-            padding: 20px;
-            border-radius: 25px; /* Fully rounded corners */
-            margin-bottom: 20px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .list-group-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff8a00, #ff4f00);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .list-group-item:hover {
-            transform: translateY(-10px); /* Lift effect */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .list-group-item:hover::before {
+            opacity: 1;
         }
 
         .list-group-item strong {
-            color: #ff4f00;
+            color: #ff8a00;
+            margin-right: 5px;
         }
 
-        .mt-4 {
-            margin-top: 40px;
+        .list-group-item i {
+            margin-right: 15px;
+            color: #ff4f00;
+            font-size: 20px;
+        }
+
+        /* Animated background elements */
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 79, 0, 0.2);
+            z-index: 0;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 7%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(4) {
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
         }
 
         /* Media Queries */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 30px;
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
             }
-
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 26px;
+            }
+            
             button[type="submit"] {
                 font-size: 18px;
-                padding: 12px;
+                padding: 15px;
             }
-
+            
             .list-group-item {
                 font-size: 16px;
+                padding: 15px 20px;
+            }
+            
+            .floating-icon {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            input[type="number"], select {
+                padding: 14px 16px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated background icons -->
+    <i class="floating-icon fas fa-dumbbell"></i>
+    <i class="floating-icon fas fa-running"></i>
+    <i class="floating-icon fas fa-heartbeat"></i>
+    <i class="floating-icon fas fa-bicycle"></i>
 
     <div class="container mt-5">
         <h1>Workout Routine Scheduler</h1>
         <form action="/generate" method="POST">
             <div class="form-group">
-                <label for="weight">Weight (kg):</label>
-                <input type="number" class="form-control" name="weight" required>
+                <label for="weight"><i class="fas fa-weight"></i> Weight (kg):</label>
+                <div class="input-icon">
+                    <input type="number" class="form-control" name="weight" required>
+                    <i class="fas fa-balance-scale"></i>
+                </div>
             </div>
             <div class="form-group">
-                <label for="height">Height (cm):</label>
-                <input type="number" class="form-control" name="height" required>
+                <label for="height"><i class="fas fa-ruler-vertical"></i> Height (cm):</label>
+                <div class="input-icon">
+                    <input type="number" class="form-control" name="height" required>
+                    <i class="fas fa-text-height"></i>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Get the Plan!</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-dumbbell"></i> Generate My Workout Plan!
+            </button>
         </form>
 
         {% if routine %}
-        <div class="mt-4">
-            <h2>Your Workout Routine:</h2>
+        <div class="routine-container">
+            <h2>Your Personalized Workout Routine</h2>
             <ul class="list-group">
                 {% for exercise in routine %}
-                    <li class="list-group-item">{{ exercise }}</li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check-circle"></i> {{ exercise }}
+                    </li>
                 {% endfor %}
             </ul>
         </div>
         {% endif %}
     </div>
 
+    <script>
+        // Add subtle animation to form elements when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const formElements = document.querySelectorAll('.form-group, button');
+            formElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
+    </script>
 </body>
 </html>
