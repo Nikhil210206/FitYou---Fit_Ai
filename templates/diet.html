@@ -161,6 +161,25 @@
         .form-group {
             margin-bottom: 20px;
             position: relative;
+            margin-bottom: 15px;
+
+
+            /* Allow arrows on number input fields */
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: auto;
+                margin: 0;
+            }
+
+            /* For Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+            
+            input[type=number]:hover,
+            input[type=number]:focus {
+                -moz-appearance: number-input;
+            }
         }
 
         label {
@@ -493,18 +512,23 @@
             <div class="form-group">
                 <label for="goal"><i class="fas fa-bullseye"></i> Goal</label>
                 <select id="goal" name="goal" required>
+                    <option value="goal">Select Your Goal</option>
                     <option value="weight gain" {{ 'selected' if form_data and form_data.goal == 'weight gain' else '' }}>Weight Gain</option>
                     <option value="weight loss" {{ 'selected' if form_data and form_data.goal == 'weight loss' else '' }}>Weight Loss</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="duration"><i class="fas fa-calendar-alt"></i> Duration (Weeks)</label>
+                <label for="duration">Duration (Weeks)</label>
+            
                 <input type="number" id="duration" name="duration" min="1" max="52" 
                        value="{{ form_data.duration if form_data else '' }}" required>
+                       
             </div>
             <div class="form-group">
                 <label for="diet_type"><i class="fas fa-leaf"></i> Diet Type</label>
                 <select id="diet_type" name="diet_type" required>
+                    <option value="diet">Select Diet Type</option>
                     <option value="vegetarian" {{ 'selected' if form_data and form_data.diet_type == 'vegetarian' else '' }}>Vegetarian</option>
                     <option value="non-vegetarian" {{ 'selected' if form_data and form_data.diet_type == 'non-vegetarian' else '' }}>Non-Vegetarian</option>
                 </select>
@@ -512,6 +536,7 @@
             <div class="form-group">
                 <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
                 <select id="gender" name="gender" required>
+                    <option value="Gender">Select Your Gender</option>
                     <option value="male" {{ 'selected' if form_data and form_data.gender == 'male' else '' }}>Male</option>
                     <option value="female" {{ 'selected' if form_data and form_data.gender == 'female' else '' }}>Female</option>
                 </select>
@@ -519,6 +544,7 @@
             <div class="form-group">
                 <label for="activity_level"><i class="fas fa-running"></i> Activity Level</label>
                 <select id="activity_level" name="activity_level" required>
+                    <option value="activity">Select Activity Level</option>
                     <option value="sedentary" {{ 'selected' if form_data and form_data.activity_level == 'sedentary' else '' }}>Sedentary</option>
                     <option value="moderate" {{ 'selected' if form_data and form_data.activity_level == 'moderate' else '' }}>Moderate</option>
                     <option value="active" {{ 'selected' if form_data and form_data.activity_level == 'active' else '' }}>Active</option>

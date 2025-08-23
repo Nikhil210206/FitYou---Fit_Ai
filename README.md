@@ -3,12 +3,29 @@
 
 FitAi redefines fitness with AI-driven personalized plans for workouts and diets. Empowering your fitness journey with technology and expertise, FitAi adapts to your goals and lifestyle.
 
-🌐 **Live Deployment:** https://fityou-fit-ai.onrender.com/
+**🌐 Live Deployment:** [Check it out here 👀](https://fityou-fit-ai.onrender.com/)
 
 **Points for issues on leaderboard:** (Currently not started yet)
 1 star - 5 points | 
 2 star - 10 points |
 3 star - 15 points
+
+---
+
+<details>
+  <summary><strong>📑 Table of Contents</strong></summary>
+
+  - [🌟 Key Features](#-key-features)
+  - [💻 Technologies at Work](#-technologies-at-work)
+  - [🎯 Highlights](#-highlights)
+  - [⚙️ How to Install](#️-how-to-install)
+  - [🛠️ Usage](#️-usage)
+  - [🚀 Future Enhancements](#-future-enhancements)
+  - [🤝 Contributions Welcome](#-contributions-welcome)
+  - [📞 Contact](#-contact)
+  - [🙏 Acknowledgments](#-acknowledgments)
+
+</details>
 
 ---
 
