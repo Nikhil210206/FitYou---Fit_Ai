@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Workout Routine Scheduler</title>
+     <link rel="icon" type="image/png" sizes="32x32" href="FY.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-   
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
 <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
@@ -181,13 +181,17 @@
         <h1>Workout Routine Scheduler</h1>
         <form action="/generate" method="POST">
             <div class="form-group">
-                <label for="weight">Weight (kg):</label>
-                <input type="number" class="form-control" name="weight" required>
-            </div>
-            <div class="form-group">
-                <label for="height">Height (cm):</label>
-                <input type="number" class="form-control" name="height" required>
-            </div>
+            <label for="weight">Weight (kg):</label>
+            <input type="number" class="form-control" name="weight" 
+                min="1" value="{{ form_data.weight if form_data else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="height">Height (cm):</label>
+            <input type="number" class="form-control" name="height" 
+                min="1" value="{{ form_data.height if form_data else '' }}" required>
+        </div>
+        
             <button type="submit" class="btn btn-primary">Get the Plan!</button>
         </form>
 

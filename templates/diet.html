@@ -23,7 +23,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #000;
+            background-color: #e6962c;
             color: #fff;
             padding: 20px;
         }
@@ -33,21 +33,21 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #1a1a1a;
+            background-color: #dd8526;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 8px rgb(239, 158, 18);
         }
 
         /* Headings */
         h1 {
             text-align: center;
-            color: #ff4f00;
+            color: #d57826;
             margin-bottom: 20px;
         }
 
         h2 {
             margin-top: 40px;
-            color: #ff4f00;
+            color: #ba641eec;
             text-align: center;
         }
 
@@ -63,7 +63,7 @@
         h4 {
             margin-top: 20px;
             font-size: 18px;
-            color: #fff;
+            color: #e8a342;
             text-transform: capitalize;
         }
 
@@ -74,6 +74,24 @@
 
         .form-group {
             margin-bottom: 15px;
+
+
+            /* Allow arrows on number input fields */
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: auto;
+                margin: 0;
+            }
+
+            /* For Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+            
+            input[type=number]:hover,
+            input[type=number]:focus {
+                -moz-appearance: number-input;
+            }
         }
 
         label {
@@ -237,8 +255,10 @@
             </div>
             <div class="form-group">
                 <label for="duration">Duration (Weeks)</label>
+            
                 <input type="number" id="duration" name="duration" min="1" max="52" 
                        value="{{ form_data.duration if form_data else '' }}" required>
+                       
             </div>
             <div class="form-group">
                 <label for="diet_type">Diet Type</label>
@@ -323,9 +343,10 @@
         let healthConditions = [];
 
         // Show diet plan if it exists
-        {% if diet_plan %}
-        document.getElementById("dietPlan").style.display = "block";
-        {% endif %}
+        var hasDietPlan = "{{ 'true' if diet_plan else 'false' }}";
+        if (hasDietPlan === true || hasDietPlan === 'true') {
+            document.getElementById("dietPlan").style.display = "block";
+        }
 
         // Handle medical certificate upload
         document.getElementById("medical_certificate").addEventListener("change", function(event) {

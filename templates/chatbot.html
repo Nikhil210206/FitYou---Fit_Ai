@@ -6,7 +6,12 @@
     <title>FitAI - Your Personal Fitness Coach</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-   
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
     <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
@@ -119,6 +124,41 @@
             content: "🤖 FitAI: ";
             font-weight: 600;
             color: #ff4f00;
+        }
+        
+        /* NEW: STYLES FOR BETTER MARKDOWN FORMATTING */
+        .ai-message p {
+            margin-bottom: 0.5em; /* Add space between paragraphs */
+        }
+        .ai-message p:last-child {
+            margin-bottom: 0;
+        }
+        .ai-message ul, .ai-message ol {
+            padding-left: 1.5em; /* Indent lists */
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+        .ai-message li {
+            margin-bottom: 0.25em; /* Space between list items */
+        }
+        .ai-message pre {
+            background-color: #1e1e1e;
+            padding: 1em;
+            border-radius: 8px;
+            margin: 0.5em 0;
+            white-space: pre-wrap; /* Wrap long lines of code */
+            word-wrap: break-word;
+        }
+        .ai-message code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        .ai-message blockquote {
+            border-left: 4px solid #ff4f00;
+            padding-left: 1em;
+            margin: 0.5em 0;
+            color: #ccc;
+            font-style: italic;
         }
 
         .typing-indicator {
@@ -367,17 +407,14 @@
             const chatMessages = document.getElementById('chatMessages');
             const sendBtn = document.getElementById('sendBtn');
 
-            // Hide welcome message if it exists
             const welcomeMessage = document.querySelector('.welcome-message');
             if (welcomeMessage) {
                 welcomeMessage.style.display = 'none';
             }
 
-            // Add user message
             addMessage(message, 'user');
             messageInput.value = '';
 
-            // Show typing indicator
             const typingIndicator = document.createElement('div');
             typingIndicator.className = 'typing-indicator';
             typingIndicator.innerHTML = `
@@ -390,7 +427,6 @@
             chatMessages.appendChild(typingIndicator);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Disable input and button
             isLoading = true;
             messageInput.disabled = true;
             sendBtn.disabled = true;
@@ -403,13 +439,11 @@
                     },
                     body: JSON.stringify({
                         message: message,
-                        context: {} // You can add user context here if needed
+                        context: {}
                     })
                 });
 
                 const data = await response.json();
-
-                // Remove typing indicator
                 typingIndicator.remove();
 
                 if (data.status === 'success') {
@@ -423,7 +457,6 @@
                 typingIndicator.remove();
                 showError('Failed to connect to AI coach. Please try again later.');
             } finally {
-                // Re-enable input and button
                 isLoading = false;
                 messageInput.disabled = false;
                 sendBtn.disabled = false;
@@ -435,10 +468,20 @@
             const chatMessages = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
-            messageDiv.textContent = content;
+            
+            if (type === 'ai') {
+                // For AI messages, parse the Markdown into HTML
+                messageDiv.innerHTML = marked.parse(content);
+            } else {
+                // For user messages, use plain text to be safe
+                messageDiv.textContent = content;
+            }
             
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // NEW: Initialize syntax highlighting on the new content
+            hljs.highlightAll();
         }
 
         function showError(message) {
@@ -448,13 +491,11 @@
             
             document.querySelector('.chat-messages').appendChild(errorDiv);
             
-            // Remove error message after 5 seconds
             setTimeout(() => {
                 errorDiv.remove();
             }, 5000);
         }
 
-        // Focus on input when page loads
         window.addEventListener('load', () => {
             document.getElementById('messageInput').focus();
         });
