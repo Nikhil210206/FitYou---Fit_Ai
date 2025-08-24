@@ -74,6 +74,24 @@
 
         .form-group {
             margin-bottom: 15px;
+
+
+            /* Allow arrows on number input fields */
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: auto;
+                margin: 0;
+            }
+
+            /* For Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+            
+            input[type=number]:hover,
+            input[type=number]:focus {
+                -moz-appearance: number-input;
+            }
         }
 
         label {
@@ -219,10 +237,28 @@
                        value="{{ form_data.age if form_data else '' }}" required>
             </div>
             <div class="form-group">
-                <label for="height">Height (cm)</label>
-                <input type="number" id="height" name="height" min="50" max="300" 
-                       value="{{ form_data.height if form_data else '' }}" required>
+                <label for="height_unit">Height</label>
+                <select id="height_unit" name="height_unit" onchange="toggleHeightInputs()" class="form-control">
+                    <option value="cm" selected>Centimeters</option>
+                    <option value="ft_in">Feet & Inches</option>
+                </select>
+
+            <!-- Centimeter input -->
+            <div id="cm_input" style="margin-top:10px;">
+                <input type="number" id="height_cm" name="height_cm" min="50" max="300"
+                    value="{{ form_data.height if form_data else '' }}" placeholder="Enter height in cm">
             </div>
+
+            <!-- Feet & Inches input -->
+            <div id="ft_in_input" style="display:none; margin-top:10px;">
+                <input type="number" id="height_ft" placeholder="Feet" min="1" max="8">
+                <input type="number" id="height_in" placeholder="Inches" min="0" max="11">
+            </div>
+
+            <!-- Final hidden input sent to backend (always in cm) -->
+            <input type="hidden" id="height" name="height" required>
+        </div>
+
             <div class="form-group">
                 <label for="weight">Weight (kg)</label>
                 <input type="number" id="weight" name="weight" min="20" max="500" 
@@ -237,8 +273,10 @@
             </div>
             <div class="form-group">
                 <label for="duration">Duration (Weeks)</label>
+            
                 <input type="number" id="duration" name="duration" min="1" max="52" 
                        value="{{ form_data.duration if form_data else '' }}" required>
+                       
             </div>
             <div class="form-group">
                 <label for="diet_type">Diet Type</label>
@@ -323,9 +361,10 @@
         let healthConditions = [];
 
         // Show diet plan if it exists
-        {% if diet_plan %}
-        document.getElementById("dietPlan").style.display = "block";
-        {% endif %}
+        var hasDietPlan = "{{ 'true' if diet_plan else 'false' }}";
+        if (hasDietPlan === true || hasDietPlan === 'true') {
+            document.getElementById("dietPlan").style.display = "block";
+        }
 
         // Handle medical certificate upload
         document.getElementById("medical_certificate").addEventListener("change", function(event) {
@@ -395,6 +434,40 @@
             // Ensure health conditions are included
             updateHealthConditionsInput();
         });
+
+        const heightUnitSelect = document.getElementById("height_unit");
+    const cmInputDiv = document.getElementById("cm_input");
+    const ftInInputDiv = document.getElementById("ft_in_input");
+
+    function toggleHeightInputs() {
+        if (heightUnitSelect.value === "cm") {
+            cmInputDiv.style.display = "block";
+            ftInInputDiv.style.display = "none";
+        } else {
+            cmInputDiv.style.display = "none";
+            ftInInputDiv.style.display = "block";
+        }
+    }
+
+    heightUnitSelect.addEventListener("change", toggleHeightInputs);
+    toggleHeightInputs(); // initialize correct view
+
+    // Convert height before form submission
+    document.getElementById("dietForm").addEventListener("submit", function(event) {
+        updateHealthConditionsInput();
+
+        let heightCm = 0;
+        if (heightUnitSelect.value === "cm") {
+            heightCm = parseFloat(document.getElementById("height_cm").value) || 0;
+        } else {
+            const feet = parseFloat(document.getElementById("height_ft").value) || 0;
+            const inches = parseFloat(document.getElementById("height_in").value) || 0;
+            heightCm = (feet * 30.48) + (inches * 2.54);
+        }
+        document.getElementById("height").value = heightCm.toFixed(2);
+    });
+
+
     </script>
 </body>
 </html>
