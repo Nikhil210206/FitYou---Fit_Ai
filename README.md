@@ -1,14 +1,32 @@
+[![OSCI-Project-Banner.png](https://i.postimg.cc/76mJvBmF/OSCI-Project-Banner.png)](https://postimg.cc/8JfzMb84)
 # FitAi: Your AI Fitness Companion 🌟
 
 FitAi redefines fitness with AI-driven personalized plans for workouts and diets. Empowering your fitness journey with technology and expertise, FitAi adapts to your goals and lifestyle.
 
-🌐 **Live Deployment:** https://fit--ai.vercel.app
-**Netlify** https://fityou-fitai.netlify.app (link needed to be fixed)
+**🌐 Live Deployment:** [Check it out here 👀](https://fityou-fit-ai.onrender.com/)
 
 **Points for issues on leaderboard:** (Currently not started yet)
 1 star - 5 points | 
 2 star - 10 points |
 3 star - 15 points
+
+---
+
+<details>
+  <summary><strong>📑 Table of Contents</strong></summary>
+
+  - [🌟 Key Features](#-key-features)
+  - [💻 Technologies at Work](#-technologies-at-work)
+  - [🎯 Highlights](#-highlights)
+  - [⚙️ How to Install](#️-how-to-install)
+  - [🛠️ Usage](#️-usage)
+  - [🚀 Future Enhancements](#-future-enhancements)
+  - [🤝 Contributions Welcome](#-contributions-welcome)
+  - [📞 Contact](#-contact)
+  - [🙏 Acknowledgments](#-acknowledgments)
+  - [📜 License](#-license)
+
+</details>
 
 ---
 
@@ -117,6 +135,12 @@ http://localhost:3000
 - My incredible team and contributors.  
 - Open-source tools and libraries.  
 - The fitness community for endless inspiration.  
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.
 
 ---
 

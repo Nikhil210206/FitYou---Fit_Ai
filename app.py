@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
 import random
 import pandas as pd
 import os
@@ -17,56 +17,61 @@ import datetime
 from typing import Dict, Any
 
 
+import logging
+
+# STEP 1: ADDED NEW IMPORTS
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+# STEP 2: LOAD ENVIRONMENT VARIABLES FROM .env FILE
+load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY', 'fallback-secret-key-change-in-production')
 
-# Rule-based fitness chatbot for Vercel compatibility
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# STEP 3: REPLACED THE OLD FUNCTION WITH THE NEW GEMINI-POWERED FUNCTION
 def chat_with_fitness_ai(message, context=""):
     """
-    Rule-based fitness AI response system that works in Vercel
+    Handles conversation with the Gemini API to provide fitness advice.
     """
-    message_lower = message.lower()
+    # Get the API key you stored in the .env file
+    api_key = os.getenv("GEMINI_API_KEY")
     
-    # Fitness advice patterns
-    if any(word in message_lower for word in ['workout', 'exercise', 'training']):
-        if 'beginner' in message_lower:
-            return "For beginners, start with 20-30 minutes of cardio 3 times a week. Focus on form over intensity. Try walking, cycling, or swimming to build endurance safely."
-        elif 'strength' in message_lower:
-            return "Start with bodyweight exercises: push-ups, squats, lunges, and planks. Do 2-3 sets of 10-15 reps. Rest 1-2 minutes between sets."
-        else:
-            return "A good workout routine includes: 1) 5-10 min warm-up, 2) 20-40 min main exercise, 3) 5-10 min cool-down. Aim for 150 minutes of moderate activity weekly."
+    if not api_key:
+        logger.error("Gemini API key is not configured in .env file.")
+        return "Error: The AI Coach is not configured correctly. Please contact the administrator."
     
-    elif any(word in message_lower for word in ['diet', 'nutrition', 'food', 'eat']):
-        if 'weight loss' in message_lower:
-            return "For weight loss: Create a 500-calorie daily deficit, eat protein-rich foods, include vegetables, and stay hydrated. Track your meals and be consistent."
-        elif 'muscle' in message_lower:
-            return "For muscle building: Eat 1.6-2.2g protein per kg body weight daily. Include complex carbs, healthy fats, and eat in a slight calorie surplus."
-        else:
-            return "A balanced diet includes: lean proteins, whole grains, fruits, vegetables, and healthy fats. Stay hydrated with 8-10 glasses of water daily."
+    try:
+        # Configure the Gemini library with your key
+        genai.configure(api_key=api_key)
+        
+        # Define the AI's persona and instructions
+        system_prompt = (
+            "You are FitAI, a professional, friendly, and encouraging AI fitness coach. "
+            "Your expertise includes workout routines, nutrition, injury prevention, and motivation. "
+            "Provide safe, clear, and actionable advice. If a question is outside the scope of "
+            "fitness, health, or nutrition, you must politely state that you can only answer fitness-related questions. "
+            "Keep your responses focused and easy to understand."
+        )
+        
+        # Combine your instructions with the user's actual question
+        full_prompt = f"{system_prompt}\n\nUser's question: {message}"
+        
+        # Call the Gemini model to get a response
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(full_prompt)
+        
+        # Send the AI's text response back to the user
+        return response.text
     
-    elif any(word in message_lower for word in ['motivation', 'motivated', 'tired']):
-        return "Remember why you started! Set small, achievable goals. Celebrate progress, not perfection. Find a workout buddy or join a fitness community for support."
-    
-    elif any(word in message_lower for word in ['injury', 'pain', 'hurt']):
-        return "If you're experiencing pain, stop exercising immediately. Rest, ice, compress, and elevate (RICE). Consult a healthcare professional for persistent pain."
-    
-    elif any(word in message_lower for word in ['goal', 'target', 'aim']):
-        return "Set SMART goals: Specific, Measurable, Achievable, Relevant, and Time-bound. Break big goals into smaller milestones. Track your progress regularly."
-    
-    elif any(word in message_lower for word in ['form', 'technique', 'proper']):
-        return "Proper form is crucial! Start with lighter weights, focus on controlled movements, and consider working with a certified trainer. Quality over quantity always."
-    
-    elif any(word in message_lower for word in ['rest', 'recovery', 'sleep']):
-        return "Rest days are essential! Aim for 7-9 hours of sleep, take 1-2 rest days per week, and listen to your body. Recovery is when your body gets stronger."
-    
-    elif any(word in message_lower for word in ['cardio', 'aerobic', 'endurance']):
-        return "Cardio improves heart health and burns calories. Start with 20-30 minutes of moderate activity like brisk walking, cycling, or swimming. Gradually increase duration and intensity."
-    
-    elif any(word in message_lower for word in ['hiit', 'interval', 'intense']):
-        return "HIIT workouts are great for burning fat and improving fitness. Try 30 seconds of high-intensity exercise followed by 30 seconds of rest. Repeat for 10-20 minutes."
-    
-    else:
-        return "I'm FitAI, your fitness coach! I can help with workout routines, nutrition advice, motivation, injury prevention, and fitness goals. What specific fitness topic would you like to discuss?"
+    except Exception as e:
+        # This will catch any errors if the API fails for some reason
+        logger.error(f"An error occurred with the Gemini API: {e}")
+        return "Sorry, I'm having a little trouble connecting to my brain right now. Please try again in a moment."
 
 def get_fitness_context(user_data=None):
     """
@@ -77,52 +82,76 @@ def get_fitness_context(user_data=None):
     return ""
 
 def load_exercises():
+    """Load exercises with error handling"""
     try:
-        return pd.read_csv('exercises.csv')
+        if not os.path.exists('exercises.csv'):
+            logger.error("exercises.csv file not found")
+            return pd.DataFrame()  # Return empty DataFrame
+        
+        df = pd.read_csv('exercises.csv')
+        
+        # Validate required columns
+        required_columns = ['category', 'exercise_name', 'reps_min', 'reps_max']
+        missing_columns = set(required_columns) - set(df.columns)
+        
+        if missing_columns:
+            logger.error(f"Missing columns in exercises.csv: {missing_columns}")
+            return pd.DataFrame()
+        
+        return df
+    
     except Exception as e:
-        print(f"Error loading exercises: {e}")
+        logger.error(f"Error loading exercises.csv: {e}")
         return pd.DataFrame()
 
 # Routine generator logic using the dataset
 def output(intensity):
     df = load_exercises()  # Load dataset
-    routine_list = []
     
     if df.empty:
-        return ["No exercises available. Please check your exercises.csv file."]
-
+        logger.warning("No exercises data available, returning default routine")
+        return ["Push-ups - 10 reps", "Squats - 15 reps", "Plank - 30 seconds"]
+    
+    routine_list = []
+    
     def add_exercises(category, max_intensity_ratio):
         max_intensity = intensity * max_intensity_ratio
         current_sum = 0
-
         category_exercises = df[df['category'] == category]  # Filter by category
-
+        
+        if category_exercises.empty:
+            logger.warning(f"No exercises found for category: {category}")
+            return
+        
         for _, exercise in category_exercises.iterrows():
             current_sum += 1  # Each exercise counts as one in the total
-            if max_intensity > current_sum:
+            if max_intensity > current_sum:  # FIXED: Changed &gt; to >
                 reps_min = exercise['reps_min']
                 reps_max = exercise['reps_max']
-
+                
                 if pd.notnull(reps_min) and pd.notnull(reps_max):
-                    reps = random.randint(reps_min, reps_max)
+                    reps = random.randint(int(reps_min), int(reps_max))
                     routine_list.append(f"{exercise['exercise_name']} - {reps} reps")
                 else:
                     routine_list.append(f"{exercise['exercise_name']} - Duration-based")
             else:
                 break
-
+    
     # Add warmup, main exercises, and cooldown
     add_exercises('warmup', 0.2)
     add_exercises('exercise', 0.6)
     add_exercises('cooldown', 0.2)
-
-    return routine_list
+    
+    return routine_list if routine_list else ["No exercises available"]
 
 # Function to calculate BMI and adjust intensity
 def calculate_intensity(weight, height):
+    if height <= 0 or weight <= 0:
+        return 50  # Default intensity for invalid inputs
+        
     height_in_meters = height / 100
     bmi = weight / (height_in_meters ** 2)
-
+    
     if bmi < 18.5:
         return 50  # Low intensity for underweight
     elif 18.5 <= bmi < 24.9:
@@ -141,11 +170,22 @@ def generate():
     try:
         weight = float(request.form['weight'])
         height = float(request.form['height'])
+        
+        if weight <= 0 or height <= 0:
+            flash("Please enter valid weight and height values", "error")
+            return render_template('index.html')
+        
         intensity = calculate_intensity(weight, height)
         routine = output(intensity)
         return render_template('index.html', routine=routine)
+    
+    except ValueError:
+        flash("Please enter numeric values for weight and height", "error")
+        return render_template('index.html')
     except Exception as e:
-        return render_template('index.html', error=f"Error generating routine: {str(e)}")
+        logger.error(f"Error generating routine: {e}")
+        flash("An error occurred while generating your routine", "error")
+        return render_template('index.html')
 
 @app.route("/")
 def diet():
@@ -153,14 +193,34 @@ def diet():
 
 # Load diet data from CSV
 def load_diet_data():
+    """Load diet data with error handling"""
     try:
-        return pd.read_csv('diet_data.csv')
+        if not os.path.exists('diet_data.csv'):
+            logger.error("diet_data.csv file not found")
+            return pd.DataFrame()
+        
+        df = pd.read_csv('diet_data.csv')
+        
+        # Validate required columns
+        required_columns = ['diet_type', 'meal_type', 'food_item', 'calories']
+        missing_columns = set(required_columns) - set(df.columns)
+        
+        if missing_columns:
+            logger.error(f"Missing columns in diet_data.csv: {missing_columns}")
+            return pd.DataFrame()
+        
+        # Clean data
+        df['meal_type'] = df['meal_type'].str.strip()
+        df['diet_type'] = df['diet_type'].str.strip()
+        
+        return df
+    
     except Exception as e:
-        print(f"Error loading diet data: {e}")
+        logger.error(f"Error loading diet_data.csv: {e}")
         return pd.DataFrame()
 
 class WeeklyDietPlan:
-    def __init__(self, age, height, weight, goal, duration, diet_type, gender, activity_level):
+    def __init__(self, age, height, weight, goal, duration, diet_type, gender, activity_level, health_conditions=None):
         self.age = age
         self.height = height
         self.weight = weight
@@ -169,17 +229,23 @@ class WeeklyDietPlan:
         self.diet_type = diet_type
         self.gender = gender
         self.activity_level = activity_level
+        self.health_conditions = health_conditions or []
         self.bmr = self.calculate_bmr()
         self.daily_calories = self.adjust_calories()
         self.diet_data = load_diet_data()  # Load dataset here
+        
+        # Validate data before proceeding
+        if self.diet_data.empty:
+            raise ValueError("Diet data could not be loaded. Please check diet_data.csv file.")
+        
         self.plan = self.create_diet_plan()
-
+    
     def calculate_bmr(self):
         if self.gender == 'male':
             return 10 * self.weight + 6.25 * self.height - 5 * self.age + 5
         else:
             return 10 * self.weight + 6.25 * self.height - 5 * self.age - 161
-
+    
     def adjust_calories(self):
         if self.goal == 'weight gain':
             return self.bmr + 500
@@ -187,35 +253,113 @@ class WeeklyDietPlan:
             return self.bmr - 500
         else:
             return self.bmr  # Maintenance
-
+    
     def create_diet_plan(self):
+        # Adjust diet based on health conditions
+        adjusted_diet_type = self.adjust_diet_for_health_conditions()
+        
         if self.diet_type == 'weight gain':
-            return {f'Day {i+1}': self.get_meal_plan(i+1, 'weight_gain') for i in range(7)}
+            return {f'Day {i+1}': self.get_meal_plan(i+1, 'weight_gain', adjusted_diet_type) for i in range(7)}
         elif self.diet_type == 'weight loss':
-            return {f'Day {i+1}': self.get_meal_plan(i+1, 'weight_loss') for i in range(7)}
+            return {f'Day {i+1}': self.get_meal_plan(i+1, 'weight_loss', adjusted_diet_type) for i in range(7)}
         else:
-            return {}
-
-    def get_meal_plan(self, day, diet_type):
+            return {f'Day {i+1}': self.get_meal_plan(i+1, 'maintenance', adjusted_diet_type) for i in range(7)}
+    
+    def adjust_diet_for_health_conditions(self):
+        """Adjust diet recommendations based on health conditions"""
+        if not self.health_conditions:
+            return self.diet_type
+        
+        # Health condition specific adjustments
+        if 'Diabetes' in self.health_conditions:
+            return 'diabetic_friendly'
+        elif 'High Blood Pressure' in self.health_conditions:
+            return 'low_sodium'
+        elif 'Heart Disease' in self.health_conditions:
+            return 'heart_healthy'
+        elif 'High Cholesterol' in self.health_conditions:
+            return 'low_cholesterol'
+        else:
+            return self.diet_type
+    
+    def get_meal_plan(self, day, diet_type, adjusted_diet_type):
         # Filter the dataset by diet_type
-        if self.diet_data.empty:
-            return {"Error": "Diet data not available"}
-            
         meals = self.diet_data[self.diet_data['diet_type'] == diet_type]
+        
+        # FIXED: Add validation for empty meals dataset
         if meals.empty:
-            return {"Error": f"No meals found for {diet_type}"}
+            logger.warning(f"No meals found for diet type: {diet_type}")
+            # Try with original diet_type if adjusted_diet_type failed
+            if adjusted_diet_type != diet_type:
+                meals = self.diet_data[self.diet_data['diet_type'] == self.diet_type]
             
+            # If still empty, use any available meals
+            if meals.empty:
+                meals = self.diet_data
+            
+            # If completely empty, return default plan
+            if meals.empty:
+                return self.get_default_meal_plan()
+        
         meal_plan = {}
-
+        
+        # Get available meal types from data
+        available_meal_types = meals['meal_type'].unique()
+        
+        # Define preferred meal types (can be customized)
+        preferred_meal_types = ['Breakfast', 'Mid-Morning', 'Lunch', 'Afternoon Snack', 'Dinner', 'Before Bed']
+        
+        # Use available meal types or fall back to preferred ones
+        meal_types_to_use = []
+        for meal_type in preferred_meal_types:
+            if meal_type in available_meal_types:
+                meal_types_to_use.append(meal_type)
+        
+        # If no preferred types available, use what's available
+        if not meal_types_to_use:
+            meal_types_to_use = list(available_meal_types)[:6]  # Limit to 6 meals max
+        
         # Group meals by meal_type and generate the plan
-        for meal_type in ['Breakfast', 'Mid-Morning', 'Lunch', 'Afternoon Snack', 'Dinner', 'Before Bed']:
-            try:
-                selected_meal = meals[meals['meal_type'] == meal_type].sample(1).iloc[0]  # Pick one random meal for each type
+        for meal_type in meal_types_to_use:
+            meal_options = meals[meals['meal_type'] == meal_type]
+            
+            # FIXED: Check if meal options exist before sampling
+            if not meal_options.empty:
+                selected_meal = meal_options.sample(1).iloc[0]  # Pick one random meal for each type
                 meal_plan[meal_type] = f"{selected_meal['food_item']} - {selected_meal['calories']} calories"
-            except Exception as e:
-                meal_plan[meal_type] = f"Meal not available - {meal_type}"
+            else:
+                # Provide a fallback meal
+                meal_plan[meal_type] = f"Default {meal_type.lower()} - Contact nutritionist for specific recommendations"
+        
+        # Add health condition specific notes
+        if adjusted_diet_type != diet_type:
+            meal_plan['Health Notes'] = self.get_health_specific_notes(adjusted_diet_type)
         
         return meal_plan
+    
+    def get_default_meal_plan(self):
+        """Return a default meal plan when no data is available"""
+        return {
+            'Breakfast': 'Oatmeal with fruits - 300 calories',
+            'Mid-Morning': 'Mixed nuts - 150 calories',
+            'Lunch': 'Grilled chicken with vegetables - 500 calories',
+            'Afternoon Snack': 'Greek yogurt - 120 calories',
+            'Dinner': 'Fish with quinoa - 450 calories',
+            'Before Bed': 'Herbal tea - 0 calories',
+            'Health Notes': 'Default plan - Please consult a nutritionist for personalized recommendations'
+        }
+    
+    def get_health_specific_notes(self, adjusted_diet_type):
+        """Get specific dietary notes based on health conditions"""
+        # FIXED: Added missing closing brace
+        notes = {
+            'diabetic_friendly': 'Focus on low glycemic index foods, monitor carbohydrate intake',
+            'low_sodium': 'Limit salt intake, avoid processed foods, use herbs for flavoring',
+            'heart_healthy': 'Emphasize omega-3 fatty acids, limit saturated fats',
+            'low_cholesterol': 'Reduce animal fats, increase fiber intake, focus on plant-based proteins'
+        }
+        
+        return notes.get(adjusted_diet_type, '')
 
 @app.route("/diet", methods=["GET", "POST"])
 def diet_plan():
@@ -226,16 +370,40 @@ def diet_plan():
             height = float(request.form["height"])
             weight = float(request.form["weight"])
             goal = request.form["goal"]
-            duration = request.form["duration"]
+            duration = int(request.form["duration"])
             diet_type = request.form["diet_type"]
             gender = request.form["gender"]
             activity_level = request.form["activity_level"]
-
-            user = WeeklyDietPlan(age, height, weight, goal, duration, diet_type, gender, activity_level)
+            
+            # Validate inputs
+            if age <= 0 or height <= 0 or weight <= 0 or duration <= 0:
+                flash("Please enter valid positive values for all fields", "error")
+                return render_template("diet.html")
+            
+            # Get health conditions if provided
+            health_conditions = []
+            if "health_conditions" in request.form:
+                try:
+                    health_conditions = json.loads(request.form["health_conditions"])
+                except (json.JSONDecodeError, KeyError):
+                    health_conditions = []
+            
+            user = WeeklyDietPlan(age, height, weight, goal, duration, diet_type, gender, activity_level, health_conditions)
             diet_plan = user.plan
+            
+        except ValueError as e:
+            if "a must be greater than 0" in str(e):
+                flash("Unable to generate meal plan. Please check your dietary preferences.", "error")
+            else:
+                flash("Please enter valid numeric values", "error")
+            logger.error(f"Diet plan generation failed: {e}")
+            return render_template("diet.html")
+        
         except Exception as e:
-            return render_template("diet.html", error=f"Error creating diet plan: {str(e)}")
-
+            flash("An error occurred while generating your meal plan. Please try again.", "error")
+            logger.error(f"Diet plan generation failed: {e}")
+            return render_template("diet.html")
+    
     return render_template("diet.html", diet_plan=diet_plan)
 
 @app.route('/sport', methods=['GET', 'POST'])
@@ -706,3 +874,118 @@ def adjust_meal():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
+@app.route('/upload_medical_certificate', methods=['POST'])
+def upload_medical_certificate():
+    """Handle medical certificate upload and extract health conditions"""
+    try:
+        if 'medical_certificate' not in request.files:
+            return jsonify({'success': False, 'error': 'No file uploaded'}), 400
+        
+        file = request.files['medical_certificate']
+        if file.filename == '':
+            return jsonify({'success': False, 'error': 'No file selected'}), 400
+        
+        # Check file type
+        allowed_extensions = {'txt', 'pdf', 'docx'}
+        file_extension = file.filename.rsplit('.', 1)[1].lower() if '.' in file.filename else ''
+        
+        if file_extension not in allowed_extensions:
+            return jsonify({'success': False, 'error': 'File type not supported. Please upload PDF, DOCX, or TXT files.'}), 400
+        
+        # Extract text based on file type
+        text_content = ""
+        if file_extension == 'txt':
+            # Handle text files
+            try:
+                text_content = file.read().decode('utf-8')
+            except UnicodeDecodeError:
+                text_content = file.read().decode('latin-1')
+                
+        elif file_extension == 'pdf':
+            # For PDFs, we'll return a message asking users to copy-paste text
+            # This avoids heavy PyPDF2 dependency
+            return jsonify({
+                'success': False,
+                'error': 'PDF processing requires text extraction. Please copy-paste the text content or convert to TXT format.'
+            }), 400
+            
+        elif file_extension == 'docx':
+            # For DOCX files, we'll return a message asking users to copy-paste text
+            # This avoids heavy python-docx dependency
+            return jsonify({
+                'success': False,
+                'error': 'DOCX processing requires text extraction. Please copy-paste the text content or convert to TXT format.'
+            }), 400
+        
+        # Detect health conditions from text
+        health_conditions = detect_health_conditions_from_text(text_content)
+        
+        # Format conditions for display
+        conditions_text = ', '.join(health_conditions) if health_conditions else 'None'
+        
+        return jsonify({
+            'success': True,
+            'health_conditions': health_conditions,
+            'conditions_text': conditions_text
+        })
+        
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Error processing file: {str(e)}'}), 500
+
+def detect_health_conditions_from_text(text):
+    """Detect health conditions from text content"""
+    if not text:
+        return []
+    
+    text_lower = text.lower()
+    detected_conditions = []
+    
+    # Medical condition keywords mapping
+    conditions = {
+        "diabetes": "Diabetes",
+        "diabetic": "Diabetes",
+        "blood sugar": "Diabetes",
+        "glucose": "Diabetes",
+        "high blood pressure": "High Blood Pressure",
+        "hypertension": "High Blood Pressure",
+        "bp": "High Blood Pressure",
+        "heart disease": "Heart Disease",
+        "cardiac": "Heart Disease",
+        "coronary": "Heart Disease",
+        "asthma": "Asthma",
+        "respiratory": "Respiratory Issues",
+        "cancer": "Cancer",
+        "tumor": "Cancer",
+        "malignant": "Cancer",
+        "kidney disease": "Kidney Disease",
+        "renal": "Kidney Disease",
+        "lung disease": "Lung Disease",
+        "pulmonary": "Lung Disease",
+        "arthritis": "Arthritis",
+        "thyroid": "Thyroid Disorder",
+        "cholesterol": "High Cholesterol",
+        "migraine": "Migraine",
+        "depression": "Depression",
+        "anxiety": "Anxiety"
+    }
+    
+    # Check for each condition
+    for keyword, condition in conditions.items():
+        if keyword in text_lower and condition not in detected_conditions:
+            detected_conditions.append(condition)
+    
+    return detected_conditions
+
+# Error handlers
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    logger.error(f"Internal server error: {e}")
+    return render_template('500.html'), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)

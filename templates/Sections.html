@@ -22,13 +22,14 @@
             padding: 0;
             height: 100%;
             font-family: 'Roboto', sans-serif;
-            background-color: #000;
+            background-color: #d1752f;
             color: #fff;
         }
 
         /* Navbar Styles */
         .navbar {
-            background-color: #333;
+            color: #d38628;
+            background-color: #de7b19;
             border: none;
             border-radius: 0;
             margin-bottom: 0;
@@ -43,16 +44,23 @@
         .navbar-brand:hover,
         .navbar-nav li a:hover {
             color: #fff !important;
+        .navbar-brand, .navbar-nav li a {
+            color: #d1741c !important;
+            font-size: 18px;
+        }
+
+        .navbar-brand:hover, .navbar-nav li a:hover {
+            color: #efa65d !important;
         }
 
         .navbar-nav li.active a {
-            background-color: #ff4f00 !important;
-            color: #fff !important;
+            background-color: #df6c14 !important;
+            color: #eba63f !important;
         }
 
         /* Background gradient */
         .bg {
-            background: linear-gradient(#000, #333);
+            background: linear-gradient(#c9891188, #996636);
             height: 40%;
             background-position: center;
             background-repeat: no-repeat;
@@ -61,25 +69,28 @@
 
         /* Title Styling */
         .top-right {
-            padding: 20px;
+            padding: 25px;
             top: 260px;
             font-size: 40px;
-            text-shadow: 2px 2px 2px #000;
-            color: #ff4f00;
+            text-shadow: 2px 2px 2px #d38628;
+            color: #cd7f11e1;
             text-align: center;
         }
 
         .top-right1 {
-            padding: 20px;
+            padding: 30px;
             position: absolute;
             top: 120px;
-            font-size: 100px;
+            font-size: 95px;
             right: 50%;
             transform: translateX(50%);
             /* Center the text */
             color: #fff;
             font-family: 'Playfair Display', serif;
             /* Change to Playfair Display */
+            transform: translateX(50%); /* Center the text */
+            color: #ef9324;
+            font-family: 'Playfair Display', serif; /* Change to Playfair Display */
             text-align: center;
         }
 
@@ -95,6 +106,15 @@
             box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
             color: #fff;
             padding: 20px 10px;
+        .lay, .lay1, .lay2 {
+            height: 180px;
+            border-style: round;
+            border-radius: 12px;
+            padding: 20px;
+            width: 230px;
+            box-shadow: 2px 2px 5px rgba(222, 195, 61, 0.981);
+            color: #e38c22;
+            padding: 20px 4px;
             text-align: center;
             font-size: 24px;
             transition: .5s;
@@ -102,7 +122,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border-color: #ff4f00;
+            border-color: #e77d19;
+            background-color:  #e77d19;
+
         }
 
         .lay {
@@ -122,13 +144,16 @@
         .lay2:hover {
             background-color: #ff4f00;
             color: white;
+        .lay:hover, .lay1:hover, .lay2:hover {
+            background-color: #d28d1e;
+            color: rgb(245, 163, 21);
             cursor: pointer;
             opacity: 1;
         }
 
         /* Form Styles */
         .container {
-            max-width: 100%;
+            max-width: 80%;
             margin: 20px auto;
         }
 
@@ -141,8 +166,8 @@
             }
 
             h2 {
-                font-weight: 300;
-                font-size: 20px;
+                font-weight: 200;
+                font-size: 10px;
             }
         }
     </style>
@@ -173,7 +198,7 @@
     <h1 class="top-right1">FitYou</h1>
     <h2 class="top-right"><b>Stronger every rep, fitter every step!</b></h2>
 
-    <div class="container text-center">
+    <div class="container justify-center  bg-orange-400">
         <div class="row">
             <!-- Sports Section -->
             <div class="col-sm-4">
