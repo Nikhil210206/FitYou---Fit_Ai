@@ -317,6 +317,38 @@
             cursor: not-allowed;
         }
 
+        #micBtn {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #444, #ff4f00);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        #micBtn:hover {
+            background: linear-gradient(135deg, #ff4f00, #e64300);
+        }
+
+        #muteBtn {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #444, #888);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        #muteBtn:hover {
+            background: linear-gradient(135deg, #888, #444);
+        }
+
         .welcome-message {
             text-align: center;
             padding: 40px 20px;
@@ -426,7 +458,7 @@
         <div class="chat-header">
             <a href="/" class="back-btn">
                 <i class="fas fa-arrow-left"></i>
-                Back
+                <span>Back</span>
             </a>
             <h1>🤖 FitAI Coach</h1>
             <p>Your Personal AI Fitness & Nutrition Expert</p>
@@ -458,14 +490,21 @@
                 <button id="sendBtn" onclick="sendMessage()">
                     <i class="fas fa-paper-plane"></i>
                 </button>
+                <button id="micBtn" onclick="startListening()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button id="muteBtn" onclick="toggleMute()" title="Mute/Unmute">
+                    <i class="fas fa-volume-mute"></i>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         let isLoading = false;
-
-        // Send message when Enter is pressed
+        let isMuted = false;
+        let recognition;
+        
         document.getElementById('messageInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter' && !isLoading) {
                 sendMessage();
@@ -542,6 +581,15 @@
                 messageInput.focus();
             }
         }
+        
+        function speakText(text) {
+            if (isMuted) return;
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
 
         function addMessage(content, type) {
             const chatMessages = document.getElementById('chatMessages');
@@ -549,18 +597,51 @@
             messageDiv.className = `message ${type}-message`;
 
             if (type === 'ai') {
-                // For AI messages, parse the Markdown into HTML
+                const cleanContent = content.replace(/<\/?[^>]+(>|$)/g, "");
                 messageDiv.innerHTML = marked.parse(content);
+                speakText(cleanContent);
             } else {
-                // For user messages, use plain text to be safe
                 messageDiv.textContent = content;
             }
 
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // NEW: Initialize syntax highlighting on the new content
             hljs.highlightAll();
+        }
+        
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('messageInput').value = transcript;
+            };
+            recognition.onerror = function(event) {
+                showError('Speech recognition error: ' + event.error);
+            };
+        }
+
+        function startListening() {
+            if (recognition) {
+                recognition.start();
+            } else {
+                showError('Speech recognition is not supported in this browser.');
+            }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const muteBtn = document.getElementById('muteBtn');
+            muteBtn.innerHTML = isMuted
+                ? '<i class="fas fa-volume-up"></i>'
+                : '<i class="fas fa-volume-mute"></i>';
+            if (isMuted && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
         }
 
         function showError(message) {
