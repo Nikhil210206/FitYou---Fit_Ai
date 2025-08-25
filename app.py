@@ -4,6 +4,19 @@ import pandas as pd
 import os
 import requests
 import json
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+# backend/adjuster.py
+from flask import Blueprint, request, jsonify
+from pymongo import MongoClient
+from bson.objectid import ObjectId
+import numpy as np
+from sklearn.neighbors import NearestNeighbors
+import json
+import datetime
+from typing import Dict, Any
+
+
 import logging
 
 # STEP 1: ADDED NEW IMPORTS
@@ -440,9 +453,10 @@ def ai_coach():
 def chat_api():
     """API endpoint for chatbot conversations"""
     try:
-        data = request.json
-        message = data.get('message', '').strip()
-        user_context = data.get('context', {})
+        data: Dict[str, Any] = request.get_json(silent=True) or {}
+        message = data.get("message", "").strip()
+        user_context = data.get("context", {})
+
         
         if not message:
             return jsonify({'error': 'Message is required'}), 400
@@ -463,6 +477,403 @@ def chat_api():
             'error': f'Server error: {str(e)}',
             'status': 'error'
         }), 500
+
+        # ----- Load & prep data -----
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # directory of app.py
+file_path = os.path.join(BASE_DIR, "workout data", "Workout.csv")
+
+df = pd.read_csv(file_path)
+df['features'] = df['Body Part'] + " " + df['Type of Muscle'] + " " + df['Workout']
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(df['features'])
+
+# ----- Recommender -----
+def recommend_workouts(user_input, threshold=0.4):
+    user_vec = vectorizer.transform([user_input])
+    sim_scores = cosine_similarity(user_vec, tfidf_matrix).flatten()
+
+    mask = sim_scores > threshold
+    if not mask.any():
+        return []
+
+    # Build results with sets/reps (NO similarity in output)
+    hits = df.loc[mask, ['Workout', 'Sets', 'Reps per Set']].copy()
+    hits = hits.sort_index()  # keep original CSV order
+
+    return [
+        {
+            "workout": row['Workout'],
+            "sets": row['Sets'],
+            "reps": row['Reps per Set']
+        }
+        for _, row in hits.iterrows()
+    ]
+
+# ----- Flask route -----
+@app.route('/fitness', methods=['GET', 'POST'], endpoint='fitness')
+def fitness_index():
+    user_query = None
+    threshold = 0.4
+    results = None
+
+    if request.method == 'POST':
+        # take raw input, split on commas (multi-input support)
+        user_query_raw = request.form.get('user_query', '').strip()
+        user_query_list = [q.strip() for q in user_query_raw.split(",") if q.strip()]
+        user_query = " ".join(user_query_list)  # join all as one query string
+
+        # threshold
+        threshold_str = request.form.get('threshold', '0.4').strip()
+        try:
+            threshold = float(threshold_str)
+        except ValueError:
+            threshold = 0.4
+
+        if user_query:
+            results = recommend_workouts(user_query, threshold)
+
+    return render_template(
+        'fitness.html',
+        user_query=user_query,
+        threshold=threshold,
+        results=results
+    )
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
+@app.route('/upload_medical_certificate', methods=['POST'])
+def upload_medical_certificate():
+    """Handle medical certificate upload and extract health conditions"""
+    try:
+        if 'medical_certificate' not in request.files:
+            return jsonify({'success': False, 'error': 'No file uploaded'}), 400
+        
+        file = request.files['medical_certificate']
+        if file.filename == '':
+            return jsonify({'success': False, 'error': 'No file selected'}), 400
+        
+        # Check file type
+        allowed_extensions = {'txt', 'pdf', 'docx'}
+        file_extension = ""
+        if hasattr(file, "filename") and isinstance(file.filename, str):
+            if "." in file.filename:
+                file_extension = file.filename.rsplit(".", 1)[1].lower()
+
+        
+        if file_extension not in allowed_extensions:
+            return jsonify({'success': False, 'error': 'File type not supported. Please upload PDF, DOCX, or TXT files.'}), 400
+        
+        # Extract text based on file type
+        text_content = ""
+        
+        if file_extension == 'txt':
+            # Handle text files
+            try:
+                text_content = file.read().decode('utf-8')
+            except UnicodeDecodeError:
+                text_content = file.read().decode('latin-1')
+        
+        elif file_extension == 'pdf':
+            # For PDFs, we'll return a message asking users to copy-paste text
+            # This avoids heavy PyPDF2 dependency
+            return jsonify({
+                'success': False, 
+                'error': 'PDF processing requires text extraction. Please copy-paste the text content or convert to TXT format.'
+            }), 400
+        
+        elif file_extension == 'docx':
+            # For DOCX files, we'll return a message asking users to copy-paste text
+            # This avoids heavy python-docx dependency
+            return jsonify({
+                'success': False, 
+                'error': 'DOCX processing requires text extraction. Please copy-paste the text content or convert to TXT format.'
+            }), 400
+        
+        # Detect health conditions from text
+        health_conditions = detect_health_conditions_from_text(text_content)
+        
+        # Format conditions for display
+        conditions_text = ', '.join(health_conditions) if health_conditions else 'None'
+        
+        return jsonify({
+            'success': True,
+            'health_conditions': health_conditions,
+            'conditions_text': conditions_text
+        })
+        
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Error processing file: {str(e)}'}), 500
+
+def detect_health_conditions_from_text(text):
+    """Detect health conditions from text content"""
+    if not text:
+        return []
+    
+    text_lower = text.lower()
+    detected_conditions = []
+    
+    # Medical condition keywords mapping
+    conditions = {
+        "diabetes": "Diabetes",
+        "diabetic": "Diabetes",
+        "blood sugar": "Diabetes",
+        "glucose": "Diabetes",
+        "high blood pressure": "High Blood Pressure",
+        "hypertension": "High Blood Pressure",
+        "bp": "High Blood Pressure",
+        "heart disease": "Heart Disease",
+        "cardiac": "Heart Disease",
+        "coronary": "Heart Disease",
+        "asthma": "Asthma",
+        "respiratory": "Respiratory Issues",
+        "cancer": "Cancer",
+        "tumor": "Cancer",
+        "malignant": "Cancer",
+        "kidney disease": "Kidney Disease",
+        "renal": "Kidney Disease",
+        "lung disease": "Lung Disease",
+        "pulmonary": "Lung Disease",
+        "arthritis": "Arthritis",
+        "thyroid": "Thyroid Disorder",
+        "cholesterol": "High Cholesterol",
+        "migraine": "Migraine",
+        "depression": "Depression",
+        "anxiety": "Anxiety"
+    }
+    
+    # Check for each condition
+    for keyword, condition in conditions.items():
+        if keyword in text_lower and condition not in detected_conditions:
+            detected_conditions.append(condition)
+    
+    return detected_conditions
+
+bp = Blueprint('adjuster', __name__, url_prefix='/api/adjuster')
+
+# ---------- CONFIG ----------
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/fitai")
+client = MongoClient(MONGO_URI)
+db = client.get_default_database() if client.get_default_database() is not None else client['fitai']
+
+# If you integrate Google Generative AI, supply API key and model via env vars:
+# GOOGLE_API_KEY, GOOGLE_GEN_AI_MODEL
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  # placeholder
+GOOGLE_GEN_AI_MODEL = os.environ.get("GOOGLE_GEN_AI_MODEL", "models/text-bison-001")
+
+# ---------- Utility: local fallback suggestions using NearestNeighbors ----------
+def build_meal_index():
+    # build index from meals collection. Use calories+protein+carbs+fat normalized.
+    meals = list(db.meals.find({}))
+    if not meals:
+        return None, [], None
+    X = []
+    ids = []
+    for m in meals:
+        macros = m.get('macros', {})
+        # default zero if missing
+        row = [
+            float(macros.get('calories', 0)),
+            float(macros.get('protein', 0)),
+            float(macros.get('carbs', 0)),
+            float(macros.get('fat', 0))
+        ]
+        X.append(row)
+        ids.append(str(m['_id']))
+    X = np.array(X)
+    # normalize by column
+    X_mean = X.mean(axis=0)
+    X_std = X.std(axis=0)
+    X_std[X_std == 0] = 1.0
+    X_norm = (X - X_mean) / X_std
+    knn = NearestNeighbors(n_neighbors=10, metric='euclidean')
+    knn.fit(X_norm)
+    return knn, ids, (X_mean, X_std)
+
+# Build once on import (can be improved to rebuild on meal changes)
+_knn_index, _knn_ids, _knn_norm_params = build_meal_index()
+
+
+def find_similar_meals_by_macros(target_macros, top_k=5, tolerance=0.15, cuisine=None, meal_type=None, exclude_ids=None):
+    """
+    target_macros: dict with calories, protein, carbs, fat
+    tolerance: fraction allowed difference (e.g., 0.15 => ±15%)
+    """
+    if _knn_index is None:
+        return []
+
+    X_mean, X_std = _knn_norm_params if _knn_norm_params else (None, None)
+    target_row = np.array([
+        float(target_macros.get('calories', 0)),
+        float(target_macros.get('protein', 0)),
+        float(target_macros.get('carbs', 0)),
+        float(target_macros.get('fat', 0))
+    ])
+    target_norm = ((target_row - X_mean) / X_std).reshape(1, -1)
+    dists, neigh = _knn_index.kneighbors(
+        target_norm, n_neighbors=min(10, len(_knn_ids))
+    )
+
+    candidate_ids = [ObjectId(_knn_ids[i]) for i in neigh[0]]
+    # filter by tolerance, cuisine, meal_type, exclude
+    suggestions = []
+    for mid in candidate_ids:
+        if exclude_ids and str(mid) in exclude_ids:
+            continue
+        m = db.meals.find_one({"_id": mid})
+        if not m:
+            continue
+        macros = m.get('macros', {})
+        ok = True
+        for k in ['calories','protein','carbs','fat']:
+            target_v = float(target_macros.get(k,0))
+            cand_v = float(macros.get(k,0))
+            if target_v == 0:
+                continue
+            if abs(cand_v - target_v) / target_v > tolerance:
+                ok = False
+                break
+        if not ok:
+            continue
+        if cuisine and m.get('cuisine') != cuisine:
+            continue
+        if meal_type and m.get('type') != meal_type:
+            continue
+        suggestions.append(m)
+        if len(suggestions) >= top_k:
+            break
+    return suggestions
+
+# ---------- Optional: Wrapper to call Google Generative AI ----------
+def call_google_gen_ai_generate_swap(original_meal, constraints, n=3):
+    """
+    Placeholder function — implement with your Google Generative AI client code.
+    It should return a list of suggested meals (dicts with title, ingredients, macros, recipe_steps)
+    """
+    if not GOOGLE_API_KEY:
+        return []
+
+    # Example prompt to send:
+    prompt = {
+        "prompt": f"""You are a helpful assistant that suggests Indian meal alternatives.
+Original meal: {json.dumps(original_meal, indent=0)}
+Constraints: {json.dumps(constraints)}
+Return {n} alternatives as JSON list; each item must contain: title, type (vegetarian/non-vegetarian/vegan), cuisine, ingredients(list of {{"name","qty"}}), macros (calories, protein, carbs, fat), and recipe_steps (list of strings)."""
+    }
+
+    # NOTE: Implementation depends on google client library. Here we return [] as placeholder.
+    # You must implement this with your project's Google Gen AI integration.
+    return []
+
+# ---------- API: Adjust meal ----------
+@bp.route('/adjust', methods=['POST'])
+def adjust_meal():
+    """
+    Request JSON:
+    {
+      "user_id": "<user_id>",
+      "meal_id": "<meal_id>",  # original meal
+      "constraints": {
+         "type": "vegetarian" | "non-vegetarian" | "vegan" | null,
+         "calorie_tolerance": 0.10,   # 10%
+         "exclude_ingredients": ["peanut"],
+         "prefer_cuisine": "South Indian"
+      },
+      "use_ai": true  # whether to call Google Gen AI (if available)
+    }
+    """
+    data = request.get_json()
+    user_id = data.get('user_id')
+    meal_id = data.get('meal_id')
+    constraints = data.get('constraints', {})
+    use_ai = data.get('use_ai', True)
+
+    if not meal_id:
+        return jsonify({"error": "meal_id required"}), 400
+
+    orig = db.meals.find_one({"_id": ObjectId(meal_id)})
+    if not orig:
+        return jsonify({"error": "meal not found"}), 404
+
+    # 1) Try AI suggestions first (if allowed)
+    suggestions = []
+    if use_ai and GOOGLE_API_KEY:
+        suggestions = call_google_gen_ai_generate_swap(orig, constraints, n=3)
+
+    # 2) Always provide fallback suggestions from local DB (nearest macros)
+    exclude_ids = [meal_id]
+    local_suggestions = find_similar_meals_by_macros(orig.get('macros', {}), top_k=3, tolerance=constraints.get('calorie_tolerance', 0.15), cuisine=constraints.get('prefer_cuisine'), meal_type=constraints.get('type'), exclude_ids=exclude_ids)
+    # format llocal suggestions minimal fields
+    local_suggestions_clean = []
+    for s in local_suggestions:
+        # filter out suggestions that contain excluded ingredients
+        excluded = False
+        ex_ing = set([i.lower() for i in constraints.get('exclude_ingredients', [])])
+        for ing in s.get('ingredients', []):
+            if ing.get('name','').lower() in ex_ing:
+                excluded = True
+                break
+        if excluded:
+            continue
+        local_suggestions_clean.append({
+            "id": str(s['_id']),
+            "title": s.get('title'),
+            "type": s.get('type'),
+            "cuisine": s.get('cuisine'),
+            "ingredients": s.get('ingredients'),
+            "macros": s.get('macros'),
+            "recipe_steps": s.get('recipe_steps')
+        })
+    # merge AI suggestions (if any) + local suggestions, dedupe by title
+    seen = set()
+    merged = []
+    for s in (suggestions or []):
+        title = s.get('title')
+        if title and title not in seen:
+            merged.append(s)
+            seen.add(title)
+    for s in local_suggestions_clean:
+        if s.get('title') not in seen:
+            merged.append(s)
+            seen.add(s.get('title'))
+
+    # return up to 3 suggestions
+    merged = merged[:3]
+
+    # record the adjustment search (not commit to plan yet)
+    db.meal_adjustments.insert_one({
+        "user_id": ObjectId(user_id) if user_id else None,
+        "original_meal_id": ObjectId(meal_id),
+        "query_constraints": constraints,
+        "results_count": len(merged),
+        "created_at": datetime.datetime.utcnow()
+    })
+
+    return jsonify({"original": {"id": str(orig['_id']), "title": orig.get('title'), "macros": orig.get('macros')}, "suggestions": merged})
+
+    # Reason for comment out - unnecessary code in app.py & __init.py__  & test_adjuster.py not exists
+# backend/tests/test_adjuster.py
+# import json
+# from backend.adjuster import bp as adjuster_bp
+# from flask import Flask
+# import os
+
+# def create_app():
+#     app = Flask(__name__)
+#     app.register_blueprint(adjuster_bp)
+#     return app
+
+# def test_adjust_missing_meal():
+#     app = create_app()
+#     client = app.test_client()
+#     res = client.post('/api/adjuster/adjust', json={"user_id": None, "meal_id": "000000000000000000000000"})
+#     assert res.status_code in (400,404)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 
 @app.route('/upload_medical_certificate', methods=['POST'])
 def upload_medical_certificate():

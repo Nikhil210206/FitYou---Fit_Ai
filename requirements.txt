@@ -1,5 +1,13 @@
 Flask
 pandas
+flask-cors
+werkzeug
+serverless-wsgi
+requests
+scikit-learn
+requests==2.31.0
+gunicorn==21.2.0
+pymongo
 python-dotenv
 google-generativeai
 requests

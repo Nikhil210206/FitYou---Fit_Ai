@@ -1,0 +1,53 @@
+Body Part,Type of Muscle,Workout,Sets,Reps per Set
+Chest,Upper Chest,Incline dumbbell press,3-4,8-12
+Chest,Upper Chest,Incline cable crossovers,3-4,10-15
+Chest,Upper Chest,Incline dumbbell flyes,3-4,10-15
+Chest,Lower Chest,Decline dumbbell press,3-4,8-12
+Chest,Lower Chest,Decline cable crossovers,3-4,10-15
+Chest,Lower Chest,Decline dumbbell flyes,3-4,10-15
+Chest,Chest Isolation,Chest flyes,3-4,10-15
+Chest,Chest Isolation,Cable crossovers,3-4,10-15
+Chest,Chest Isolation,Dumbbell flyes,3-4,10-15
+Back,Upper,Pull-ups,3-4,8-12
+Back,Upper,Barbell rows,3-4,8-12
+Back,Upper,Dumbbell rows,3-4,8-12
+Back,Upper,Seated cable rows,3-4,8-12
+Back,Lower,Bent-over rows,3-4,8-12
+Back,Lower,Hyperextensions,3-4,10-15
+Back,Lower,Bird dog,3 sets of 10-15 reps per side,10-16
+Arms,Biceps,Barbell curls,3-4,8-12
+Arms,Biceps,Dumbbell curls,3-4,8-12
+Arms,Biceps,Preacher curls,3-4,8-12
+Arms,Biceps,Hammer curls,3-4,8-12
+Arms,Biceps,Concentration curls,3-4,8-12
+Arms,Triceps,Close-grip bench press,3-4,8-12
+Arms,Triceps,Overhead triceps extensions,3-4,8-12
+Arms,Triceps,Triceps pushdowns,3-4,8-12
+Arms,Triceps,Skull crushers,3-4,8-12
+Arms,Triceps,Triceps dips,3-5,8-13
+Legs,Quadriceps,Barbell squats,3-4,8-12
+Legs,Quadriceps,Leg press,3-4,8-12
+Legs,Quadriceps,Leg extensions,3-4,10-15
+Legs,Hamstrings,Romanian deadlifts,3-4,8-12
+Legs,Hamstrings,Leg curls,3-4,10-15
+Legs,Glutes,Barbell hip thrusts,3-4,8-12
+Legs,Glutes,Donkey kicks,3 sets of 10-15 reps per leg,10-15
+Legs,Calves,Standing calf raises,3 sets of 15-20 reps,15-20
+Legs,Calves,Seated calf raises,3 sets of 15-20 reps,15-21
+Shoulders,Anterior,Dumbbell front raises,3-4,8-12
+Shoulders,Anterior,Military press,3-4,8-12
+Shoulders,Lateral,Lateral raises,3-4,10-15
+Shoulders,Posterior,Bent-over lateral raises,3-4,10-15
+Shoulders,Posterior,Face pulls,3-4,10-15
+Abs,Upper,Crunches,3-4,10-15
+Abs,Upper,Leg raises,3-4,10-15
+Abs,Middle,Bicycle crunches,3-4,10-15
+Abs,Middle,Russian twists,3-4,10-15
+Abs,Lower,Hanging leg raises,3-4,10-15
+Abs,Lower,Plank,30-60 seconds,1
+Forearms,Wrist Flexors,Wrist curl,3-4,10-15
+Forearms,Wrist Extensors,Wrist extension,3-4,10-15
+Forearms,Grip Strength,Plate pinch,3-4,15-20
+Forearms,Grip Strength,Towel pull-up,3-4,10-15
+Forearms,Grip Strength,Fat grip dumbbell curl,3-4,10-15
+Forearms,Grip Strength,Hammer curl,3-4,10-15

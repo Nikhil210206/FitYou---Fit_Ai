@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIT YOU - Your AI-powered Fitness Coach</title>
@@ -80,6 +84,42 @@
             position: relative;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .navbar {
+            background: rgba(28, 28, 28, 0.95);
+            /* glassy black */
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            background: #ff4f00;
+            box-shadow: 0 0 12px #ff4f00;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .nav-links a.active {
+            background: #ff4f00;
+            color: #000;
+            font-weight: bold;
         }
 
         .logo {
@@ -169,6 +209,30 @@
             color: white;
         }
 
+        .auth-btn {
+            padding: 0.5rem 1.2rem;
+            margin-left: 1rem;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff6f00, #ff4f00);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+    .auth-btn {
+    padding: 0.5rem 1.2rem;
+    margin-left: 1rem;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff6f00, #ff4f00);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
         .auth-btn:hover {
             transform: var(--hover-effect);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
@@ -711,6 +775,8 @@
 
         .contact-item p,
         .contact-item a {
+            font-size: 1.1rem;
+            color: #ccc;
             font-size: 1rem;
             color: #bbb;
             text-decoration: none;
@@ -994,6 +1060,107 @@
             .phone-mockup {
                 max-width: 70%;
             }
+
+            .hero h1 {
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+                margin-top: 15px;
+            }
+
+            .cta-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+                margin-top: 25px;
+            }
+
+            .quiz-info {
+                font-size: 1rem;
+                margin-top: 15px;
+            }
+
+            .overlay-text {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+                padding: 50px 20px;
+                gap: 25px;
+            }
+
+            .feature {
+                margin-bottom: 0;
+                max-width: 100%;
+                padding: 30px 20px;
+            }
+
+            .feature h2 {
+                font-size: 1.4rem;
+            }
+
+            .feature p {
+                font-size: 1rem;
+            }
+
+            .contact-section {
+                padding: 50px 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .contact-section p {
+                font-size: 1.2rem;
+                margin-bottom: 40px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .contact-item {
+                padding: 25px 20px;
+            }
+
+            .contact-item h3 {
+                font-size: 1.3rem;
+            }
+
+            .contact-item p,
+            .contact-item a {
+                font-size: 1rem;
+            }
+
+            .contact-form {
+                margin: 30px 10px 0;
+                padding: 25px 20px;
+            }
+
+            .contact-form h3 {
+                font-size: 1.6rem;
+                margin-bottom: 25px;
+            }
+
+            .auth-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .auth-buttons a {
+                margin-left: 0;
+                font-size: 0.9rem;
+                padding: 8px 15px;
             
             .phone-mockup img {
                 transform: none;
@@ -1067,6 +1234,66 @@
             .testimonials-section h2,
             .contact-heading {
                 font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .contact-item h3 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            .contact-item p,
+            .contact-item a {
+                font-size: 0.95rem;
+                line-height: 1.4;
+            }
+
+            .contact-form {
+                margin: 25px 5px 0;
+                padding: 20px 15px;
+            }
+
+            .contact-form h3 {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 1.1rem;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 5px;
+            }
+
+            .auth-buttons a {
+                text-align: center;
+                margin-bottom: 0;
+                font-size: 0.85rem;
+                padding: 8px 12px;
+            }
+
+            footer {
+                padding: 15px 10px;
+                font-size: 0.9rem;
             }
         }
 
@@ -1076,6 +1303,32 @@
             color: var(--text-color-light);
         }
 
+        /* High DPI / Retina Displays */
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+            .phone-mockup img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Reduced Motion Preference */
+        @media (prefers-reduced-motion: reduce) {
+
+            .cta-btn,
+            .feature,
+            .contact-item {
+                transition: none;
+            }
+
+            .cta-btn:hover {
+                transform: none;
+            }
+
+            .feature:hover,
+            .contact-item:hover {
+                transform: none;
+            }
         body.light-mode header {
             background-color: rgba(248, 249, 250, 0.9);
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
@@ -1221,6 +1474,22 @@
                 <h3>Fit You</h3>
             </div>
 
+            <!-- <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div> -->
+
+            <div class="auth-buttons">
+                <a href="/ai-coach" class="start-now-btn"
+                    style="background: linear-gradient(135deg, #00d4aa, #00b894); color: #fff;">🤖 AI Coach</a>
+                <a href="/sport" class="login-btn">Sport Scheduler</a>
+                <a href="/diet" class="start-now-btn">Get your diet plan</a>
+                <a href="/workout" class="login-btn">Workout</a>
+                <a href="/gen" class="start-now-btn">Personalized Routine</a>
             <div class="auth-buttons">
                 <a href="/ai-coach" class="auth-btn secondary-btn"><i class="fas fa-robot"></i> AI Coach</a>
                 <a href="/sport" class="auth-btn primary-btn"><i class="fas fa-calendar-alt"></i> Sport Scheduler</a>
@@ -1252,6 +1521,17 @@
     <main>
         <section class="hero">
             <div class="text-container">
+                <h1>Your Fitness Coach</h1>
+                <p>With the FitAi Coach workout app, you get a personalized fitness program that gets you real results.
+                </p>
+                <a href="/gen" class="cta-btn animate__animated animate__pulse">Get your workout plan now</a>
+                <p class="quiz-info animate__animated animate__fadeInUp">Take the FREE quiz to get personalized
+                    exercises!</p>
+            </div>
+
+            <div class="phone-mockup">
+                <img src="fitai.jpg" alt="FitAi app mockup">
+                <div class="overlay-text">FitAi</div>
                 <h1 class="hero-heading">Transform Your Body With AI-Powered Fitness</h1>
                 <p class="hero-subheading">Get personalized workout plans, nutrition guidance, and 24/7 AI coaching tailored specifically to your goals and lifestyle.</p>
                 <a href="/gen" class="cta-btn">Start Your Journey <i class="fas fa-arrow-right"></i></a>
@@ -1505,6 +1785,23 @@
             mobileMenuToggle.addEventListener('click', toggleMobileMenu);
             closeMenu.addEventListener('click', toggleMobileMenu);
 
+<script>
+    function startLiveChat() {
+        alert('Live chat feature coming soon! Please use email or phone for now.');
+    }
+
+    // Form submission handler
+    document.querySelector('.contact-form form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you within 24 hours.');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             // Close mobile menu when clicking on links
             const mobileLinks = document.querySelectorAll('.mobile-menu a');
             mobileLinks.forEach(link => {
@@ -1710,6 +2007,7 @@
                 ease: "power4.out"
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
