@@ -50,6 +50,10 @@
             line-height: 1.6;
         }
 
+        #themeToggle{
+            font-size: 20px;
+            padding:5px;
+        }
         /* Particle background */
         #particles-js {
             position: fixed;
@@ -907,7 +911,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 930px) {
             .auth-buttons {
                 display: none;
             }
@@ -1140,12 +1144,14 @@
             </button>
 
             <div class="mobile-menu" id="mobileMenu">
-                <button class="close-btn" id="closeMenu"><i class="fas fa-times"></i></button>
+                <!-- <button class="close-btn" id="closeMenu"><i class="fas fa-times"></i></button> -->
                 <a href="/ai-coach"><i class="fas fa-robot"></i> AI Coach</a>
                 <a href="/sport"><i class="fas fa-calendar-alt"></i> Sport Scheduler</a>
                 <a href="/diet"><i class="fas fa-utensils"></i> Diet Plan</a>
                 <a href="/workout"><i class="fas fa-running"></i> Workout</a>
                 <a href="/gen"><i class="fas fa-user-cog"></i> Personalized Routine</a>
+                <button class="toggle-theme" id="themeToggle"><i class="fas fa-moon"></i></button>
+
             </div>
         </nav>
     </header>
