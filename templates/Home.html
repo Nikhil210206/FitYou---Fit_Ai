@@ -794,7 +794,7 @@
         }
 
         /* Footer */
-        footer {
+        /* footer {
             background: var(--dark-secondary-bg);
             color: var(--text-color-dark);
             text-align: center;
@@ -842,7 +842,100 @@
         .socials a:hover {
             background: var(--gradient-primary);
             transform: var(--hover-effect);
+        } */
+        .footer {
+            background: var(--dark-secondary-bg);
+            color: var(--text-color-dark);
+            text-align: center;
+            padding: 40px 5%;
+            margin-top: 40px;
+            position: relative;
+            /* height:15rem; */
         }
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+    .footer-left {
+         display: flex;
+         flex-direction: column;
+         font-size: 2rem;
+           
+    }
+
+.footer-left h3 {
+
+  width: 120px;
+  margin-bottom: 10px;
+  font-size: 2rem;
+            margin-bottom: 15px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+}
+.footer-left p{
+    font-size:1rem;
+}
+.footer-right{
+    display:flex;
+    justify-content:flex-end;
+    align-items: center;
+    gap: 25px;
+
+}
+
+.footer-right a {
+    text-decoration: none;
+    display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background:var(--dark-tertiary-bg);
+  color: #fff;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+ 
+  
+  
+
+}
+
+.footer-right a:hover {
+  color: #f06292; /* highlight color */
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #bbb;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+  bottom:5rem;
+}
+@media (max-width :768px) {
+    .footer-container{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        gap:25px;
+    }
+    .footer-left {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+    }
+}
+
 
         /* Back to Top Button */
         .back-to-top {
@@ -1100,7 +1193,7 @@
             background-color: #fff;
             color: #333;
             border-color: #ced4da;
-
+        }
 
         body.light-mode .socials a {
             background: var(--light-secondary-bg);
@@ -1317,7 +1410,7 @@
         </section>
     </main>
 
-    <footer>
+    <!-- <footer>
         <div class="footer-content">
             <h3>Fit You</h3>
             <p>Your AI-Powered Fitness Companion</p>
@@ -1329,7 +1422,27 @@
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
-    </footer>
+    </footer> -->
+    <footer class="footer">
+        <div class="footer-container">
+          <div class="footer-left">
+            <h3>Fit You</h3>
+            <p>Your AI-Powered Fitness Companion</p>
+          </div>
+      
+          <div class="footer-right">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      
+        <div class="footer-bottom">
+          <p>© 2024 Fit You. All Rights Reserved.</p>
+        </div>
+      </footer>
+      
 
     <div class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
