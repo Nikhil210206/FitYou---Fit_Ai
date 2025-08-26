@@ -413,6 +413,10 @@ def work():
 def gp():
     return render_template("page5.html")
 
+@app.route("/workout-plan")
+def workout_plan():
+    return render_template("workout_plan.html")
+
 @app.route("/D1")
 def d1():
     return render_template("day1.html")

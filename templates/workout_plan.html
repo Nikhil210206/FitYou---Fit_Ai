@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <title>FIT YOU - Workout Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "var(--text-accent)",
+                        bg: {
+                            primary: "var(--bg-primary)",
+                            secondary: "var(--bg-secondary)",
+                            tertiary: "var(--bg-tertiary)",
+                        },
+                        text: {
+                            primary: "var(--text-primary)",
+                            secondary: "var(--text-secondary)",
+                        },
+                        border: "var(--border-color)",
+                        card: "var(--card-bg)",
+                        input: "var(--input-bg)",
+                    },
+                    boxShadow: {
+                        light: "0 4px 8px var(--shadow-light)",
+                        medium: "0 4px 15px var(--shadow-medium)",
+                        heavy: "0 6px 20px var(--shadow-heavy)",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --dark-bg: #0f0f0f;
+            --dark-secondary-bg: #1a1a1a;
+            --dark-tertiary-bg: #252525;
+            --light-bg: #f8f9fa;
+            --light-secondary-bg: #ffffff;
+            --light-tertiary-bg: #e9ecef;
+            --text-color-dark: #ffffff;
+            --text-color-light: #2d3436;
+            --brand-orange: #ff6b35;
+            --brand-orange-dark: #f25c2d;
+            --brand-green: #00d4aa;
+            --brand-green-dark: #00b894;
+            --brand-blue: #4361ee;
+            --accent-purple: #7209b7;
+            --gradient-primary: linear-gradient(135deg, var(--brand-orange), var(--accent-purple));
+            --gradient-secondary: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            --hover-effect: translateY(-5px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color-dark);
+            font-size: 16px;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 15px 5%;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--brand-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a:hover {
+            background: var(--gradient-primary);
+            transform: var(--hover-effect);
+            box-shadow: var(--card-shadow);
+        }
+
+        .nav-links a.active {
+            background: var(--gradient-primary);
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: var(--hover-effect);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            transform: var(--hover-effect);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* React Component Container */
+        .react-container {
+            min-height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .back-btn {
+                top: 80px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-dumbbell logo-icon"></i>
+                <h3>FIT YOU</h3>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('diet') }}">Home</a>
+                <a href="{{ url_for('work') }}" class="active">Workout</a>
+                <a href="{{ url_for('workout_plan') }}">Plan</a>
+                <a href="{{ url_for('yoga') }}">Yoga</a>
+                <a href="{{ url_for('ai_coach') }}">AI Coach</a>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Workout
+    </button>
+
+    <!-- React Component Container -->
+    <div class="react-container" id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const WorkoutPlanCard = ({ title = "4-Day Workout Plan", subtitle = "Personalized strength and endurance routine" }) => {
+            const [selectedDay, setSelectedDay] = useState(1);
+
+            const days = [
+                { id: 1, label: "Day 1" },
+                { id: 2, label: "Day 2" },
+                { id: 3, label: "Day 3" },
+                { id: 4, label: "Day 4" }
+            ];
+
+            const handleDaySelect = (dayId) => {
+                setSelectedDay(dayId);
+                console.log(`Selected day: ${dayId}`);
+            };
+
+            const handleStartWorkout = () => {
+                console.log(`Starting workout for day: ${selectedDay}`);
+                // Navigate to the specific day workout page
+                const dayRoutes = {
+                    1: '/D1',
+                    2: '/D2', 
+                    3: '/D3',
+                    4: '/D4'
+                };
+                const route = dayRoutes[selectedDay];
+                if (route) {
+                    window.location.href = route;
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+                    <div className="w-full max-w-md">
+                        {/* Workout Plan Card */}
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg dark:shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl dark:hover:shadow-2xl">
+                            
+                            {/* Card Header */}
+                            <div className="text-center mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                    {title}
+                                </h2>
+                                <p className="text-gray-600 dark:text-gray-300 text-sm font-medium">
+                                    {subtitle}
+                                </p>
+                            </div>
+
+                            {/* Day Selection Chips */}
+                            <div className="flex flex-wrap gap-3 justify-center">
+                                {days.map((day) => (
+                                    <button
+                                        key={day.id}
+                                        onClick={() => handleDaySelect(day.id)}
+                                        className={`
+                                            px-4 py-2 rounded-xl font-medium text-sm transition-all duration-200
+                                            ${selectedDay === day.id
+                                                ? 'bg-blue-500 text-white shadow-md transform scale-105'
+                                                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                            }
+                                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800
+                                        `}
+                                        aria-pressed={selectedDay === day.id}
+                                    >
+                                        {day.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Selected Day Info */}
+                            <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                    {days.find(day => day.id === selectedDay)?.label} Workout
+                                </h3>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">
+                                    Your personalized workout routine for {days.find(day => day.id === selectedDay)?.label.toLowerCase()}
+                                </p>
+                            </div>
+
+                            {/* Action Button */}
+                            <div className="mt-6">
+                                <button 
+                                    onClick={handleStartWorkout}
+                                    className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                                >
+                                    Start {days.find(day => day.id === selectedDay)?.label} Workout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            return (
+                <div>
+                    <WorkoutPlanCard />
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const button = document.querySelector('.theme-toggle i');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                button.className = 'fas fa-moon';
+            } else {
+                html.classList.add('dark');
+                button.className = 'fas fa-sun';
+            }
+        }
+
+        // Back button functionality
+        function goBack() {
+            window.location.href = '/workout';
+        }
+
+        // Initialize theme based on system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
