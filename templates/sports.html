@@ -1036,4 +1036,63 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
-            element.classList.add('active');}
+            element.classList.add('active');
+        }
+
+        function handleSubmit(event) {
+    event.preventDefault();
+    const fitnessLevel = document.getElementById('fitness_level').value;
+    
+    // Show loading state
+    const generateBtn = document.getElementById('generateBtn');
+    generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+    generateBtn.disabled = true;
+
+    // Display routine section
+    document.getElementById('routineResults').style.display = 'block';
+    
+    // Update routine based on fitness level
+    const routineData = workoutData[fitnessLevel];
+    if (routineData) {
+        // Update strength exercises
+        const strengthList = document.getElementById('strengthExercises');
+        strengthList.innerHTML = routineData.strength.map(ex => 
+            `<li class="exercise-item">
+                ${ex.exercise} - ${ex.sets} sets x ${ex.reps} reps
+            </li>`
+        ).join('');
+
+        // Update cardio exercises
+        const cardioList = document.getElementById('cardioExercises');
+        cardioList.innerHTML = routineData.cardio.map(ex =>
+            `<li class="exercise-item">
+                ${ex.exercise} - ${ex.duration}
+            </li>`
+        ).join('');
+
+        // Update flexibility exercises
+        const flexList = document.getElementById('flexibilityExercises');
+        flexList.innerHTML = routineData.flexibility.map(ex =>
+            `<li class="exercise-item">
+                ${ex.exercise} - ${ex.duration}
+            </li>`
+        ).join('');
+
+        // Update title with fitness level
+        document.getElementById('routineTitle').textContent = 
+            `${fitnessLevel.charAt(0).toUpperCase() + fitnessLevel.slice(1)} Level Routine`;
+    }
+
+    // Reset button state
+    setTimeout(() => {
+        generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Routine';
+        generateBtn.disabled = false;
+    }, 1000);
+
+    // Scroll to results
+    document.getElementById('routineResults').scrollIntoView({ behavior: 'smooth' });
+}
+
+    </script>
+</body>
+</html>
