@@ -627,46 +627,97 @@
                 flex-direction: column;
             }
         }
+        /* Back Button Styling */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(90deg, #ff6600, #ff3300);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: 0.3s ease;
+    z-index: 1000; /* keeps it above other elements */
+}
+
+.back-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #ff3300, #ff6600);
+}
+
+
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <i class="fas fa-dumbbell"></i> FitAi
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home" onclick="setActiveNav(this)">
-                            <i class="fas fa-home"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#workouts" onclick="setActiveNav(this)">
-                            <i class="fas fa-running"></i> Workouts
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nutrition" onclick="setActiveNav(this)">
-                            <i class="fas fa-apple-alt"></i> Nutrition
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
-                            <i class="fas fa-user-friends"></i> Coaches
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#home">
+      <i class="fas fa-dumbbell"></i> FitAi
+    </a>
+
+    <!-- Mobile Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links + Light Mode Button -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#home" onclick="setActiveNav(this)">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#workouts" onclick="setActiveNav(this)">
+            <i class="fas fa-running"></i> Workouts
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#nutrition" onclick="setActiveNav(this)">
+            <i class="fas fa-apple-alt"></i> Nutrition
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
+            <i class="fas fa-user-friends"></i> Coaches
+          </a>
+        </li>
+      </ul>
+      <!-- Light Mode Button -->
+<button class="btn toggle-theme-btn ms-lg-3">
+  <i class="fas fa-sun me-2"></i>
+</button>
+
+    </div>
+  </div>
+</nav>
+
+
+
+    <div style="margin: 20px;">
+    <a href="{{ url_for('diet') }}">
+        <button style="
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        ">
+            ⬅ Back
+        </button>
+    </a>
+</div>
+
 
     <!-- Hero Section -->
     <section class="hero-section" id="home">
@@ -988,4 +1039,63 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
-            element.classList.add('active');}
+            element.classList.add('active');
+        }
+
+        function handleSubmit(event) {
+    event.preventDefault();
+    const fitnessLevel = document.getElementById('fitness_level').value;
+    
+    // Show loading state
+    const generateBtn = document.getElementById('generateBtn');
+    generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+    generateBtn.disabled = true;
+
+    // Display routine section
+    document.getElementById('routineResults').style.display = 'block';
+    
+    // Update routine based on fitness level
+    const routineData = workoutData[fitnessLevel];
+    if (routineData) {
+        // Update strength exercises
+        const strengthList = document.getElementById('strengthExercises');
+        strengthList.innerHTML = routineData.strength.map(ex => 
+            `<li class="exercise-item">
+                ${ex.exercise} - ${ex.sets} sets x ${ex.reps} reps
+            </li>`
+        ).join('');
+
+        // Update cardio exercises
+        const cardioList = document.getElementById('cardioExercises');
+        cardioList.innerHTML = routineData.cardio.map(ex =>
+            `<li class="exercise-item">
+                ${ex.exercise} - ${ex.duration}
+            </li>`
+        ).join('');
+
+        // Update flexibility exercises
+        const flexList = document.getElementById('flexibilityExercises');
+        flexList.innerHTML = routineData.flexibility.map(ex =>
+            `<li class="exercise-item">
+                ${ex.exercise} - ${ex.duration}
+            </li>`
+        ).join('');
+
+        // Update title with fitness level
+        document.getElementById('routineTitle').textContent = 
+            `${fitnessLevel.charAt(0).toUpperCase() + fitnessLevel.slice(1)} Level Routine`;
+    }
+
+    // Reset button state
+    setTimeout(() => {
+        generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Routine';
+        generateBtn.disabled = false;
+    }, 1000);
+
+    // Scroll to results
+    document.getElementById('routineResults').scrollIntoView({ behavior: 'smooth' });
+}
+
+    </script>
+</body>
+</html>

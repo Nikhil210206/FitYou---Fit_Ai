@@ -395,16 +395,15 @@ def diet_plan():
 
 @app.route('/sport', methods=['GET', 'POST'])
 def home():
-    routine = {'beginner': 'Beginner Routine', 'intermediate': 'Intermediate Routine', 'advanced': 'Advanced Routine'}  # Example routines
-    
     if request.method == 'POST':
         fitness_level = request.form.get('fitness_level')
-        if fitness_level in routine:  # Check if fitness level exists in routine dictionary
-            return render_template('sports.html', routine=routine[fitness_level])  # Return the specific routine
-        else:
-            return render_template('sports.html', error="Invalid fitness level")  # Handle invalid fitness level case
-    
-    return render_template('sports.html', routine=None)
+        if fitness_level:
+            return jsonify({
+                'status': 'success',
+                'level': fitness_level,
+                'routine': True
+            })
+    return render_template('sports.html')
 
 @app.route("/workout")
 def work():
