@@ -1,4 +1,3 @@
-
 class ThemeManager {
     constructor() {
         this.currentTheme = this.getStoredTheme() || this.getSystemPreference();
@@ -7,7 +6,6 @@ class ThemeManager {
 
     init() {
         this.applyTheme(this.currentTheme);
-        this.createToggleButton();
         this.bindEvents();
     }
 
@@ -34,61 +32,46 @@ class ThemeManager {
         const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
         this.applyTheme(newTheme);
         
-        //  subtle animation effect
+        // Add subtle animation effect
         document.body.style.transition = 'all 0.3s ease';
         setTimeout(() => {
             document.body.style.transition = '';
         }, 300);
     }
 
-    createToggleButton() {
-        const button = document.createElement('button');
-        button.className = 'theme-toggle';
-        button.id = 'themeToggle';
-        button.setAttribute('aria-label', 'Toggle theme');
-        button.setAttribute('title', 'Toggle between light and dark theme');
-        
-        document.body.appendChild(button);
-        this.updateToggleButton();
-    }
-
     updateToggleButton() {
-        const button = document.getElementById('themeToggle');
+        const button = document.getElementById('theme-toggle');
         if (!button) return;
 
+        const icons = button.querySelectorAll('i');
         if (this.currentTheme === 'dark') {
-            button.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
+            icons[0].style.display = 'none';
+            icons[1].style.display = 'inline-block';
         } else {
-            button.innerHTML = '<i class="fas fa-moon"></i><span>Dark</span>';
+            icons[0].style.display = 'inline-block';
+            icons[1].style.display = 'none';
         }
     }
 
     bindEvents() {
         // Toggle button click event
         document.addEventListener('click', (e) => {
-            if (e.target.closest('#themeToggle')) {
+            if (e.target.closest('#theme-toggle')) {
                 e.preventDefault();
                 this.toggleTheme();
             }
         });
 
-        
+        // Watch for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!this.getStoredTheme()) {
                 this.applyTheme(e.matches ? 'dark' : 'light');
             }
         });
-
-        // Keyboard shortcut (Ctrl/Cmd + Shift + T)
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
-                e.preventDefault();
-                this.toggleTheme();
-            }
-        });
     }
 }
 
+// Initialize theme manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.themeManager = new ThemeManager();
 });

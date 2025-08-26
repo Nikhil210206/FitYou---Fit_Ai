@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
-    <title>Personalized Diet Plan</title>
+    <title>Personalized Diet Plan - FitYou</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-   
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
 
     <style>
         /* Base Styles */
@@ -23,352 +24,467 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #e6962c;
+            background: linear-gradient(135deg, #000 40%, #111 100%);
             color: #fff;
+            min-height: 100vh;
             padding: 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards ease-in;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         /* Container */
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #dd8526;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgb(239, 158, 18);
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 30px;
+            background: #1c1c1c;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid #333;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         }
 
         /* Headings */
         h1 {
             text-align: center;
-            color: #d57826;
-            margin-bottom: 20px;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff6600, #ff3300);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
-            margin-top: 40px;
-            color: #ba641eec;
+            margin: 40px 0 20px;
+            color: #ff9966;
+            font-size: 1.8rem;
+            font-weight: 600;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         h3 {
-            margin-top: 30px;
-            color: #ff4f00;
-            text-transform: uppercase;
-            font-size: 20px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
+            margin: 30px 0 15px;
+            color: #ff9966;
+            font-size: 1.4rem;
+            font-weight: 500;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
         }
 
         h4 {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #e8a342;
-            text-transform: capitalize;
+            margin: 25px 0 10px;
+            color: #ff9966;
+            font-size: 1.2rem;
+            font-weight: 500;
         }
 
         /* Form Styles */
-        form {
-            margin-bottom: 30px;
-        }
-
         .form-group {
-            margin-bottom: 15px;
-
-
-            /* Allow arrows on number input fields */
-            input[type=number]::-webkit-inner-spin-button,
-            input[type=number]::-webkit-outer-spin-button {
-                -webkit-appearance: auto;
-                margin: 0;
-            }
-
-            /* For Firefox */
-            input[type=number] {
-                -moz-appearance: textfield;
-            }
-            
-            input[type=number]:hover,
-            input[type=number]:focus {
-                -moz-appearance: number-input;
-            }
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #fff;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #ddd;
         }
 
-        input[type="number"], input[type="file"], select {
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select,
+        textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            background-color: #333;
+            padding: 12px 15px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #2d2d2d;
             color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        button[type="submit"] {
-            width: 100%;
-            padding: 15px;
-            background-color: #ff4f00;
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #ff6600;
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+            outline: none;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff6600, #ff3300);
             color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 18px;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
         }
 
-        button[type="submit"]:hover {
-            background-color: #e04400;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
         }
 
-        button[type="submit"]:disabled {
-            background-color: #666;
-            cursor: not-allowed;
+        .btn-block {
+            display: block;
+            width: 100%;
         }
 
-        /* Diet Plan */
+        /* Health Conditions */
+        .health-conditions {
+            margin: 15px 0;
+        }
+
+        .condition-tag {
+            display: inline-block;
+            background: #333;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Diet Plan Results */
         .diet-plan {
-            display: none;
             margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
         }
 
-        .day-plan {
-            background-color: #2a2a2a;
+        .meal-card {
+            background: #2d2d2d;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            margin: 15px 0;
+            border-left: 4px solid #ff6600;
         }
 
-        .day-plan:hover {
-            transform: scale(1.02);
+        .meal-time {
+            color: #ff9966;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
 
-        .meal ul {
-            list-style: disc;
-            margin-left: 20px;
+        .meal-time i {
+            margin-right: 10px;
+            color: #ff6600;
         }
 
-        ul li {
-            margin: 5px 0;
+        .food-item {
+            margin: 8px 0;
+            padding-left: 15px;
+            border-left: 2px solid #444;
         }
 
-        .calories {
-            font-size: 14px;
-            color: #ddd;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
         }
 
-        /* Loading and Error Styles */
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #ff4f00;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .error {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px;
+        ::-webkit-scrollbar-track {
+            background: #1c1c1c;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff6600;
             border-radius: 4px;
-            margin: 10px 0;
         }
 
-        .success {
-            background-color: #28a745;
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            margin: 10px 0;
-        }
-
-        #healthProblems {
-            background-color: #333;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        .file-upload-status {
-            margin-top: 10px;
-            padding: 8px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .plan-summary {
-            background-color: #2a2a2a;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ff4f00;
-        }
-
-        .plan-summary h4 {
-            margin: 0 0 10px 0;
-            color: #ff4f00;
-        }
-
-        .plan-summary p {
-            margin: 5px 0;
-            color: #ddd;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff8533;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>Personalized Weekly Diet Plan</h1>
+        <h1>Personalized Nutrition Plan</h1>
         
         {% if error %}
-        <div class="error">{{ error }}</div>
+        <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
-        
-        <form id="dietForm" action="/diet" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" min="1" max="120" 
-                       value="{{ form_data.age if form_data else '' }}" required>
-            </div>
-            <div class="form-group">
-                <label for="height_unit">Height</label>
-                <select id="height_unit" name="height_unit" onchange="toggleHeightInputs()" class="form-control">
-                    <option value="cm" selected>Centimeters</option>
-                    <option value="ft_in">Feet & Inches</option>
-                </select>
 
-            <!-- Centimeter input -->
-            <div id="cm_input" style="margin-top:10px;">
-                <input type="number" id="height_cm" name="height_cm" min="50" max="300"
-                    value="{{ form_data.height if form_data else '' }}" placeholder="Enter height in cm">
-            </div>
-
-            <!-- Feet & Inches input -->
-            <div id="ft_in_input" style="display:none; margin-top:10px;">
-                <input type="number" id="height_ft" placeholder="Feet" min="1" max="8">
-                <input type="number" id="height_in" placeholder="Inches" min="0" max="11">
+        <form id="dietForm" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="1" max="120" required 
+                               class="form-control" placeholder="Enter your age">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <!-- Final hidden input sent to backend (always in cm) -->
-            <input type="hidden" id="height" name="height" required>
-        </div>
-
-            <div class="form-group">
-                <label for="weight">Weight (kg)</label>
-                <input type="number" id="weight" name="weight" min="20" max="500" 
-                       value="{{ form_data.weight if form_data else '' }}" required>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" name="weight" min="20" max="500" 
+                               step="0.1" required class="form-control" placeholder="e.g. 70">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" name="height" min="50" max="300" 
+                               required class="form-control" placeholder="e.g. 170">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="activity_level">Activity Level</label>
+                        <select id="activity_level" name="activity_level" required class="form-control">
+                            <option value="">Select Activity Level</option>
+                            <option value="sedentary">Sedentary (little or no exercise)</option>
+                            <option value="light">Lightly Active (light exercise 1-3 days/week)</option>
+                            <option value="moderate">Moderately Active (moderate exercise 3-5 days/week)</option>
+                            <option value="active">Very Active (hard exercise 6-7 days/week)</option>
+                            <option value="very_active">Extra Active (very hard exercise & physical job)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="goal">Goal</label>
-                <select id="goal" name="goal" required>
-                    <option value="goal">Select Your Goal</option>
-                    <option value="weight gain" {{ 'selected' if form_data and form_data.goal == 'weight gain' else '' }}>Weight Gain</option>
-                    <option value="weight loss" {{ 'selected' if form_data and form_data.goal == 'weight loss' else '' }}>Weight Loss</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="duration">Duration (Weeks)</label>
-            
-                <input type="number" id="duration" name="duration" min="1" max="52" 
-                       value="{{ form_data.duration if form_data else '' }}" required>
-                       
-            </div>
-            <div class="form-group">
-                <label for="diet_type">Diet Type</label>
-                <select id="diet_type" name="diet_type" required>
-                    <option value="diet">Select Diet Type</option>
-                    <option value="vegetarian" {{ 'selected' if form_data and form_data.diet_type == 'vegetarian' else '' }}>Vegetarian</option>
-                    <option value="non-vegetarian" {{ 'selected' if form_data and form_data.diet_type == 'non-vegetarian' else '' }}>Non-Vegetarian</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select id="gender" name="gender" required>
-                    <option value="Gender">Select Your Gender</option>
-                    <option value="male" {{ 'selected' if form_data and form_data.gender == 'male' else '' }}>Male</option>
-                    <option value="female" {{ 'selected' if form_data and form_data.gender == 'female' else '' }}>Female</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="activity_level">Activity Level</label>
-                <select id="activity_level" name="activity_level" required>
-                    <option value="activity">Select Activity Level</option>
-                    <option value="sedentary" {{ 'selected' if form_data and form_data.activity_level == 'sedentary' else '' }}>Sedentary</option>
-                    <option value="moderate" {{ 'selected' if form_data and form_data.activity_level == 'moderate' else '' }}>Moderate</option>
-                    <option value="active" {{ 'selected' if form_data and form_data.activity_level == 'active' else '' }}>Active</option>
+                <select id="goal" name="goal" required class="form-control">
+                    <option value="">Select Your Goal</option>
+                    <option value="weight loss">Weight Loss</option>
+                    <option value="weight gain">Weight Gain</option>
+                    <option value="maintenance">Maintain Weight</option>
+                    <option value="muscle gain">Muscle Building</option>
+                    <option value="improve health">Improve Overall Health</option>
                 </select>
             </div>
 
-            <!-- Medical Certificate Upload -->
+            <div class="form-group">
+                <label for="diet_type">Diet Type</label>
+                <select id="diet_type" name="diet_type" required class="form-control">
+                    <option value="">Select Diet Type</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="non-vegetarian">Non-Vegetarian</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Duration (Weeks)</label>
+                <input type="number" id="duration" name="duration" min="1" max="52" 
+                       required class="form-control" placeholder="e.g. 12">
+            </div>
+
+            <div class="form-group">
+                <label>Health Conditions (select all that apply)</label>
+                <div class="health-conditions">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="diabetes" id="diabetes">
+                        <label class="form-check-label" for="diabetes">Diabetes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="hypertension" id="hypertension">
+                        <label class="form-check-label" for="hypertension">High Blood Pressure</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="cholesterol" id="cholesterol">
+                        <label class="form-check-label" for="cholesterol">High Cholesterol</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="gluten" id="gluten">
+                        <label class="form-check-label" for="gluten">Gluten Intolerance</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="lactose" id="lactose">
+                        <label class="form-check-label" for="lactose">Lactose Intolerance</label>
+                    </div>
+                </div>
+                <input type="hidden" id="health_conditions" name="health_conditions">
+            </div>
+
             <div class="form-group">
                 <label for="medical_certificate">Upload Medical Certificate (Optional)</label>
                 <input type="file" id="medical_certificate" accept=".pdf,.docx,.txt">
                 <small style="color: #ccc;">Supported formats: PDF, DOCX, TXT (Max 10MB)</small>
                 <div id="uploadStatus" class="file-upload-status" style="display: none;"></div>
             </div>
-            <div class="form-group">
-                <label for="healthProblems">Detected Health Conditions</label>
-                <p id="healthProblems">None</p>
-                <!-- Hidden input to pass health conditions to backend -->
-                <input type="hidden" id="healthConditionsInput" name="health_conditions" value="">
-            </div>
 
-            <button type="submit" id="submitBtn">Generate Diet Plan</button>
+            <button type="submit" class="btn btn-block">Generate Diet Plan</button>
         </form>
 
+        <!-- Diet Plan Results -->
         <div class="diet-plan" id="dietPlan">
+            {% if diet_plan %}
             <h2>Your Personalized Diet Plan</h2>
             
-            {% if diet_plan %}
             <div class="plan-summary">
-                <h4>Plan Summary</h4>
-                <p><strong>Goal:</strong> {{ form_data.goal if form_data else 'Not specified' }}</p>
-                <p><strong>Diet Type:</strong> {{ form_data.diet_type if form_data else 'Not specified' }}</p>
-                <p><strong>Activity Level:</strong> {{ form_data.activity_level if form_data else 'Not specified' }}</p>
-                <p><strong>Duration:</strong> {{ form_data.duration if form_data else 'Not specified' }} weeks</p>
-            </div>
-            {% endif %}
-            
-            <div id="dietContent">
-                {% if diet_plan %}
-                    {% for day, meals in diet_plan.items() %}
-                    <div class="day-plan">
-                        <h3>{{ day }}</h3>
-                        <div class="meal">
-                            <ul>
-                                {% if meals is mapping %}
-                                    {% for meal_type, meal_info in meals.items() %}
-                                    <li><strong>{{ meal_type }}:</strong> {{ meal_info }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li>{{ meals }}</li>
-                                {% endif %}
-                            </ul>
+                <h3>Daily Nutritional Targets</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="meal-card">
+                            <div class="meal-time">
+                                <i class="fas fa-bolt"></i>
+                                Calories
+                            </div>
+                            <p>{{ diet_plan.daily_nutrition.calories }} kcal</p>
                         </div>
                     </div>
-                    {% endfor %}
-                {% endif %}
+                    <div class="col-md-4">
+                        <div class="meal-card">
+                            <div class="meal-time">
+                                <i class="fas fa-drumstick-bite"></i>
+                                Protein
+                            </div>
+                            <p>{{ diet_plan.daily_nutrition.protein }}g</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="meal-card">
+                            <div class="meal-time">
+                                <i class="fas fa-bread-slice"></i>
+                                Carbs
+                            </div>
+                            <p>{{ diet_plan.daily_nutrition.carbs }}g</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="meal-card">
+                            <div class="meal-time">
+                                <i class="fas fa-cheese"></i>
+                                Fats
+                            </div>
+                            <p>{{ diet_plan.daily_nutrition.fats }}g</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="meal-card">
+                            <div class="meal-time">
+                                <i class="fas fa-fiber-manual"></i>
+                                Fiber
+                            </div>
+                            <p>{{ diet_plan.daily_nutrition.fiber }}g</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {% if diet_plan %}
-            <a href="/diet" class="btn btn-secondary">Create New Plan</a>
+
+            <h3>Daily Meal Plan</h3>
+            {% for day, meals in diet_plan.weekly_plan.items() %}
+            <div class="day-plan">
+                <h4>{{ day|title }}</h4>
+                {% for meal, items in meals.items() %}
+                <div class="meal-card">
+                    <div class="meal-time">
+                        <i class="fas fa-utensils"></i>
+                        {{ meal|title }}
+                    </div>
+                    <ul class="meal-items">
+                        {% for item in items %}
+                        <li class="food-item">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            {% if diet_plan.recommendations %}
+            <div class="recommendations">
+                <h3>Additional Recommendations</h3>
+                <ul>
+                    {% for rec in diet_plan.recommendations %}
+                    <li>{{ rec }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
             {% endif %}
         </div>
     </div>
 
     <script>
-        let healthConditions = [];
-
-        // Show diet plan if it exists
-        var hasDietPlan = "{{ 'true' if diet_plan else 'false' }}";
-        if (hasDietPlan === true || hasDietPlan === 'true') {
-            document.getElementById("dietPlan").style.display = "block";
+        // Handle health conditions checkboxes
+        const healthCheckboxes = document.querySelectorAll('.form-check-input');
+        const healthConditionsInput = document.getElementById('health_conditions');
+        
+        function updateHealthConditions() {
+            const selectedConditions = [];
+            healthCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedConditions.push(checkbox.value);
+                }
+            });
+            healthConditionsInput.value = JSON.stringify(selectedConditions);
         }
+
+        healthCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateHealthConditions);
+        });
+
+        // Form submission
+        document.getElementById('dietForm').addEventListener('submit', function(e) {
+            updateHealthConditions();
+            // Additional form validation can be added here
+        });
+
+        // Smooth scroll to diet plan after form submission
+        {% if diet_plan %}
+        document.getElementById('dietPlan').scrollIntoView({ behavior: 'smooth' });
+        {% endif %}
 
         // Handle medical certificate upload
         document.getElementById("medical_certificate").addEventListener("change", function(event) {
@@ -377,10 +493,7 @@
             const submitBtn = document.getElementById("submitBtn");
             
             if (!file) {
-                document.getElementById("healthProblems").textContent = "None";
-                healthConditions = [];
                 uploadStatus.style.display = "none";
-                updateHealthConditionsInput();
                 return;
             }
 
@@ -401,77 +514,22 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    healthConditions = data.health_conditions;
-                    document.getElementById("healthProblems").textContent = data.conditions_text;
-                    updateHealthConditionsInput();
-                    
                     uploadStatus.className = "file-upload-status success";
                     uploadStatus.textContent = "Medical certificate processed successfully!";
                 } else {
                     uploadStatus.className = "file-upload-status error";
                     uploadStatus.textContent = data.error || "Error processing file";
-                    document.getElementById("healthProblems").textContent = "None";
-                    healthConditions = [];
-                    updateHealthConditionsInput();
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 uploadStatus.className = "file-upload-status error";
                 uploadStatus.textContent = "Error uploading file. Please try again.";
-                document.getElementById("healthProblems").textContent = "None";
-                healthConditions = [];
-                updateHealthConditionsInput();
             })
             .finally(() => {
                 submitBtn.disabled = false;
             });
         });
-
-        // Update hidden input with health conditions
-        function updateHealthConditionsInput() {
-            document.getElementById("healthConditionsInput").value = JSON.stringify(healthConditions);
-        }
-
-        // Handle form submission
-        document.getElementById("dietForm").addEventListener("submit", function(event) {
-            // Ensure health conditions are included
-            updateHealthConditionsInput();
-        });
-
-        const heightUnitSelect = document.getElementById("height_unit");
-    const cmInputDiv = document.getElementById("cm_input");
-    const ftInInputDiv = document.getElementById("ft_in_input");
-
-    function toggleHeightInputs() {
-        if (heightUnitSelect.value === "cm") {
-            cmInputDiv.style.display = "block";
-            ftInInputDiv.style.display = "none";
-        } else {
-            cmInputDiv.style.display = "none";
-            ftInInputDiv.style.display = "block";
-        }
-    }
-
-    heightUnitSelect.addEventListener("change", toggleHeightInputs);
-    toggleHeightInputs(); // initialize correct view
-
-    // Convert height before form submission
-    document.getElementById("dietForm").addEventListener("submit", function(event) {
-        updateHealthConditionsInput();
-
-        let heightCm = 0;
-        if (heightUnitSelect.value === "cm") {
-            heightCm = parseFloat(document.getElementById("height_cm").value) || 0;
-        } else {
-            const feet = parseFloat(document.getElementById("height_ft").value) || 0;
-            const inches = parseFloat(document.getElementById("height_in").value) || 0;
-            heightCm = (feet * 30.48) + (inches * 2.54);
-        }
-        document.getElementById("height").value = heightCm.toFixed(2);
-    });
-
-
     </script>
 </body>
 </html>

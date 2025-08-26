@@ -430,6 +430,11 @@ def d4():
 def d2():
     return render_template("day2.html")
 
+@app.route('/yoga')
+def yoga():
+    """Render the Yoga page"""
+    return render_template('Yoga.html')
+
 # AI Chatbot Routes
 @app.route('/ai-coach')
 def ai_coach():
