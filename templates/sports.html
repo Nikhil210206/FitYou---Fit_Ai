@@ -646,46 +646,58 @@
     background: linear-gradient(90deg, #ff3300, #ff6600);
 }
 
+
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <i class="fas fa-dumbbell"></i> FitAi
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home" onclick="setActiveNav(this)">
-                            <i class="fas fa-home"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#workouts" onclick="setActiveNav(this)">
-                            <i class="fas fa-running"></i> Workouts
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nutrition" onclick="setActiveNav(this)">
-                            <i class="fas fa-apple-alt"></i> Nutrition
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
-                            <i class="fas fa-user-friends"></i> Coaches
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#home">
+      <i class="fas fa-dumbbell"></i> FitAi
+    </a>
+
+    <!-- Mobile Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links + Light Mode Button -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#home" onclick="setActiveNav(this)">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#workouts" onclick="setActiveNav(this)">
+            <i class="fas fa-running"></i> Workouts
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#nutrition" onclick="setActiveNav(this)">
+            <i class="fas fa-apple-alt"></i> Nutrition
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
+            <i class="fas fa-user-friends"></i> Coaches
+          </a>
+        </li>
+      </ul>
+      <!-- Light Mode Button -->
+<button class="btn toggle-theme-btn ms-lg-3">
+  <i class="fas fa-sun me-2"></i>
+</button>
+
+    </div>
+  </div>
+</nav>
+
+
 
     <div style="margin: 20px;">
     <a href="{{ url_for('diet') }}">
