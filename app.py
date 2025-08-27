@@ -434,6 +434,48 @@ def yoga():
     """Render the Yoga page"""
     return render_template('Yoga.html')
 
+# Coaches route 
+
+@app.route('/sport/coaches/')
+def coaches():
+    """Render the Coaches page with featured trainers"""
+    featured_coaches = [
+        {
+            'name': 'Ava Thompson',
+            'title': 'Strength & Conditioning Coach',
+            'avatar': 'https://images.unsplash.com/photo-1550345332-09e3ac987658?q=80&w=600&auto=format&fit=crop',
+            'bio': 'Certified CSCS coach specializing in progressive overload, form correction, and athletic performance.',
+            'rating': 4.9,
+            'tags': ['Strength', 'Hypertrophy', 'Mobility']
+        },
+        {
+            'name': 'Liam Patel',
+            'title': 'Functional Fitness & Mobility',
+            'avatar': 'https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=600&auto=format&fit=crop',
+            'bio': 'Helps you move pain-free with evidence-based mobility, stability, and core training.',
+            'rating': 4.8,
+            'tags': ['Mobility', 'Core', 'Rehab']
+        },
+        {
+            'name': 'Maya Rivera',
+            'title': 'Fat Loss & Metabolic Health',
+            'avatar': 'https://images.unsplash.com/photo-1549068106-b024baf5062d?q=80&w=600&auto=format&fit=crop',
+            'bio': 'Science-first approach to sustainable fat loss, cardio programming, and habit building.',
+            'rating': 5.0,
+            'tags': ['Fat Loss', 'Cardio', 'Habits']
+        },
+        {
+            'name': 'Maya Rivera',
+            'title': 'Fat Loss & Metabolic Health',
+            'avatar': 'https://images.unsplash.com/photo-1549068106-b024baf5062d?q=80&w=600&auto=format&fit=crop',
+            'bio': 'Science-first approach to sustainable fat loss, cardio programming, and habit building.',
+            'rating': 5.0,
+            'tags': ['Fat Loss', 'Cardio', 'Habits']
+        }
+    ]
+    return render_template('coaches.html', coaches=featured_coaches)
+
+
 # AI Chatbot Routes
 @app.route('/ai-coach')
 def ai_coach():
