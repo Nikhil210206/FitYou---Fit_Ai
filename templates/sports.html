@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitAi - Your Personal Fitness Companion</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💪</text></svg>">
-    
+    <title>FitAI - Your Personal Fitness Companion</title>
+<link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/fitai.jpg') }}"
+      onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';"
+    /> 
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -75,6 +79,13 @@
             z-index: 1000;
             box-shadow: 0 2px 20px var(--shadow-dark);
             transition: background 0.5s ease, border-color 0.5s ease;
+            height: 80px; /* Define a fixed height for easier calculation */
+            min-height: 80px;
+        }
+
+        body.light-mode .navbar {
+            height: 80px; /* Define a fixed height for easier calculation */
+            min-height: 80px;
         }
         
         /* Navbar container with a specific layout */
@@ -82,6 +93,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            max-width: 1200px; /* Reduced breadth */
+            margin: 0 auto; /* Centered */
         }
 
         .navbar-brand {
@@ -113,7 +126,7 @@
         
         /* Light mode specific Toggler color */
         body.light-mode .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 123, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 53, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
 
         .navbar-nav .nav-link {
@@ -134,8 +147,12 @@
             box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
         }
 
-        /* Back Button - Pushed to the extreme left */
-        .back-button-nav {
+        /* Fixed Back Button Styles (for desktop view only) */
+        .fixed-back-button {
+            position: fixed;
+            top: 90px; /* Aligned below the navbar with a small gap */
+            left: 1rem;
+            z-index: 1010; /* Above most content */
             color: var(--text-light) !important;
             font-weight: 600;
             padding: 0.75rem 1.25rem !important;
@@ -144,21 +161,19 @@
             transition: all 0.3s ease;
             background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            display: flex;
+            display: flex; /* Ensure flex for icon and text alignment */
             align-items: center;
             gap: 8px;
-            margin-right: 1rem;
         }
-        
-        .back-button-nav:hover {
+
+        .fixed-back-button:hover {
             transform: translateY(-2px) scale(1.02);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .back-button-nav i {
+        .fixed-back-button i {
             font-size: 1.2rem;
         }
-
 
         /* Light/Dark Mode Toggle Button */
         .toggle-theme-btn {
@@ -213,7 +228,7 @@
             pointer-events: none;
         }
         body.light-mode .hero-section::before {
-            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
         }
 
         .hero-title {
@@ -620,7 +635,7 @@
             border-radius: 2px;
         }
         body.light-mode .quote-item::before {
-            background: linear-gradient(90deg, #ff6b35, #7209b7);
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
         }
 
         .quote-text {
@@ -724,10 +739,39 @@
             }
         }
 
-        /* Responsive Back Button */
+        /* Hide the original back button inside the navbar on all screens */
+        .navbar .back-button-nav {
+            display: none;
+        }
+
+        /* Show the new fixed back button outside the navbar on larger screens */
+        @media (min-width: 992px) {
+            .fixed-back-button {
+                display: flex; /* Show on desktop */
+            }
+        }
+
+        /* Hide the new fixed back button on smaller screens (mobile) */
         @media (max-width: 991px) {
-            .back-button-nav {
-                display: none;
+            .fixed-back-button {
+                display: none; /* Hide on mobile */
+            }
+
+            /* Increase vertical gap between all nav items in mobile view */
+            .navbar-nav .nav-item {
+                margin-bottom: 0.75rem; /* Increased vertical spacing */
+            }
+            /* Remove last item's bottom margin to prevent excess space */
+            .navbar-nav .nav-item:last-child {
+                margin-bottom: 0;
+            }
+            
+            /* Ensure nav links take full width and hover doesn't collapse */
+            .navbar-nav .nav-link {
+                width: 100%;
+                text-align: left;
+                padding: 0.75rem 1rem !important; /* Adjust padding slightly if needed */
+                margin: 0; /* Remove horizontal margin */
             }
         }
 
@@ -781,14 +825,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <!-- Back Button - Fixed on Navbar -->
-            <a class="nav-link back-button-nav me-3" href="{{ url_for('diet') }}">
-                <i class="fas fa-arrow-left"></i> Back
-            </a>
-
             <!-- Brand -->
-            <a class="navbar-brand" href="#home">
-                <i class="fas fa-dumbbell"></i> FitAi
+            <a class="navbar-brand" href="{{ url_for('ai_coach') }}">
+                <i class="fas fa-dumbbell"></i> FitAI
             </a>
 
             <!-- Mobile Toggler -->
@@ -801,28 +840,34 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="Home.html" onclick="setActiveNav(this)">
+                        <a class="nav-link" href="#" onclick="setActiveNav(this)">
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="sports.html" onclick="setActiveNav(this)">
-                            <i class="fas fa-calendar-alt"></i> Sport Schedular
+                        <a class="nav-link active" href="#" onclick="setActiveNav(this)">
+                            <i class="fas fa-calendar-alt"></i> Sport Scheduler
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="diet.html" onclick="setActiveNav(this)">
+                        <a class="nav-link" href="#" onclick="setActiveNav(this)">
                             <i class="fas fa-apple-alt"></i> Nutrition
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="workout_plan.html" onclick="setActiveNav(this)">
+                        <a class="nav-link" href="#" onclick="setActiveNav(this)">
                             <i class="fas fa-running"></i> Workouts
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
                             <i class="fas fa-user-friends"></i> Coaches
+                        </a>
+                    </li>
+                    <!-- Back Button for Mobile View (after Coaches) -->
+                    <li class="nav-item d-lg-none"> <!-- d-lg-none hides it on large screens and up -->
+                        <a class="nav-link" href="javascript:history.back()">
+                            <i class="fas fa-arrow-left"></i> Back
                         </a>
                     </li>
                 </ul>
@@ -834,6 +879,11 @@
         </div>
     </nav>
     
+    <!-- Fixed Back Button (for desktop view only) -->
+    <a class="fixed-back-button d-none d-lg-flex" href="javascript:history.back()">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
     <!-- Hero Section -->
     <section class="hero-section" id="home">
         <div class="container">
@@ -1079,7 +1129,7 @@
     <footer class="footer">
         <div class="container">
             <p class="footer-text">
-                © 2025 FitAi. Empowering your fitness journey with intelligent workout planning.
+                © 2025 FitAI. Empowering your fitness journey with intelligent workout planning.
             </p>
         </div>
     </footer>
@@ -1129,39 +1179,40 @@
         const workoutData = {
             beginner: {
                 strength: [
-                    { exercise: "Push-ups", sets: 2, reps: "8-12" },
-                    { exercise: "Squats", sets: 2, reps: "10-15" },
+                    { exercise: "Push-ups (on knees if needed)", sets: 2, reps: "8-12" },
+                    { exercise: "Bodyweight Squats", sets: 2, reps: "10-15" },
                     { exercise: "Plank", duration: "20-30 seconds" },
-                    { exercise: "Lunges", sets: 2, reps: "8 each leg" }
+                    { exercise: "Lunges (alternating)", sets: 2, reps: "8 each leg" }
                 ],
                 cardio: [
                     { exercise: "Brisk Walking", duration: "20-30 minutes" },
-                    { exercise: "Stationary Bike", duration: "15-20 minutes" },
-                    { exercise: "Swimming", duration: "15-20 minutes" }
+                    { exercise: "Stationary Bike", duration: "15-20 minutes (light resistance)" },
+                    { exercise: "Low-impact Aerobics", duration: "15-20 minutes" }
                 ],
                 flexibility: [
                     { exercise: "Hamstring Stretch", duration: "30 seconds each leg" },
                     { exercise: "Shoulder Rolls", duration: "1 minute" },
-                    { exercise: "Calf Stretch", duration: "30 seconds each leg" }
+                    { exercise: "Calf Stretch", duration: "30 seconds each leg" },
+                    { exercise: "Cat-Cow Stretch", duration: "10 reps" }
                 ]
             },
             intermediate: {
                 strength: [
-                    { exercise: "Push-ups", sets: 3, reps: "12-20" },
-                    { exercise: "Squats", sets: 3, reps: "15-25" },
+                    { exercise: "Standard Push-ups", sets: 3, reps: "12-20" },
+                    { exercise: "Goblet Squats (with light weight)", sets: 3, reps: "15-25" },
                     { exercise: "Plank", duration: "45-60 seconds" },
                     { exercise: "Burpees", sets: 2, reps: "8-12" },
-                    { exercise: "Pull-ups", sets: 2, reps: "5-10" }
+                    { exercise: "Assisted Pull-ups/Resistance Band Rows", sets: 2, reps: "5-10" }
                 ],
                 cardio: [
                     { exercise: "Jogging", duration: "25-35 minutes" },
-                    { exercise: "HIIT Training", duration: "20-25 minutes" },
-                    { exercise: "Cycling", duration: "30-40 minutes" }
+                    { exercise: "HIIT Training (e.g., jump squats, high knees)", duration: "20-25 minutes" },
+                    { exercise: "Cycling (moderate intensity)", duration: "30-40 minutes" }
                 ],
                 flexibility: [
-                    { exercise: "Dynamic Stretching", duration: "10 minutes" },
+                    { exercise: "Dynamic Stretching (e.g., leg swings)", duration: "10 minutes" },
                     { exercise: "Yoga Flow", duration: "15-20 minutes" },
-                    { exercise: "Foam Rolling", duration: "10 minutes" }
+                    { exercise: "Foam Rolling (quads, hamstrings)", duration: "10 minutes" }
                 ]
             },
             advanced: {
@@ -1169,19 +1220,19 @@
                     { exercise: "Weighted Push-ups", sets: 4, reps: "15-25" },
                     { exercise: "Jump Squats", sets: 4, reps: "20-30" },
                     { exercise: "Plank to Push-up", sets: 3, reps: "10-15" },
-                    { exercise: "Burpees", sets: 3, reps: "15-20" },
-                    { exercise: "Pull-ups", sets: 3, reps: "12-20" },
-                    { exercise: "Deadlifts", sets: 4, reps: "8-12" }
+                    { exercise: "Burpees (full body)", sets: 3, reps: "15-20" },
+                    { exercise: "Pull-ups (unassisted)", sets: 3, reps: "12-20" },
+                    { exercise: "Deadlifts (with proper form)", sets: 4, reps: "8-12" }
                 ],
                 cardio: [
-                    { exercise: "Running", duration: "35-45 minutes" },
-                    { exercise: "Advanced HIIT", duration: "30-40 minutes" },
+                    { exercise: "Running (intervals/hills)", duration: "35-45 minutes" },
+                    { exercise: "Advanced HIIT (e.g., box jumps, kettlebell swings)", duration: "30-40 minutes" },
                     { exercise: "Sprint Intervals", duration: "20-25 minutes" }
                 ],
                 flexibility: [
-                    { exercise: "Advanced Yoga", duration: "30 minutes" },
-                    { exercise: "Deep Stretching", duration: "20 minutes" },
-                    { exercise: "Mobility Work", duration: "15 minutes" }
+                    { exercise: "Advanced Yoga/Pilates", duration: "30 minutes" },
+                    { exercise: "Deep Stretching (static holds)", duration: "20 minutes" },
+                    { exercise: "Mobility Work (thoracic spine, hips)", duration: "15 minutes" }
                 ]
             }
         };
@@ -1198,24 +1249,32 @@
             event.preventDefault();
             const fitnessLevel = document.getElementById('fitness_level').value;
             
+            // Validate selection
+            if (!fitnessLevel) {
+                console.error("Please select a fitness level.");
+                return;
+            }
+
             // Show loading state
             const generateBtn = document.getElementById('generateBtn');
             generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
             generateBtn.disabled = true;
 
             // Display routine section
-            document.getElementById('routineResults').style.display = 'block';
+            const routineResultsSection = document.getElementById('routineResults');
+            routineResultsSection.style.display = 'block';
             
             // Update routine based on fitness level
             const routineData = workoutData[fitnessLevel];
             if (routineData) {
                 // Update strength exercises
                 const strengthList = document.getElementById('strengthExercises');
-                strengthList.innerHTML = routineData.strength.map(ex => 
-                    `<li class="exercise-item">
-                        ${ex.exercise} - ${ex.sets} sets x ${ex.reps} reps
-                    </li>`
-                ).join('');
+                strengthList.innerHTML = routineData.strength.map(ex => {
+                    const detail = ex.sets && ex.reps ? `${ex.sets} sets x ${ex.reps} reps` : ex.duration;
+                    return `<li class="exercise-item">
+                                ${ex.exercise} - ${detail}
+                            </li>`;
+                }).join('');
 
                 // Update cardio exercises
                 const cardioList = document.getElementById('cardioExercises');
@@ -1245,7 +1304,7 @@
             }, 1000);
 
             // Scroll to results
-            document.getElementById('routineResults').scrollIntoView({ behavior: 'smooth' });
+            routineResultsSection.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
