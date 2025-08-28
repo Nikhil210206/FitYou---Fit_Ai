@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit You • Coaches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #0f0f0f;
+            --dark-secondary-bg: #1a1a1a;
+            --dark-tertiary-bg: #252525;
+            --text-color-dark: #ffffff;
+            --brand-orange: #ff6b35;
+            --brand-green: #00d4aa;
+            --brand-blue: #4361ee;
+            --accent-purple: #7209b7;
+            --gradient-primary: linear-gradient(135deg, var(--brand-orange), var(--accent-purple));
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color-dark);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(26, 26, 26, .9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .4);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand i {
+            color: var(--brand-orange);
+            font-size: 1.6rem;
+        }
+
+        .brand h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-actions a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: var(--gradient-primary);
+            box-shadow: var(--card-shadow);
+            font-weight: 600;
+        }
+
+        .page-hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 5% 20px;
+        }
+
+        .page-hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff9a6c 0%, var(--brand-orange) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-hero p {
+            color: #cfcfcf;
+        }
+
+        .filters {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 5% 10px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--dark-tertiary-bg);
+            color: #ddd;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .chip:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .chip.active {
+            background: var(--gradient-primary);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .grid {
+            max-width: 1200px;
+            margin: 20px auto 60px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--dark-tertiary-bg);
+            border: 1px solid #2e2e2e;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card .top {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 10px;
+            background: rgba(0, 0, 0, .6);
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 999px;
+            font-size: .8rem;
+        }
+
+        .content {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .title {
+            color: #cfcfcf;
+            font-size: .95rem;
+        }
+
+        .bio {
+            color: #bdbdbd;
+            font-size: .92rem;
+            line-height: 1.5;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .tag {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            font-size: .8rem;
+            color: #ddd;
+        }
+
+        .actions {
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: var(--gradient-primary);
+            box-shadow: var(--card-shadow);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            color: #bbb;
+            padding: 24px 5%;
+            background: var(--dark-secondary-bg);
+        }
+    </style>
+    <script>
+        function selectChip(el) {
+            const chips = document.querySelectorAll('.chip');
+            chips.forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            // Simple client-side filter demo
+            const key = el.dataset.tag;
+            document.querySelectorAll('.card').forEach(card => {
+                if (key === 'all') { card.style.display = 'flex'; return; }
+                const tags = card.dataset.tags.split(',');
+                card.style.display = tags.includes(key) ? 'flex' : 'none';
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="brand">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Fit You</h3>
+            </div>
+            <div class="nav-actions">
+                <a href="/">Home</a>
+            </div>
+            
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>Meet Our Expert Coaches</h1>
+        <p>Work 1:1 with certified trainers for strength, fat loss, mobility and more.</p>
+    </section>
+
+    <div class="filters">
+        <button class="chip active" data-tag="all" onclick="selectChip(this)">All</button>
+        <button class="chip" data-tag="Strength" onclick="selectChip(this)">Strength</button>
+        <button class="chip" data-tag="Fat Loss" onclick="selectChip(this)">Fat Loss</button>
+        <button class="chip" data-tag="Mobility" onclick="selectChip(this)">Mobility</button>
+        <button class="chip" data-tag="Cardio" onclick="selectChip(this)">Cardio</button>
+    </div>
+
+    <section class="grid">
+        {% for c in coaches %}
+        <article class="card" data-tags="{% for t in c.tags %}{{t}}{% if not loop.last %},{% endif %}{% endfor %}">
+            <div class="top">
+                <img src="{{ c.avatar }}" alt="{{ c.name }}" loading="lazy">
+                <span class="badge"><i class="fa-solid fa-star"></i> {{ '%.1f'|format(c.rating) }}</span>
+            </div>
+            <div class="content">
+                <div class="name">{{ c.name }}</div>
+                <div class="title">{{ c.title }}</div>
+                <p class="bio">{{ c.bio }}</p>
+                <div class="tags">
+                    {% for t in c.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+                </div>
+                <div class="actions">
+                    <span class="rating"><i class="fa-solid fa-star"></i> {{ '%.1f'|format(c.rating) }}</span>
+                    <a class="btn" href="#">Book Session</a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+
+    <footer>
+        © 2024 Fit You. All Rights Reserved.
+    </footer>
+</body>
+
+</html>
