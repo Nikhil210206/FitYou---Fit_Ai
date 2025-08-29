@@ -199,24 +199,106 @@ Follow these steps to set up and run FitAi locally for development:
 -   **Advanced Analytics Dashboard:** A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
 
 
+
 ## 🤝 Contributions Welcome
 
-We welcome contributions from the community! To contribute to FitAi, please follow these steps:
+We welcome contributions from the community! To contribute to FitAi, please follow these steps to ensure a smooth and conflict-free process:
 
 1.  **Fork the repository.**
-2.  **Create a new branch for your feature or bug fix:**
+    * Click the "Fork" button on the top right of the [FitAi GitHub repository](https://github.com/Nikhil210206/FitAi.git) 
+
+2.  **Clone your forked repository locally:**
+    ```
+    git clone [https://github.com/your-username/FitAi.git](https://github.com/your-username/FitAi.git)
+    cd FitAi
+    ```
+    *Replace `your-username` with your actual GitHub username.*
+
+3.  **Add the upstream remote:**
+    * This step links your local repository to the original FitAi repository, allowing you to fetch updates.
+    ```
+    git remote add upstream [https://github.com/Nikhil210206/FitAi.git](https://github.com/Nikhil210206/FitAi.git)
+    ```
+
+4.  **Fetch the latest changes from the upstream `main` branch:**
+    * Before starting any work, always synchronize your local `main` branch with the upstream `main` to get the most recent updates and avoid merge conflicts.
+    ```
+    git fetch upstream
+    ```
+
+5.  **Merge upstream changes into your local `main` branch:**
+    ```
+    git checkout main
+    git merge upstream/main
+    ```
+    * This ensures your local `main` is up-to-date.
+
+6.  **Create a new branch for your feature or bug fix:**
+    * Always work on a new branch, giving it a descriptive name (e.g., `feature/add-dark-mode`, `bugfix/fix-login-issue`).
     ```
     git checkout -b feature-name
     ```
-3.  **Commit your changes with a clear and concise message:**
+
+7.  **Make your changes according to the issue assigned to you.**
+    * Implement your feature or bug fix. Ensure your code follows the project's coding standards and includes necessary tests.
+
+8.  **Commit your changes with a clear and concise message:**
+    * Use a descriptive commit message that explains what changes were made.
     ```
-    git commit -m 'Add a feature'
+    git commit -m 'feat: Add new feature'
+    # Example for a bug fix:
+    # git commit -m 'fix: Resolve login authentication issue'
     ```
-4.  **Push to your branch:**
+
+9.  **Push your branch to your forked repository on GitHub (and set upstream):**
+    * This command pushes your local `feature-name` branch to your `origin` remote (your forked repository) and sets it up to track that remote branch. This means that from now on, you can simply use `git push` and `git pull` without specifying the remote and branch name for this particular branch.
+    ```
+    git push -u origin feature-name
+    ```
+    * After this first push, subsequent pushes from this branch can simply be `git push`.
+
+10. **Open a Pull Request (PR) for review:**
+    * Go to your forked repository on GitHub.
+    * You will see a "Compare & pull request" button next to your newly pushed branch. Click it.
+    * Provide a clear title and detailed description of your changes, referencing the issue number it addresses (e.g., "Fixes #123").
+    * Ensure your code adheres to our style guidelines and includes relevant tests.
+   
+
+## Resolving Merge Conflicts 💥
+
+Merge conflicts happen when Git can't automatically reconcile changes between two branches. Here's how to resolve them concisely:
+
+1.  **Sync with Latest `main`:**
+    * Ensure your local `main` branch is up-to-date, then merge it into your feature branch.
+    ```bash
+    git checkout main
+    git pull upstream main # Or git pull origin main
+    git checkout feature-name
+    git merge main
+    ```
+    *This step will likely trigger the conflict.*
+
+2.  **Edit Conflicting Files:**
+    * Open files flagged by Git. Manually edit sections marked by `<<<<<<<`, `=======`, and `>>>>>>>` to combine the desired changes.
+    * **Remove all conflict markers** after resolution.
+
+3.  **Stage Changes:**
+    * After resolving each file, stage it:
+    ```
+    git add .
+    ```
+
+4.  **Commit Merge:**
+    * Git will provide a default merge commit message. Review and save it.
+    ```
+    git commit
+    ```
+
+5.  **Push Resolved Branch:**
+    * Push your updated, conflict-free feature branch:
     ```
     git push origin feature-name
     ```
-5.  **Open a Pull Request for review.** Please ensure your code adheres to our style guidelines and includes relevant tests.
 
 
 
