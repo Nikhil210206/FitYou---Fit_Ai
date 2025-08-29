@@ -80,7 +80,7 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 
 ## 📂 Project Structure
 
-The FitAi project follows a consolidated structure where both frontend (React) and backend (Flask) components reside primarily in the root directory, with dedicated folders for static assets, templates, and configurations.
+-The FitAi project follows a consolidated structure where both frontend (React) and backend (Flask) components reside primarily in the root directory, with dedicated folders for static assets, templates, and configurations.
 
 FitAi/
 ├── .github/                      # GitHub configurations for issue templates and workflows
@@ -153,7 +153,6 @@ FitAi/
 
 Follow these steps to set up and run FitAi locally for development:
 
-```bash
 # 1. Clone the repository
 git clone [https://github.com/Nikhil210206/FitAi.git](https://github.com/Nikhil210206/FitAi.git)
 
@@ -182,61 +181,74 @@ npm start
 http://localhost:5000
 # If primarily running the Flask app directly and serving HTML templates:
 # http://localhost:5000 (default Flask port, may vary)
-🛠️ Usage
-Sign up or Log in: Create an account or log in to access your personalized fitness dashboard.  
 
-Enter your details: Provide information about your fitness goals, current activity level, and available equipment.  
+---
 
-Receive Plans: Get instant access to tailored workout routines and customized diet plans.  
+## 🛠️ Usage
+- **Sign up or Log in:** Create an account or log in to access your personalized fitness dashboard.  
 
-Track Progress: Monitor your achievements and adjust your preferences to evolve your plan as needed.  
+- **Enter your details:** Provide information about your fitness goals, current activity level, and available equipment.  
 
-Connect with Experts: Engage with experienced coaches and mentors for additional guidance and motivation.  
+- **Receive Plans: Get instant access to tailored workout routines and customized diet plans.  
 
-🚀 Future Enhancements
-Wearable Device Integration: Seamless connectivity with popular wearable devices for real-time activity tracking and data synchronization.  
+- **Track Progress: Monitor your achievements and adjust your preferences to evolve your plan as needed.  
 
-Multi-Language Support: Expand accessibility by offering the application in multiple languages.  
+- **Connect with Experts: Engage with experienced coaches and mentors for additional guidance and motivation.
 
-Gamification Features: Introduce engaging game-like elements and challenges to enhance user motivation and engagement.  
+---
 
-Advanced Analytics Dashboard: A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.  
+## 🚀 Future Enhancements
+- **Wearable Device Integration: Seamless connectivity with popular wearable devices for real-time activity tracking and data synchronization.  
 
-🤝 Contributions Welcome
-We welcome contributions from the community! To contribute to FitAi, please follow these steps:
+- **Multi-Language Support: Expand accessibility by offering the application in multiple languages.  
 
-Fork the repository.  
+- **Gamification Features: Introduce engaging game-like elements and challenges to enhance user motivation and engagement.  
 
-Create a new branch for your feature or bug fix: git checkout -b feature-name  
+- **Advanced Analytics Dashboard: A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
 
-Commit your changes with a clear and concise message: git commit -m 'Add a feature'  
+---
 
-Push to your branch: git push origin feature-name  
+## 🤝 Contributions Welcome
+# 1. We welcome contributions from the community! To contribute to FitAi, please follow these steps:
 
-Open a Pull Request for review. Please ensure your code adheres to our style guidelines and includes relevant tests.  
+# 2. Fork the repository.  
 
-📞 Contact
+# 3. Create a new branch for your feature or bug fix: git checkout -b feature-name  
+
+# 4. Commit your changes with a clear and concise message: git commit -m 'Add a feature'  
+
+#5. Push to your branch: git push origin feature-name  
+
+#6. Open a Pull Request for review. Please ensure your code adheres to our style guidelines and includes relevant tests.  
+
+---
+
+## 📞 Contact
 For any questions, suggestions, or collaborations, feel free to reach out to:
 
-Name: Nikhil Balamurugan  
+- Name: Nikhil Balamurugan  
 
-GitHub: Nikhil210206  
+- GitHub: Nikhil210206  
 
-Email: nikhilbalamurugan@gmail.com  
+- Email: nikhilbalamurugan@gmail.com
 
-🙏 Acknowledgments
+---
+
+## 🙏 Acknowledgments
 We extend our sincere gratitude to:
 
-My incredible team and all dedicated contributors for their hard work and commitment.  
+- My incredible team and all dedicated contributors for their hard work and commitment.  
 
-The open-source community for providing invaluable tools and libraries that made this project possible.  
+- The open-source community for providing invaluable tools and libraries that made this project possible.  
 
-The fitness community for their continuous inspiration and feedback.  
+- The fitness community for their continuous inspiration and feedback.
 
-📜 License
-This project is licensed under the MIT License - see the LICENSE file for more details.
+--- 
 
-This Project is under Open Source Connect India 2025
+## 📜 License
+- This project is licensed under the MIT License - see the LICENSE file for more details.
+
+- This Project is under Open Source Connect India 2025
 
 
 
