@@ -209,7 +209,7 @@ We welcome contributions from the community! To contribute to FitAi, please foll
 
 2.  **Clone your forked repository locally:**
     ```
-    git clone [https://github.com/your-username/FitAi.git](https://github.com/your-username/FitAi.git)
+    git clone https://github.com/your-username/FitAi.git
     cd FitAi
     ```
     *Replace `your-username` with your actual GitHub username.*
@@ -217,7 +217,7 @@ We welcome contributions from the community! To contribute to FitAi, please foll
 3.  **Add the upstream remote:**
     * This step links your local repository to the original FitAi repository, allowing you to fetch updates.
     ```
-    git remote add upstream [https://github.com/Nikhil210206/FitAi.git](https://github.com/Nikhil210206/FitAi.git)
+    git remote add upstream https://github.com/Nikhil210206/FitAi.git
     ```
 
 4.  **Fetch the latest changes from the upstream `main` branch:**
