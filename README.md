@@ -19,22 +19,20 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 2 star - 10 points |
 3 star - 15 points
 
----
 ## 📑 Table of Contents
 
-  - [🌟 Key Features](#-key-features)
-  - [💻 Technologies at Work](#-technologies-at-work)
-  - [🎯 Highlights](#-highlights)
-  - [📂 Project Structure](#-project-structure)
-  - [⚙️ How to Install](#️-how-to-install)
-  - [🛠️ Usage](#️-usage)
-  - [🚀 Future Enhancements](#-future-enhancements)
-  - [🤝 Contributions Welcome](#-contributions-welcome)
-  - [📞 Contact](#-contact)
-  - [🙏 Acknowledgments](#-acknowledgments)
-  - [📜 License](#-license)
+- [🌟 Key Features](#-key-features)
+- [💻 Technologies at Work](#-technologies-at-work)
+- [🎯 Highlights](#-highlights)
+- [📂 Project Structure](#-project-structure)
+- [⚙️ How to Install](#️-how-to-install)
+- [🛠️ Usage](#️-usage)
+- [🚀 Future Enhancements](#-future-enhancements)
+- [🤝 Contributions Welcome](#-contributions-welcome)
+- [📞 Contact](#-contact)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [📜 License](#-license)
 
----
 
 ## 🌟 Key Features
 
@@ -53,7 +51,7 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 - 🛠️ **Professional Guidance**
   Access to experienced coaches and mentors for expert support and advice throughout your fitness journey.
 
----
+
 
 ## 💻 Technologies at Work
 
@@ -63,7 +61,6 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 - **Database:** **MongoDB** for flexible and scalable storage of user profiles, fitness data, and personalized plans.
 - **AI API:** **Google Generative AI** for advanced language understanding and enhanced interactive features.
 
----
 
 ## 🎯 Highlights
 
@@ -72,7 +69,6 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 - **AI-Driven Accuracy:** Leveraging data-powered intelligence to provide precise and effective personalized fitness recommendations.
 - **Scalability:** Architected for growth, the platform is designed to efficiently accommodate an expanding user base and new features.
 
----
 
 ## 📂 Project Structure
 
@@ -144,45 +140,46 @@ FitAi/
 ├── tailwind.config.js            # Tailwind CSS configuration
 └── vercel.json                   # Vercel deployment configuration
 ```
----
+
 
 ## ⚙️ How to Install
 
 Follow these steps to set up and run FitAi locally for development:
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/Nikhil210206/FitAi.git](https://github.com/Nikhil210206/FitAi.git)
+1.  **Fork the repository.**
+    * Click the "Fork" button on the top right of the GitHub repository page to create a copy in your account.
+2.  **Clone your forked repository:**
     ```
-2.  **Navigate to the project directory:**
-    ```bash
-    cd FitAi
+    git clone https://github.com/Nikhil210206/FitYou---Fit_Ai.git
     ```
-3.  **Install Python dependencies for the backend:**
-    ```bash
+3.  **Navigate to the project directory:**
+    ```
+    cd FitYou---Fit_Ai
+    ```
+4.  **Install Python dependencies for the backend:**
+    ```
     pip install -r requirements.txt
     ```
-4.  **Install frontend dependencies:**
-    ```bash
+5.  **Install frontend dependencies:**
+    ```
     npm install
     ```
-5.  **Start the backend server:**
-    ```bash
+6.  **Start the backend server:**
+    ```
     flask run
     # Alternatively, if 'flask' command is not globally available:
     # python app.py
     ```
-6.  **Start the frontend development server:**
-    ```bash
+7.  **Start the frontend development server:**
+    ```
     npm start
     ```
     * **Note:** Given the consolidated project structure, the `npm start` command runs the React development server. It serves the frontend assets (like your React components) which are then likely integrated or proxied by the Flask backend.
-    * **Important:** Ensure both the Flask backend (Step 5) and the React development server (Step 6) are running concurrently for the full application functionality.
-7.  **Open in browser:**
+    * **Important:** Ensure both the Flask backend (Step 6) and the React development server (Step 7) are running concurrently for the full application functionality.
+8.  **Open in browser:**
     * Access the application by navigating to: `http://localhost:5000`
     * **Explanation:** The Flask backend, which serves as the primary web server, typically runs on port `5000` by default. Your React frontend assets are likely served through this same port once the Flask application is running and configured to handle them.
 
----
 
 ## 🛠️ Usage
 
@@ -192,7 +189,7 @@ Follow these steps to set up and run FitAi locally for development:
 -   **Track Progress:** Monitor your achievements and adjust your preferences to evolve your plan as needed.
 -   **Connect with Experts:** Engage with experienced coaches and mentors for additional guidance and motivation.
 
----
+
 
 ## 🚀 Future Enhancements
 
@@ -201,28 +198,27 @@ Follow these steps to set up and run FitAi locally for development:
 -   **Gamification Features:** Introduce engaging game-like elements and challenges to enhance user motivation and engagement.
 -   **Advanced Analytics Dashboard:** A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
 
----
 
 ## 🤝 Contributions Welcome
 
 We welcome contributions from the community! To contribute to FitAi, please follow these steps:
 
-* **Fork the repository.**
-* **Create a new branch for your feature or bug fix:**
-    ```bash
+1.  **Fork the repository.**
+2.  **Create a new branch for your feature or bug fix:**
+    ```
     git checkout -b feature-name
     ```
-* **Commit your changes with a clear and concise message:**
-    ```bash
+3.  **Commit your changes with a clear and concise message:**
+    ```
     git commit -m 'Add a feature'
     ```
-* **Push to your branch:**
-    ```bash
+4.  **Push to your branch:**
+    ```
     git push origin feature-name
     ```
-* **Open a Pull Request for review.** Please ensure your code adheres to our style guidelines and includes relevant tests.
+5.  **Open a Pull Request for review.** Please ensure your code adheres to our style guidelines and includes relevant tests.
 
----
+
 
 ## 📞 Contact
 
@@ -232,7 +228,6 @@ For any questions, suggestions, or collaborations, feel free to reach out to:
 -   **GitHub:** [Nikhil210206](https://github.com/Nikhil210206)
 -   **Email:** nikhilbalamurugan@gmail.com
 
----
 
 ## 🙏 Acknowledgments
 
@@ -242,7 +237,6 @@ We extend our sincere gratitude to:
 -   The open-source community for providing invaluable tools and libraries that made this project possible.
 -   The fitness community for their continuous inspiration and feedback.
 
----
 
 ## 📜 License
 
