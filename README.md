@@ -264,7 +264,7 @@ We welcome contributions from the community! To contribute to FitAi, please foll
     * Ensure your code adheres to our style guidelines and includes relevant tests.
    
 
-## Resolving Merge Conflicts 💥
+## 💥 Resolving Merge Conflicts 
 
 Merge conflicts happen when Git can't automatically reconcile changes between two branches. Here's how to resolve them concisely:
 
