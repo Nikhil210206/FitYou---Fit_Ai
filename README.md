@@ -205,11 +205,11 @@ Follow these steps to set up and run FitAi locally for development:
 We welcome contributions from the community! To contribute to FitAi, please follow these steps to ensure a smooth and conflict-free process:
 
 1.  **Fork the repository.**
-    * Click the "Fork" button on the top right of the [FitAi GitHub repository](https://github.com/Nikhil210206/FitAi.git) 
+    * Click the "Fork" button on the top right of the [FitAi GitHub repository](https://github.com/Nikhil210206/FitYou---Fit_Ai.git) 
 
 2.  **Clone your forked repository locally:**
     ```
-    git clone https://github.com/your-username/FitAi.git
+    git clone https://github.com/your-username/FitYou---Fit_Ai.git
     cd FitAi
     ```
     *Replace `your-username` with your actual GitHub username.*
@@ -217,7 +217,7 @@ We welcome contributions from the community! To contribute to FitAi, please foll
 3.  **Add the upstream remote:**
     * This step links your local repository to the original FitAi repository, allowing you to fetch updates.
     ```
-    git remote add upstream https://github.com/Nikhil210206/FitAi.git
+    git remote add upstream https://github.com/Nikhil210206/FitYou---Fit_Ai.git
     ```
 
 4.  **Fetch the latest changes from the upstream `main` branch:**
