@@ -79,9 +79,9 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 ---
 
 ## 📂 Project Structure
-
 -The FitAi project follows a consolidated structure where both frontend (React) and backend (Flask) components reside primarily in the root directory, with dedicated folders for static assets, templates, and configurations.
 
+```
 FitAi/
 ├── .github/                      # GitHub configurations for issue templates and workflows
 │   ├── ISSUE_TEMPLATE/           # Templates for bug reports, feature requests
@@ -145,7 +145,7 @@ FitAi/
 ├── SECURITY.md                   # Security policy documentation
 ├── tailwind.config.js            # Tailwind CSS configuration
 └── vercel.json                   # Vercel deployment configuration
-
+```
 
 ---
 
@@ -189,37 +189,37 @@ http://localhost:5000
 
 - **Enter your details:** Provide information about your fitness goals, current activity level, and available equipment.  
 
-- **Receive Plans: Get instant access to tailored workout routines and customized diet plans.  
+- **Receive Plans:** Get instant access to tailored workout routines and customized diet plans.  
 
-- **Track Progress: Monitor your achievements and adjust your preferences to evolve your plan as needed.  
+- **Track Progress:** Monitor your achievements and adjust your preferences to evolve your plan as needed.  
 
-- **Connect with Experts: Engage with experienced coaches and mentors for additional guidance and motivation.
+- **Connect with Experts:** Engage with experienced coaches and mentors for additional guidance and motivation.
 
 ---
 
 ## 🚀 Future Enhancements
-- **Wearable Device Integration: Seamless connectivity with popular wearable devices for real-time activity tracking and data synchronization.  
+- **Wearable Device Integration:** Seamless connectivity with popular wearable devices for real-time activity tracking and data synchronization.  
 
-- **Multi-Language Support: Expand accessibility by offering the application in multiple languages.  
+- **Multi-Language Support:** Expand accessibility by offering the application in multiple languages.  
 
-- **Gamification Features: Introduce engaging game-like elements and challenges to enhance user motivation and engagement.  
+- **Gamification Features:** Introduce engaging game-like elements and challenges to enhance user motivation and engagement.  
 
-- **Advanced Analytics Dashboard: A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
+- **Advanced Analytics Dashboard:** A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
 
 ---
 
 ## 🤝 Contributions Welcome
-# 1. We welcome contributions from the community! To contribute to FitAi, please follow these steps:
+### 1. We welcome contributions from the community! To contribute to FitAi, please follow these steps:
 
-# 2. Fork the repository.  
+### 2. Fork the repository.  
 
-# 3. Create a new branch for your feature or bug fix: git checkout -b feature-name  
+### 3. Create a new branch for your feature or bug fix: git checkout -b feature-name  
 
-# 4. Commit your changes with a clear and concise message: git commit -m 'Add a feature'  
+### 4. Commit your changes with a clear and concise message: git commit -m 'Add a feature'  
 
-#5. Push to your branch: git push origin feature-name  
+### 5. Push to your branch: git push origin feature-name  
 
-#6. Open a Pull Request for review. Please ensure your code adheres to our style guidelines and includes relevant tests.  
+### 6. Open a Pull Request for review. Please ensure your code adheres to our style guidelines and includes relevant tests.  
 
 ---
 
