@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
-    <title>FitYou - Workout Plan</title>
+    <title>FIT YOU - Workout Plan</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -532,7 +532,7 @@
         <nav>
             <div class="logo">
                 <i class="fas fa-dumbbell logo-icon"></i>
-                <h3>FitYou</h3>
+                <h3>FIT YOU</h3>
             </div>
             <div class="nav-links">
                 <a href="{{ url_for('diet') }}">Home</a>
@@ -684,8 +684,8 @@
                 2: '/D2', 
                 3: '/D3',
                 4: '/D4',
-                5: "{{ url_for('d5') }}",
-                6: "{{ url_for('d6') }}"
+                5: '/D5', /* Added Day 5 route */
+                6: '/D6'  /* Added Day 6 route */
             };
             const route = dayRoutes[day];
             if (route) {
