@@ -25,8 +25,8 @@
             --accent-purple: #7209b7;
             --gradient-primary: linear-gradient(135deg, var(--brand-orange), var(--accent-purple));
             --gradient-secondary: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-            --hover-effect: translateY(-5px);
+            --card-shadow: 0 15px 40px rgba(0, 0, 0, 0.35); /* Increased shadow for better look */
+            --hover-effect: translateY(-8px); /* More pronounced hover effect */
         }
 
         * {
@@ -74,30 +74,6 @@
             max-width: 1400px;
             margin: 0 auto;
             gap: 20px;
-        }
-
-        .back-to-workout {
-            color: var(--text-color-dark);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-right: 20px;
-            order: -1;
-        }
-
-        body.light-mode .back-to-workout {
-            color: var(--text-color-light);
-        }
-
-        .back-to-workout:hover {
-            background: var(--gradient-primary);
-            transform: var(--hover-effect);
-            box-shadow: var(--card-shadow);
         }
 
         .logo {
@@ -185,24 +161,25 @@
 
         /* Weekly Plan Section */
         .weekly-plan-section {
-            padding: 40px 5%;
+            padding: 60px 5%; /* Increased padding for more space */
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px; /* Increased margin */
         }
 
         .section-title h1 {
-            font-size: 2.5rem;
+            font-size: 3rem; /* Bigger title */
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 1px;
         }
 
         body.light-mode .section-title h1 {
@@ -213,7 +190,7 @@
         }
 
         .section-title p {
-            font-size: 1.1rem;
+            font-size: 1.2rem; /* Bigger subtitle */
             color: var(--text-color-dark);
             opacity: 0.8;
         }
@@ -224,31 +201,39 @@
 
         .workout-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            /* Default for desktop: 6 cards in one line */
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px; /* Adjusted gap for 6 cards */
+            margin-top: 40px;
+            justify-content: center; /* Center items in the grid */
+            align-items: stretch; /* Make cards stretch to equal height */
         }
 
         .workout-card {
             background: var(--dark-secondary-bg);
-            border-radius: 20px;
-            padding: 25px;
-            transition: all 0.3s ease;
+            border-radius: 25px; /* Rounded square shape */
+            padding: 30px; /* Adjusted padding to help with square-like appearance */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent; /* Added border */
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Initial shadow */
         }
 
         body.light-mode .workout-card {
             background: var(--light-secondary-bg);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
 
         .workout-card:hover {
-            transform: var(--hover-effect);
+            transform: var(--hover-effect) scale(1.02); /* Slightly scale up on hover */
             box-shadow: var(--card-shadow);
+            border-color: var(--brand-orange); /* Highlight border on hover */
         }
 
         .workout-card::before {
@@ -257,15 +242,15 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 5px; /* Thicker top line */
             background: var(--gradient-primary);
         }
 
         .day-number {
-            font-size: 1.5rem;
+            font-size: 1.6rem; /* Slightly adjusted day number for better fit */
             font-weight: 700;
             color: var(--accent-purple);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         body.light-mode .day-number {
@@ -273,10 +258,10 @@
         }
 
         .workout-focus {
-            font-size: 1.2rem;
+            font-size: 1.2rem; /* Slightly adjusted workout focus for better fit */
             font-weight: 600;
             color: var(--brand-orange);
-            margin-bottom: 15px;
+            margin-bottom: 15px; /* Adjusted margin */
         }
 
         body.light-mode .workout-focus {
@@ -285,9 +270,9 @@
 
         .workout-details {
             color: var(--text-color-dark);
-            opacity: 0.8;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            opacity: 0.85; /* Slightly more opaque */
+            font-size: 0.9rem; /* Adjusted details font size */
+            line-height: 1.7;
         }
 
         body.light-mode .workout-details {
@@ -295,31 +280,219 @@
         }
 
         .workout-details div {
-            margin-bottom: 5px;
+            margin-bottom: 8px; /* Increased margin */
         }
 
+        /* FitAI Button Styling */
+        .fitai-button-container {
+            text-align: center;
+            margin-top: 60px; /* Space above the button */
+        }
+
+        .fitai-button {
+            background: var(--gradient-secondary); /* Different gradient for distinction */
+            color: white;
+            padding: 18px 40px; /* Larger padding */
+            border: none;
+            border-radius: 35px; /* More rounded */
+            font-size: 1.3rem; /* Larger font */
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(0, 212, 170, 0.4); /* Greenish shadow */
+            transition: all 0.4s ease;
+            text-decoration: none; /* Ensure it looks like a button */
+            display: inline-block; /* Allows padding and margin */
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .fitai-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--brand-green-dark), var(--brand-blue));
+            z-index: -1;
+            transition: transform 0.4s ease;
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+
+        .fitai-button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .fitai-button:hover {
+            transform: translateY(-5px); /* Lift slightly on hover */
+            box-shadow: 0 18px 40px rgba(0, 212, 170, 0.6); /* More prominent shadow on hover */
+        }
+
+        /* Rest Day Information */
+        .rest-day-info {
+            background: var(--dark-tertiary-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .rest-day-info {
+            background: var(--light-tertiary-bg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .rest-day-info h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--brand-green); /* Highlight with a distinct color */
+        }
+
+        body.light-mode .rest-day-info h2 {
+            color: var(--brand-green-dark);
+        }
+
+        .rest-day-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .rest-day-info a {
+            color: var(--brand-orange);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .rest-day-info a:hover {
+            color: var(--accent-purple);
+            text-decoration: underline;
+        }
+
+        /* Coaches Marketplace Button */
+        .coaches-marketplace-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .coaches-marketplace-button {
+            background: var(--gradient-primary); /* Use primary gradient */
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 35px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(114, 9, 183, 0.4); /* Purple-orange shadow */
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .coaches-marketplace-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--brand-orange));
+            z-index: -1;
+            transition: transform 0.4s ease;
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+
+        .coaches-marketplace-button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .coaches-marketplace-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px rgba(114, 9, 183, 0.6); /* More prominent purple-orange shadow */
+        }
+
+
         /* Responsive Design */
+        /* For screens larger than 1200px, 6 cards in one row (default) */
+        @media (max-width: 1200px) {
+            .workout-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .workout-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+                gap: 25px;
+            }
+            .coaches-marketplace-button, .fitai-button {
+                font-size: 1.2rem;
+                padding: 15px 35px;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
-            .back-to-workout {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
-            
             .workout-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 1 card per row */
                 gap: 20px;
             }
 
             .section-title h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .weekly-plan-section {
-                padding: 30px 3%;
+                padding: 40px 3%;
+            }
+
+            .workout-card {
+                padding: 25px;
+                min-height: unset; /* Allow height to adjust on mobile */
+            }
+
+            .day-number {
+                font-size: 1.5rem;
+            }
+
+            .workout-focus {
+                font-size: 1.2rem;
+            }
+
+            .workout-details {
+                font-size: 0.9rem;
+            }
+
+            .fitai-button, .coaches-marketplace-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+
+            .rest-day-info h2 {
+                font-size: 1.8rem;
+            }
+            .rest-day-info p {
+                font-size: 1rem;
             }
         }
 
@@ -329,7 +502,26 @@
             }
 
             .section-title h1 {
+                font-size: 2rem;
+            }
+            .section-title p {
+                font-size: 1rem;
+            }
+            .logo h3 {
+                font-size: 1.5rem;
+            }
+            .logo-icon {
                 font-size: 1.8rem;
+            }
+            .fitai-button, .coaches-marketplace-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .rest-day-info h2 {
+                font-size: 1.6rem;
+            }
+            .rest-day-info p {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -338,9 +530,6 @@
     <!-- Header -->
     <header>
         <nav>
-            <!-- <a href="{{ url_for('work') }}" class="back-to-workout">
-                <i class="fas fa-arrow-left"></i> Back to Workout
-            </a> -->
             <div class="logo">
                 <i class="fas fa-dumbbell logo-icon"></i>
                 <h3>FIT YOU</h3>
@@ -363,7 +552,8 @@
     <!-- Weekly Plan Section -->
     <section class="weekly-plan-section">
         <div class="section-title">
-            <h1>4 Days Weekly Workout Plan</h1>
+            <h1>6 Days Weekly Workout Plan</h1>
+            <p>Sculpt your body, one day at a time, with our expertly crafted routine.</p>
         </div>
         
         <div class="workout-grid">
@@ -371,37 +561,81 @@
                 <div class="day-number">Day 1</div>
                 <div class="workout-focus">Chest & Triceps</div>
                 <div class="workout-details">
-                    <div>Exercises: 16</div>
-                    <div>Duration: 20 mins</div>
+                    <div><i class="fas fa-chart-line"></i> Exercises: 16</div>
+                    <div><i class="fas fa-clock"></i> Duration: 20 mins</div>
+                    <div><i class="fas fa-fire"></i> Focus: Strength & Definition</div>
                 </div>
             </div>
             
             <div class="workout-card" onclick="navigateToDay(2)">
                 <div class="day-number">Day 2</div>
-                <div class="workout-focus">Arms & Lat</div>
+                <div class="workout-focus">Arms & Shoulders</div>
                 <div class="workout-details">
-                    <div>Exercises: 19</div>
-                    <div>Duration: 17 mins</div>
+                    <div><i class="fas fa-chart-line"></i> Exercises: 19</div>
+                    <div><i class="fas fa-clock"></i> Duration: 25 mins</div>
+                    <div><i class="fas fa-fire"></i> Focus: Bicep & Deltoid Growth</div>
                 </div>
             </div>
             
             <div class="workout-card" onclick="navigateToDay(3)">
                 <div class="day-number">Day 3</div>
-                <div class="workout-focus">Legs</div>
+                <div class="workout-focus">Legs & Core</div>
                 <div class="workout-details">
-                    <div>Exercises: 23</div>
-                    <div>Duration: 26 mins</div>
+                    <div><i class="fas fa-chart-line"></i> Exercises: 23</div>
+                    <div><i class="fas fa-clock"></i> Duration: 30 mins</div>
+                    <div><i class="fas fa-fire"></i> Focus: Power & Stability</div>
                 </div>
             </div>
             
             <div class="workout-card" onclick="navigateToDay(4)">
                 <div class="day-number">Day 4</div>
-                <div class="workout-focus">Chest & Triceps</div>
+                <div class="workout-focus">Back & Biceps</div>
                 <div class="workout-details">
-                    <div>Exercises: 16</div>
-                    <div>Duration: 20 mins</div>
+                    <div><i class="fas fa-chart-line"></i> Exercises: 18</div>
+                    <div><i class="fas fa-clock"></i> Duration: 25 mins</div>
+                    <div><i class="fas fa-fire"></i> Focus: Lat & Arm Development</div>
                 </div>
             </div>
+
+            <div class="workout-card" onclick="navigateToDay(5)">
+                <div class="day-number">Day 5</div>
+                <div class="workout-focus">Full Body Burn</div>
+                <div class="workout-details">
+                    <div><i class="fas fa-chart-line"></i> Exercises: 20</div>
+                    <div><i class="fas fa-clock"></i> Duration: 35 mins</div>
+                    <div><i class="fas fa-fire"></i> Focus: High Intensity & Cardio</div>
+                </div>
+            </div>
+
+            <div class="workout-card" onclick="navigateToDay(6)">
+                <div class="day-number">Day 6</div>
+                <div class="workout-focus">Active Recovery & Stretch</div>
+                <div class="workout-details">
+                    <div><i class="fas fa-chart-line"></i> Exercises: 10</div>
+                    <div><i class="fas fa-clock"></i> Duration: 40 mins</div>
+                    <div><i class="fas fa-fire"></i> Focus: Flexibility & Mobility</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fitai-button-container">
+            <a href="{{ url_for('ai_coach') }}" class="fitai-button">
+                For Personalized Weekly Plan, Reach out to FitAI! <i class="fas fa-robot"></i>
+            </a>
+        </div>
+
+        <!-- Day 7: Rest Day Section -->
+        <div class="rest-day-info">
+            <h2><i class="fas fa-bed"></i> Day 7: Rest Day</h2>
+            <p>Remember, **rest is crucial for muscle recovery and growth!** Give your body the time it needs to repair and strengthen.</p>
+            <p>Learn more about the <a href="/importance_of_rest">Importance of Rest Days <i class="fas fa-external-link-alt"></i></a></p>
+        </div>
+
+        <!-- Coaches Marketplace Button -->
+        <div class="coaches-marketplace-container">
+            <a href="/coaches_marketplace" class="coaches-marketplace-button">
+                Connect with your Personalized Coach <i class="fas fa-user-friends"></i>
+            </a>
         </div>
     </section>
 
@@ -449,7 +683,9 @@
                 1: '/D1',
                 2: '/D2', 
                 3: '/D3',
-                4: '/D4'
+                4: '/D4',
+                5: '/D5', /* Added Day 5 route */
+                6: '/D6'  /* Added Day 6 route */
             };
             const route = dayRoutes[day];
             if (route) {

@@ -429,6 +429,14 @@ def d3():
 def d4():
     return render_template("day4.html")
 
+@app.route("/D5")
+def d5():
+    return render_template("day5.html")
+
+@app.route("/D6")
+def d6():
+    return render_template("day6.html")
+
 @app.route("/D2")
 def d2():
     return render_template("day2.html")
