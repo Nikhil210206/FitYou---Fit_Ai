@@ -1,0 +1,7 @@
+# FitAI Environment Variables
+# Copy this file to .env and fill in your actual values
+# Get your Gemini API key from: https://makersuite.google.com/app/apikey
+
+GEMINI_API_KEY=AIzaSyAfhrTWHI863js_WJalovwT_07sQLxCSsM
+SECRET_KEY=fitai_local_development_secret_12345
+

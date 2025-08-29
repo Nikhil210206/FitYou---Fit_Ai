@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitAi - Your Personal Fitness Companion</title>
+    <title>FitAI - Your Personal Fitness Companion</title>
 <link
       rel="icon"
       type="image/png"
-      href="{{ url_for('static', filename='images/faviconn.png') }}"
-    />    
+      href="{{ url_for('static', filename='images/fitai.jpg') }}"
+      onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';"
+    /> 
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -16,10 +17,10 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
-    
     <style>
+        /* All CSS from sports.html and theme.css combined */
+        
+        /* Existing Dark Theme Variables */
         :root {
             --primary-color: #ff4f00;
             --primary-dark: #e04400;
@@ -32,6 +33,23 @@
             --success-color: #28a745;
             --shadow-light: rgba(255, 255, 255, 0.1);
             --shadow-dark: rgba(0, 0, 0, 0.3);
+            --navbar-bg: rgba(26, 26, 26, 0.95);
+        }
+
+        /* Light Theme Variables - Updated to match FIT YOU theme */
+        body.light-mode {
+            --primary-color: #ff6b35; /* brand-orange */
+            --primary-dark: #f25c2d; /* brand-orange-dark */
+            --secondary-color: #e9ecef; /* light-tertiary-bg */
+            --background-dark: #f8f9fa; /* light-bg */
+            --text-light: #2d3436; /* text-color-light */
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --card-bg: #ffffff; /* light-secondary-bg */
+            --success-color: #28a745;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.2);
+            --navbar-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
@@ -46,18 +64,37 @@
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
         }
-
+        
         /* Header & Navigation */
         .navbar {
-            background: rgba(26, 26, 26, 0.95);
+            background: var(--navbar-bg);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 20px var(--shadow-dark);
+            transition: background 0.5s ease, border-color 0.5s ease;
+            height: 80px; /* Define a fixed height for easier calculation */
+            min-height: 80px;
+        }
+
+        body.light-mode .navbar {
+            height: 80px; /* Define a fixed height for easier calculation */
+            min-height: 80px;
+        }
+        
+        /* Navbar container with a specific layout */
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px; /* Reduced breadth */
+            margin: 0 auto; /* Centered */
         }
 
         .navbar-brand {
@@ -86,6 +123,11 @@
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 79, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
+        
+        /* Light mode specific Toggler color */
+        body.light-mode .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 53, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
 
         .navbar-nav .nav-link {
             color: var(--text-light) !important;
@@ -105,6 +147,69 @@
             box-shadow: 0 4px 15px rgba(255, 79, 0, 0.3);
         }
 
+        /* Fixed Back Button Styles (for desktop view only) */
+        .fixed-back-button {
+            position: fixed;
+            top: 90px; /* Aligned below the navbar with a small gap */
+            left: 1rem;
+            z-index: 1010; /* Above most content */
+            color: var(--text-light) !important;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem !important;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex; /* Ensure flex for icon and text alignment */
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fixed-back-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .fixed-back-button i {
+            font-size: 1.2rem;
+        }
+
+        /* Light/Dark Mode Toggle Button */
+        .toggle-theme-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            border: none;
+            color: var(--text-light);
+            padding: 0.75rem; /* Makes it a square */
+            border-radius: 50%; /* Makes it a circle */
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 44px; /* Set a fixed size for perfect circle on all screen sizes */
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+        }
+
+        .toggle-theme-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Light mode button styling - NOW WITH ORANGE THEME */
+        body.light-mode .toggle-theme-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            color: var(--text-light);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        body.light-mode .toggle-theme-btn:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+
         /* Hero Section */
         .hero-section {
             padding: 4rem 0;
@@ -121,6 +226,9 @@
             bottom: 0;
             background: radial-gradient(circle at center, rgba(255, 79, 0, 0.1) 0%, transparent 70%);
             pointer-events: none;
+        }
+        body.light-mode .hero-section::before {
+            background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
         }
 
         .hero-title {
@@ -154,6 +262,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
+            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
         }
 
         .form-section::before {
@@ -184,6 +293,7 @@
             color: var(--text-light);
             margin-bottom: 0.75rem;
             font-size: 1.1rem;
+            transition: color 0.5s ease;
         }
 
         .form-select {
@@ -327,6 +437,12 @@
             overflow: hidden;
             height: 100%;
         }
+        
+        body.light-mode .exercise-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
         .exercise-card::before {
             content: '';
@@ -336,6 +452,9 @@
             width: 4px;
             height: 100%;
             background: var(--primary-color);
+        }
+        body.light-mode .exercise-card::before {
+            background: #7209b7;
         }
 
         .exercise-card:hover {
@@ -361,6 +480,9 @@
             font-size: 1.5rem;
             flex-shrink: 0;
         }
+        body.light-mode .exercise-icon {
+            background: linear-gradient(135deg, #4361ee, #00d4aa);
+        }
 
         .exercise-title {
             font-family: 'Poppins', sans-serif;
@@ -384,12 +506,21 @@
             border-left: 3px solid var(--primary-color);
             transition: all 0.3s ease;
             font-size: 1rem;
+            color: var(--text-light);
+        }
+        body.light-mode .exercise-item {
+            background: var(--secondary-color);
+            border-left: 3px solid var(--primary-color);
         }
 
         .exercise-item:hover {
             background: rgba(255, 79, 0, 0.1);
             transform: translateX(5px);
         }
+        body.light-mode .exercise-item:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+
 
         /* Quotes Section - Continuous Moving Carousel */
         .quotes-section {
@@ -398,6 +529,9 @@
             background: linear-gradient(135deg, rgba(255, 79, 0, 0.05) 0%, rgba(26, 26, 26, 0.1) 100%);
             border-radius: 20px;
             overflow: hidden;
+        }
+        body.light-mode .quotes-section {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(248, 249, 250, 0.1) 100%);
         }
 
         .quotes-section-header {
@@ -411,6 +545,12 @@
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        body.light-mode .quotes-section-title {
             background: linear-gradient(45deg, var(--text-light), var(--primary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -468,10 +608,19 @@
             flex-direction: column;
             justify-content: center;
         }
+        body.light-mode .quote-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-dark);
+        }
+
 
         .quote-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px var(--shadow-dark);
+        }
+        body.light-mode .quote-item:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
         .quote-item::before {
@@ -484,6 +633,9 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
             border-radius: 2px;
+        }
+        body.light-mode .quote-item::before {
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
         }
 
         .quote-text {
@@ -537,11 +689,13 @@
             margin-top: 4rem;
             border-top: 1px solid var(--border-color);
             text-align: center;
+            transition: background 0.5s ease, border-color 0.5s ease;
         }
 
         .footer-text {
             color: var(--text-muted);
             font-size: 0.9rem;
+            transition: color 0.5s ease;
         }
 
         /* Responsive Design */
@@ -578,12 +732,49 @@
             }
 
             .navbar-collapse {
-                background: rgba(26, 26, 26, 0.98);
+                background: var(--navbar-bg);
                 border-radius: 8px;
                 margin-top: 1rem;
                 padding: 1rem;
             }
         }
+
+        /* Hide the original back button inside the navbar on all screens */
+        .navbar .back-button-nav {
+            display: none;
+        }
+
+        /* Show the new fixed back button outside the navbar on larger screens */
+        @media (min-width: 992px) {
+            .fixed-back-button {
+                display: flex; /* Show on desktop */
+            }
+        }
+
+        /* Hide the new fixed back button on smaller screens (mobile) */
+        @media (max-width: 991px) {
+            .fixed-back-button {
+                display: none; /* Hide on mobile */
+            }
+
+            /* Increase vertical gap between all nav items in mobile view */
+            .navbar-nav .nav-item {
+                margin-bottom: 0.75rem; /* Increased vertical spacing */
+            }
+            /* Remove last item's bottom margin to prevent excess space */
+            .navbar-nav .nav-item:last-child {
+                margin-bottom: 0;
+            }
+            
+            /* Ensure nav links take full width and hover doesn't collapse */
+            .navbar-nav .nav-link {
+                width: 100%;
+                text-align: left;
+                padding: 0.75rem 1rem !important; /* Adjust padding slightly if needed */
+                margin: 0; /* Remove horizontal margin */
+            }
+        }
+
 
         /* Loading Animation */
         .loading {
@@ -627,97 +818,71 @@
                 flex-direction: column;
             }
         }
-        /* Back Button Styling */
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: linear-gradient(90deg, #ff6600, #ff3300);
-    color: white;
-    text-decoration: none;
-    padding: 10px 18px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: 0.3s ease;
-    z-index: 1000; /* keeps it above other elements */
-}
-
-.back-button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(90deg, #ff3300, #ff6600);
-}
-
-
+        
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
-  <div class="container">
-    <!-- Brand -->
-    <a class="navbar-brand" href="#home">
-      <i class="fas fa-dumbbell"></i> FitAi
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="{{ url_for('ai_coach') }}">
+                <i class="fas fa-dumbbell"></i> FitAI
+            </a>
+
+            <!-- Mobile Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links + Light Mode Button -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('diet') }}" onclick="setActiveNav(this)">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
+                            <i class="fas fa-calendar-alt"></i> Sport Scheduler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('diet_plan') }}" onclick="setActiveNav(this)">
+                            <i class="fas fa-apple-alt"></i> Nutrition
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('work') }}" onclick="setActiveNav(this)">
+                            <i class="fas fa-running"></i> Workouts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
+                            <i class="fas fa-user-friends"></i> Coaches
+                        </a>
+                    </li>
+                    <!-- Back Button for Mobile View (after Coaches) -->
+                    <li class="nav-item d-lg-none"> <!-- d-lg-none hides it on large screens and up -->
+                        <a class="nav-link" href="javascript:history.back()">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </a>
+                    </li>
+                </ul>
+                <!-- Light Mode Button -->
+                <button class="btn toggle-theme-btn ms-lg-3">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Fixed Back Button (for desktop view only) -->
+    <a class="fixed-back-button d-none d-lg-flex" href="javascript:history.back()">
+        <i class="fas fa-arrow-left"></i> Back
     </a>
-
-    <!-- Mobile Toggler -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar Links + Light Mode Button -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#home" onclick="setActiveNav(this)">
-            <i class="fas fa-home"></i> Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#workouts" onclick="setActiveNav(this)">
-            <i class="fas fa-running"></i> Workouts
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#nutrition" onclick="setActiveNav(this)">
-            <i class="fas fa-apple-alt"></i> Nutrition
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#coaches" onclick="setActiveNav(this)">
-            <i class="fas fa-user-friends"></i> Coaches
-          </a>
-        </li>
-      </ul>
-      <!-- Light Mode Button -->
-<button class="btn toggle-theme-btn ms-lg-3">
-  <i class="fas fa-sun me-2"></i>
-</button>
-
-    </div>
-  </div>
-</nav>
-
-
-
-    <div style="margin: 20px;">
-    <a href="{{ url_for('diet') }}">
-        <button style="
-            background-color: #ff6600;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-        ">
-            ⬅ Back
-        </button>
-    </a>
-</div>
-
 
     <!-- Hero Section -->
     <section class="hero-section" id="home">
@@ -964,7 +1129,7 @@
     <footer class="footer">
         <div class="container">
             <p class="footer-text">
-                © 2025 FitAi. Empowering your fitness journey with intelligent workout planning.
+                © 2025 FitAI. Empowering your fitness journey with intelligent workout planning.
             </p>
         </div>
     </footer>
@@ -973,43 +1138,81 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // All JavaScript from the original and new theme.js combined
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleButton = document.querySelector('.toggle-theme-btn');
+            const body = document.body;
+
+            // Check for saved theme preference in localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.classList.add(savedTheme);
+            }
+            updateButtonIcon();
+
+            themeToggleButton.addEventListener('click', () => {
+                // Toggle the theme class on the body
+                if (body.classList.contains('light-mode')) {
+                    body.classList.remove('light-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                } else {
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light-mode');
+                }
+                updateButtonIcon();
+            });
+
+            function updateButtonIcon() {
+                const icon = themeToggleButton.querySelector('i');
+                const isLightMode = body.classList.contains('light-mode');
+                if (isLightMode) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                } else {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            }
+        });
+        
         // Sample workout data for demonstration
         const workoutData = {
             beginner: {
                 strength: [
-                    { exercise: "Push-ups", sets: 2, reps: "8-12" },
-                    { exercise: "Squats", sets: 2, reps: "10-15" },
+                    { exercise: "Push-ups (on knees if needed)", sets: 2, reps: "8-12" },
+                    { exercise: "Bodyweight Squats", sets: 2, reps: "10-15" },
                     { exercise: "Plank", duration: "20-30 seconds" },
-                    { exercise: "Lunges", sets: 2, reps: "8 each leg" }
+                    { exercise: "Lunges (alternating)", sets: 2, reps: "8 each leg" }
                 ],
                 cardio: [
                     { exercise: "Brisk Walking", duration: "20-30 minutes" },
-                    { exercise: "Stationary Bike", duration: "15-20 minutes" },
-                    { exercise: "Swimming", duration: "15-20 minutes" }
+                    { exercise: "Stationary Bike", duration: "15-20 minutes (light resistance)" },
+                    { exercise: "Low-impact Aerobics", duration: "15-20 minutes" }
                 ],
                 flexibility: [
                     { exercise: "Hamstring Stretch", duration: "30 seconds each leg" },
                     { exercise: "Shoulder Rolls", duration: "1 minute" },
-                    { exercise: "Calf Stretch", duration: "30 seconds each leg" }
+                    { exercise: "Calf Stretch", duration: "30 seconds each leg" },
+                    { exercise: "Cat-Cow Stretch", duration: "10 reps" }
                 ]
             },
             intermediate: {
                 strength: [
-                    { exercise: "Push-ups", sets: 3, reps: "12-20" },
-                    { exercise: "Squats", sets: 3, reps: "15-25" },
+                    { exercise: "Standard Push-ups", sets: 3, reps: "12-20" },
+                    { exercise: "Goblet Squats (with light weight)", sets: 3, reps: "15-25" },
                     { exercise: "Plank", duration: "45-60 seconds" },
                     { exercise: "Burpees", sets: 2, reps: "8-12" },
-                    { exercise: "Pull-ups", sets: 2, reps: "5-10" }
+                    { exercise: "Assisted Pull-ups/Resistance Band Rows", sets: 2, reps: "5-10" }
                 ],
                 cardio: [
                     { exercise: "Jogging", duration: "25-35 minutes" },
-                    { exercise: "HIIT Training", duration: "20-25 minutes" },
-                    { exercise: "Cycling", duration: "30-40 minutes" }
+                    { exercise: "HIIT Training (e.g., jump squats, high knees)", duration: "20-25 minutes" },
+                    { exercise: "Cycling (moderate intensity)", duration: "30-40 minutes" }
                 ],
                 flexibility: [
-                    { exercise: "Dynamic Stretching", duration: "10 minutes" },
+                    { exercise: "Dynamic Stretching (e.g., leg swings)", duration: "10 minutes" },
                     { exercise: "Yoga Flow", duration: "15-20 minutes" },
-                    { exercise: "Foam Rolling", duration: "10 minutes" }
+                    { exercise: "Foam Rolling (quads, hamstrings)", duration: "10 minutes" }
                 ]
             },
             advanced: {
@@ -1017,19 +1220,19 @@
                     { exercise: "Weighted Push-ups", sets: 4, reps: "15-25" },
                     { exercise: "Jump Squats", sets: 4, reps: "20-30" },
                     { exercise: "Plank to Push-up", sets: 3, reps: "10-15" },
-                    { exercise: "Burpees", sets: 3, reps: "15-20" },
-                    { exercise: "Pull-ups", sets: 3, reps: "12-20" },
-                    { exercise: "Deadlifts", sets: 4, reps: "8-12" }
+                    { exercise: "Burpees (full body)", sets: 3, reps: "15-20" },
+                    { exercise: "Pull-ups (unassisted)", sets: 3, reps: "12-20" },
+                    { exercise: "Deadlifts (with proper form)", sets: 4, reps: "8-12" }
                 ],
                 cardio: [
-                    { exercise: "Running", duration: "35-45 minutes" },
-                    { exercise: "Advanced HIIT", duration: "30-40 minutes" },
+                    { exercise: "Running (intervals/hills)", duration: "35-45 minutes" },
+                    { exercise: "Advanced HIIT (e.g., box jumps, kettlebell swings)", duration: "30-40 minutes" },
                     { exercise: "Sprint Intervals", duration: "20-25 minutes" }
                 ],
                 flexibility: [
-                    { exercise: "Advanced Yoga", duration: "30 minutes" },
-                    { exercise: "Deep Stretching", duration: "20 minutes" },
-                    { exercise: "Mobility Work", duration: "15 minutes" }
+                    { exercise: "Advanced Yoga/Pilates", duration: "30 minutes" },
+                    { exercise: "Deep Stretching (static holds)", duration: "20 minutes" },
+                    { exercise: "Mobility Work (thoracic spine, hips)", duration: "15 minutes" }
                 ]
             }
         };
@@ -1043,59 +1246,66 @@
         }
 
         function handleSubmit(event) {
-    event.preventDefault();
-    const fitnessLevel = document.getElementById('fitness_level').value;
-    
-    // Show loading state
-    const generateBtn = document.getElementById('generateBtn');
-    generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-    generateBtn.disabled = true;
+            event.preventDefault();
+            const fitnessLevel = document.getElementById('fitness_level').value;
+            
+            // Validate selection
+            if (!fitnessLevel) {
+                console.error("Please select a fitness level.");
+                return;
+            }
 
-    // Display routine section
-    document.getElementById('routineResults').style.display = 'block';
-    
-    // Update routine based on fitness level
-    const routineData = workoutData[fitnessLevel];
-    if (routineData) {
-        // Update strength exercises
-        const strengthList = document.getElementById('strengthExercises');
-        strengthList.innerHTML = routineData.strength.map(ex => 
-            `<li class="exercise-item">
-                ${ex.exercise} - ${ex.sets} sets x ${ex.reps} reps
-            </li>`
-        ).join('');
+            // Show loading state
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            generateBtn.disabled = true;
 
-        // Update cardio exercises
-        const cardioList = document.getElementById('cardioExercises');
-        cardioList.innerHTML = routineData.cardio.map(ex =>
-            `<li class="exercise-item">
-                ${ex.exercise} - ${ex.duration}
-            </li>`
-        ).join('');
+            // Display routine section
+            const routineResultsSection = document.getElementById('routineResults');
+            routineResultsSection.style.display = 'block';
+            
+            // Update routine based on fitness level
+            const routineData = workoutData[fitnessLevel];
+            if (routineData) {
+                // Update strength exercises
+                const strengthList = document.getElementById('strengthExercises');
+                strengthList.innerHTML = routineData.strength.map(ex => {
+                    const detail = ex.sets && ex.reps ? `${ex.sets} sets x ${ex.reps} reps` : ex.duration;
+                    return `<li class="exercise-item">
+                                ${ex.exercise} - ${detail}
+                            </li>`;
+                }).join('');
 
-        // Update flexibility exercises
-        const flexList = document.getElementById('flexibilityExercises');
-        flexList.innerHTML = routineData.flexibility.map(ex =>
-            `<li class="exercise-item">
-                ${ex.exercise} - ${ex.duration}
-            </li>`
-        ).join('');
+                // Update cardio exercises
+                const cardioList = document.getElementById('cardioExercises');
+                cardioList.innerHTML = routineData.cardio.map(ex =>
+                    `<li class="exercise-item">
+                        ${ex.exercise} - ${ex.duration}
+                    </li>`
+                ).join('');
 
-        // Update title with fitness level
-        document.getElementById('routineTitle').textContent = 
-            `${fitnessLevel.charAt(0).toUpperCase() + fitnessLevel.slice(1)} Level Routine`;
-    }
+                // Update flexibility exercises
+                const flexList = document.getElementById('flexibilityExercises');
+                flexList.innerHTML = routineData.flexibility.map(ex =>
+                    `<li class="exercise-item">
+                        ${ex.exercise} - ${ex.duration}
+                    </li>`
+                ).join('');
 
-    // Reset button state
-    setTimeout(() => {
-        generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Routine';
-        generateBtn.disabled = false;
-    }, 1000);
+                // Update title with fitness level
+                document.getElementById('routineTitle').textContent = 
+                    `${fitnessLevel.charAt(0).toUpperCase() + fitnessLevel.slice(1)} Level Routine`;
+            }
 
-    // Scroll to results
-    document.getElementById('routineResults').scrollIntoView({ behavior: 'smooth' });
-}
+            // Reset button state
+            setTimeout(() => {
+                generateBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Routine';
+                generateBtn.disabled = false;
+            }, 1000);
 
+            // Scroll to results
+            routineResultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
