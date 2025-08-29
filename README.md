@@ -20,9 +20,7 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
 3 star - 15 points
 
 ---
-
-<details>
-  <summary><strong>📑 Table of Contents</strong></summary>
+## 📑 Table of Contents
 
   - [🌟 Key Features](#-key-features)
   - [💻 Technologies at Work](#-technologies-at-work)
@@ -36,50 +34,50 @@ FitAi redefines fitness with **AI-driven personalized plans** for workouts and d
   - [🙏 Acknowledgments](#-acknowledgments)
   - [📜 License](#-license)
 
-</details>
-
 ---
 
 ## 🌟 Key Features
 
-- 🏋️ **Personalized Workout Plans**  
-  Tailored routines based on your preferences, fitness goals, and available equipment, ensuring an effective and safe workout experience.
+- 🏋️ **Personalized Workout Plans**
+  Tailored routines based on your preferences, fitness goals, and available equipment, ensuring an effective and safe workout experience.
 
-- 🥗 **Customized Diet Plans**  
-  Balanced meal recommendations with a special focus on Indian cuisine, offering 60% vegetarian and 40% non-vegetarian options.
+- 🥗 **Customized Diet Plans**
+  Balanced meal recommendations with a special focus on Indian cuisine, offering 60% vegetarian and 40% non-vegetarian options.
 
-- 🤖 **AI-Powered Insights**  
-  Smart algorithms deliver highly personalized fitness and diet suggestions, continuously learning and adapting to your progress.
+- 🤖 **AI-Powered Insights**
+  Smart algorithms deliver highly personalized fitness and diet suggestions, continuously learning and adapting to your progress.
 
-- 🎨 **Dark-Themed, User-Friendly Interface**  
-  An intuitive and aesthetically pleasing dark-themed design provides a smooth and engaging user experience.
+- 🎨 **Dark-Themed, User-Friendly Interface**
+  An intuitive and aesthetically pleasing dark-themed design provides a smooth and engaging user experience.
 
-- 🛠️ **Professional Guidance**  
-  Access to experienced coaches and mentors for expert support and advice throughout your fitness journey.
+- 🛠️ **Professional Guidance**
+  Access to experienced coaches and mentors for expert support and advice throughout your fitness journey.
 
 ---
 
 ## 💻 Technologies at Work
 
-- **Frontend:** **React.js** for building a dynamic, responsive, and modern user interface.  
-- **Backend:** **Flask** for robust API management and seamless integration of AI models.  
-- **Machine Learning:** **Scikit-learn** powers the predictive modeling for personalized recommendations.  
-- **Database:** **MongoDB** for flexible and scalable storage of user profiles, fitness data, and personalized plans.  
+- **Frontend:** **React.js** for building a dynamic, responsive, and modern user interface.
+- **Backend:** **Flask** for robust API management and seamless integration of AI models.
+- **Machine Learning:** **Scikit-learn** powers the predictive modeling for personalized recommendations.
+- **Database:** **MongoDB** for flexible and scalable storage of user profiles, fitness data, and personalized plans.
 - **AI API:** **Google Generative AI** for advanced language understanding and enhanced interactive features.
 
 ---
 
 ## 🎯 Highlights
 
-- **Stylish Dark Theme:** An elegant UI featuring subtle orange accents and modern typography for a premium feel.  
-- **Indian Cuisine Focus:** Thoughtfully curated meal plans that align with diverse cultural and dietary preferences specific to India.  
-- **AI-Driven Accuracy:** Leveraging data-powered intelligence to provide precise and effective personalized fitness recommendations.  
+- **Stylish Dark Theme:** An elegant UI featuring subtle orange accents and modern typography for a premium feel.
+- **Indian Cuisine Focus:** Thoughtfully curated meal plans that align with diverse cultural and dietary preferences specific to India.
+- **AI-Driven Accuracy:** Leveraging data-powered intelligence to provide precise and effective personalized fitness recommendations.
 - **Scalability:** Architected for growth, the platform is designed to efficiently accommodate an expanding user base and new features.
 
 ---
 
 ## 📂 Project Structure
--The FitAi project follows a consolidated structure where both frontend (React) and backend (Flask) components reside primarily in the root directory, with dedicated folders for static assets, templates, and configurations.
+
+The FitAi project follows a consolidated structure where both frontend (React) and backend (Flask) components reside primarily in the root directory, with dedicated folders for static assets, templates, and configurations.
+
 
 ```
 FitAi/
@@ -146,114 +144,107 @@ FitAi/
 ├── tailwind.config.js            # Tailwind CSS configuration
 └── vercel.json                   # Vercel deployment configuration
 ```
-
 ---
 
 ## ⚙️ How to Install
 
 Follow these steps to set up and run FitAi locally for development:
 
-# 1. Clone the repository
-git clone [https://github.com/Nikhil210206/FitAi.git](https://github.com/Nikhil210206/FitAi.git)
-
-# 2. Navigate to the project directory
-cd FitAi
-
-# 3. Install Python dependencies for the backend
-pip install -r requirements.txt
-
-# 4. Install frontend dependencies
-npm install
-
-# 5. Start the backend server
-flask run
-# Or using the direct python command if flask CLI isn't globally available:
-# python app.py
-
-# 6. Start the frontend development server (if applicable, or simply access Flask's served pages)
-# Note: If your React components are integrated into Flask templates and not a separate dev server,
-# this step might not be needed for local development, or it might be configured differently.
-# Based on package.json, 'npm start' is likely for the React development server.
-npm start
-
-# 7. Open in browser
-# If the React development server is used:
-http://localhost:5000
-# If primarily running the Flask app directly and serving HTML templates:
-# http://localhost:5000 (default Flask port, may vary)
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/Nikhil210206/FitAi.git](https://github.com/Nikhil210206/FitAi.git)
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd FitAi
+    ```
+3.  **Install Python dependencies for the backend:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  **Install frontend dependencies:**
+    ```bash
+    npm install
+    ```
+5.  **Start the backend server:**
+    ```bash
+    flask run
+    # Alternatively, if 'flask' command is not globally available:
+    # python app.py
+    ```
+6.  **Start the frontend development server:**
+    ```bash
+    npm start
+    ```
+    * **Note:** Given the consolidated project structure, the `npm start` command runs the React development server. It serves the frontend assets (like your React components) which are then likely integrated or proxied by the Flask backend.
+    * **Important:** Ensure both the Flask backend (Step 5) and the React development server (Step 6) are running concurrently for the full application functionality.
+7.  **Open in browser:**
+    * Access the application by navigating to: `http://localhost:5000`
+    * **Explanation:** The Flask backend, which serves as the primary web server, typically runs on port `5000` by default. Your React frontend assets are likely served through this same port once the Flask application is running and configured to handle them.
 
 ---
 
 ## 🛠️ Usage
-- **Sign up or Log in:** Create an account or log in to access your personalized fitness dashboard.  
 
-- **Enter your details:** Provide information about your fitness goals, current activity level, and available equipment.  
-
-- **Receive Plans:** Get instant access to tailored workout routines and customized diet plans.  
-
-- **Track Progress:** Monitor your achievements and adjust your preferences to evolve your plan as needed.  
-
-- **Connect with Experts:** Engage with experienced coaches and mentors for additional guidance and motivation.
+-   **Sign up or Log in:** Create an account or log in to access your personalized fitness dashboard.
+-   **Enter your details:** Provide information about your fitness goals, current activity level, and available equipment.
+-   **Receive Plans:** Get instant access to tailored workout routines and customized diet plans.
+-   **Track Progress:** Monitor your achievements and adjust your preferences to evolve your plan as needed.
+-   **Connect with Experts:** Engage with experienced coaches and mentors for additional guidance and motivation.
 
 ---
 
 ## 🚀 Future Enhancements
-- **Wearable Device Integration:** Seamless connectivity with popular wearable devices for real-time activity tracking and data synchronization.  
 
-- **Multi-Language Support:** Expand accessibility by offering the application in multiple languages.  
-
-- **Gamification Features:** Introduce engaging game-like elements and challenges to enhance user motivation and engagement.  
-
-- **Advanced Analytics Dashboard:** A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
+-   **Wearable Device Integration:** Seamless connectivity with popular wearable devices for real-time activity tracking and data synchronization.
+-   **Multi-Language Support:** Expand accessibility by offering the application in multiple languages.
+-   **Gamification Features:** Introduce engaging game-like elements and challenges to enhance user motivation and engagement.
+-   **Advanced Analytics Dashboard:** A comprehensive dashboard providing deeper insights into user progress, performance metrics, and health trends.
 
 ---
 
 ## 🤝 Contributions Welcome
-### 1. We welcome contributions from the community! To contribute to FitAi, please follow these steps:
 
-### 2. Fork the repository.  
+We welcome contributions from the community! To contribute to FitAi, please follow these steps:
 
-### 3. Create a new branch for your feature or bug fix: git checkout -b feature-name  
-
-### 4. Commit your changes with a clear and concise message: git commit -m 'Add a feature'  
-
-### 5. Push to your branch: git push origin feature-name  
-
-### 6. Open a Pull Request for review. Please ensure your code adheres to our style guidelines and includes relevant tests.  
+* **Fork the repository.**
+* **Create a new branch for your feature or bug fix:**
+    ```bash
+    git checkout -b feature-name
+    ```
+* **Commit your changes with a clear and concise message:**
+    ```bash
+    git commit -m 'Add a feature'
+    ```
+* **Push to your branch:**
+    ```bash
+    git push origin feature-name
+    ```
+* **Open a Pull Request for review.** Please ensure your code adheres to our style guidelines and includes relevant tests.
 
 ---
 
 ## 📞 Contact
+
 For any questions, suggestions, or collaborations, feel free to reach out to:
 
-- Name: Nikhil Balamurugan  
-
-- GitHub: Nikhil210206  
-
-- Email: nikhilbalamurugan@gmail.com
+-   **Name:** Nikhil Balamurugan
+-   **GitHub:** [Nikhil210206](https://github.com/Nikhil210206)
+-   **Email:** nikhilbalamurugan@gmail.com
 
 ---
 
 ## 🙏 Acknowledgments
+
 We extend our sincere gratitude to:
 
-- My incredible team and all dedicated contributors for their hard work and commitment.  
+-   My incredible team and all dedicated contributors for their hard work and commitment.
+-   The open-source community for providing invaluable tools and libraries that made this project possible.
+-   The fitness community for their continuous inspiration and feedback.
 
-- The open-source community for providing invaluable tools and libraries that made this project possible.  
-
-- The fitness community for their continuous inspiration and feedback.
-
---- 
+---
 
 ## 📜 License
-- This project is licensed under the MIT License - see the LICENSE file for more details.
 
-- This Project is under Open Source Connect India 2025
-
-
-
-
-
-
-
-
+-   This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for more details.
+-   This Project is under Open Source Connect India 2025
