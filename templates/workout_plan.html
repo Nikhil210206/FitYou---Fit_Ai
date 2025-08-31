@@ -628,12 +628,12 @@
         <div class="rest-day-info">
             <h2><i class="fas fa-bed"></i> Day 7: Rest Day</h2>
             <p>Remember, **rest is crucial for muscle recovery and growth!** Give your body the time it needs to repair and strengthen.</p>
-            <p>Learn more about the <a href="/importance_of_rest">Importance of Rest Days <i class="fas fa-external-link-alt"></i></a></p>
+            <p>Learn more about the <a href="{{ url_for('d7') }}">Importance of Rest Days <i class="fas fa-external-link-alt"></i></a></p>
         </div>
 
         <!-- Coaches Marketplace Button -->
         <div class="coaches-marketplace-container">
-            <a href="/coaches_marketplace" class="coaches-marketplace-button">
+            <a href="/coaches" class="coaches-marketplace-button">
                 Connect with your Personalized Coach <i class="fas fa-user-friends"></i>
             </a>
         </div>
@@ -685,7 +685,8 @@
                 3: '/D3',
                 4: '/D4',
                 5: '/D5', /* Added Day 5 route */
-                6: '/D6'  /* Added Day 6 route */
+                6: '/D6', /* Added Day 6 route */
+                7: '/D7'  /* Added Day 7 route */
             };
             const route = dayRoutes[day];
             if (route) {
