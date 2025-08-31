@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.jpg"> <!-- Note: logo.jpg is a placeholder, actual path needs to be resolved by your server -->
+    <title>FitYou - Day 6: Active Recovery & Stretch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    
+    <!-- Assuming these theme files exist in your static folder. Removed for standalone example. -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}"> -->
+    <!-- <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script> -->
+    
+    <style>
+        /* Add smooth scrolling to the HTML element */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* General styling from the provided snippet */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #db8828; /* Consistent body background */
+            color: #fff;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            padding: 20px; /* Added padding for smaller screens */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #222; /* Dark background for the main content area */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners for the container */
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d68215; /* Specific orange from day1.html */
+            font-size: 36px; /* Increased font size for prominence */
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Added text shadow for depth */
+        }
+
+        h2 {
+            color: #ff4f00; /* Specific orange from day1.html */
+            border-bottom: 2px solid #ff4f00; /* Underline effect from day1.html */
+            padding-bottom: 5px;
+            font-size: 28px; /* Increased font size */
+            font-weight: 600;
+            margin-top: 20px; /* Margin for spacing */
+            margin-bottom: 20px; /* Added margin-bottom for consistency */
+        }
+
+        section {
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+
+        .warm-up, .cool-down {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .warm-up ul, .cool-down ul { /* Added ul styling for warm-up and cool-down sections if they use lists */
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .warm-up ul li, .cool-down ul li {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .exercise {
+            background-color: #333; /* Slightly lighter background for exercise cards */
+            padding: 15px; /* Increased padding */
+            border: 1px solid #444; /* Border from day1.html */
+            border-radius: 8px; /* Rounded corners */
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise:hover {
+            transform: translateY(-8px); /* Lift effect on hover */
+            box-shadow: 0 6px 15px rgba(255, 79, 0, 0.4); /* Enhanced orange glow shadow on hover */
+        }
+
+        .exercise h3 {
+            color: #fff;
+            margin-bottom: 10px; /* Spacing below heading */
+            font-weight: 600;
+            font-size: 20px; /* Slightly smaller heading size for exercises */
+        }
+
+        .exercise p {
+            color: #ccc;
+            font-size: 0.95em;
+        }
+
+        .exercise strong {
+            color: #ff4f00; /* Highlight important text, matching h2 color */
+        }
+
+        .additional-tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .additional-tips li {
+            background-color: #333;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            color: #ddd; /* Ensure text color is visible */
+        }
+
+        .additional-tips li::before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: #4CAF50; /* Green for checkmark */
+            margin-right: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px 10px; /* Adjust margin for smaller screens */
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .exercise {
+                padding: 10px;
+            }
+
+            .exercise p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+    <!-- Animate.css for general animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInDown">Day 6: Active Recovery & Stretch</h1>
+
+        <section class="warm-up animate__animated animate__fadeInUp">
+            <h2>Warm-Up (5-10 minutes)</h2>
+            <ul>
+                <li><strong>2-3 minutes</strong> Light Cardio (e.g., gentle marching in place, arm circles)</li>
+                <li><strong>2-3 minutes</strong> Dynamic Stretches (e.g., Cat-Cow, gentle torso twists, leg swings)</li>
+            </ul>
+        </section>
+
+        <section class="workout-exercises">
+            <h2 class="animate__animated animate__fadeInUp">Active Recovery & Stretch Exercises (40 minutes)</h2>
+            
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Cat-Cow Stretch</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Reps:</strong> 10-12 controlled movements</p>
+                <p><strong>Tip:</strong> Synchronize movement with breath for spinal mobility.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Bird-Dog</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Reps:</strong> 10-12 per side</p>
+                <p><strong>Tip:</strong> Maintain a flat back, move slowly to focus on core stability.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Child's Pose (Balasana)</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Hold:</strong> 30-60 seconds</p>
+                <p><strong>Tip:</strong> Relax into the stretch, focusing on deep breaths to release tension.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Downward-Facing Dog (Adho Mukha Svanasana)</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Hold:</strong> 30-60 seconds</p>
+                <p><strong>Tip:</strong> Press heels towards the mat, lengthen the spine, slight bend in knees if hamstrings are tight.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Standing Hamstring Stretch</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Hold:</strong> 30 seconds per leg</p>
+                <p><strong>Tip:</strong> Keep a straight back, hinge from the hips, avoid rounding your spine.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Standing Quad Stretch</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Hold:</strong> 30 seconds per leg</p>
+                <p><strong>Tip:</strong> Keep knees together, gently pull your heel towards your glute.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Figure-Four Stretch (Supine)</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Hold:</strong> 30 seconds per side</p>
+                <p><strong>Tip:</strong> Lie on your back, cross one ankle over the opposite knee, gently pull the thigh towards your chest.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Seated Thoracic Spine Rotation</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Reps:</strong> 10-12 per side</p>
+                <p><strong>Tip:</strong> Sit tall, twist from your upper back, keep hips stable.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Side Bend Stretch (Standing)</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Hold:</strong> 30 seconds per side</p>
+                <p><strong>Tip:</strong> Reach overhead and gently lean to the side, feeling the stretch along your torso.</p>
+            </div>
+
+            <div class="exercise animate__animated animate__fadeInUp">
+                <h3>Wrist and Ankle Circles</h3>
+                <p><strong>Sets:</strong> 3</p>
+                <p><strong>Reps:</strong> 10-15 circles each direction</p>
+                <p><strong>Tip:</strong> Perform slowly and controlled to improve joint mobility.</p>
+            </div>
+        </section>
+
+        <section class="cool-down animate__animated animate__fadeInUp">
+            <h2>Cool Down (5-10 minutes)</h2>
+            <p>Perform static stretches for major muscle groups, holding each for 20-30 seconds.</p>
+            <ul>
+                <li>Hamstring Stretch</li>
+                <li>Quad Stretch</li>
+                <li>Chest Stretch</li>
+                <li>Tricep Stretch</li>
+                <li>Shoulder Stretch</li>
+            </ul>
+            <p>Focus on deep, calming breaths to aid muscle recovery and relaxation.</p>
+        </section>
+
+        <section class="additional-tips animate__animated animate__fadeInUp">
+            <h2>Additional Tips for Active Recovery</h2>
+            <ul>
+                <li><strong>Hydration:</strong> Drink plenty of water throughout the day to support recovery and flexibility.</li>
+                <li><strong>Mind-Body Connection:</strong> Focus on your breathing and how your body feels during each stretch.</li>
+                <li><strong>Gentle Movement:</strong> Listen to your body and avoid pushing into pain. The goal is gentle movement and increased range of motion.</li>
+                <li><strong>Consistency:</strong> Regular active recovery and stretching can significantly improve overall flexibility and reduce muscle soreness.</li>
+                <li><strong>Proprioception:</strong> Pay attention to your body's position in space to improve balance and coordination.</li>
+            </ul>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        // GSAP animations similar to the day1 snippet
+        gsap.from(".animate__animated", { duration: 1, y: 100, opacity: 0, stagger: 0.2, ease: "power2.out" });
+    </script>
+</body>
+</html>
