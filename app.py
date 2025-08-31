@@ -441,6 +441,10 @@ def d6():
 def d2():
     return render_template("day2.html")
 
+@app.route("/D7")
+def d7():
+    return render_template("day7.html")
+
 @app.route('/yoga')
 def yoga():
     """Render the Yoga page"""
