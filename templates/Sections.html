@@ -14,6 +14,36 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
     <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
     <style>
+    <title>FIT YOU - Workout Sections</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <style>
+        :root {
+            --dark-bg: #0f0f0f;
+            --dark-secondary-bg: #1a1a1a;
+            --dark-tertiary-bg: #252525;
+            --light-bg: #f8f9fa;
+            --light-secondary-bg: #ffffff;
+            --light-tertiary-bg: #e9ecef;
+            --text-color-dark: #ffffff;
+            --text-color-light: #2d3436;
+            --brand-orange: #ff6b35;
+            --brand-orange-dark: #f25c2d;
+            --brand-green: #00d4aa;
+            --brand-green-dark: #00b894;
+            --brand-blue: #4361ee;
+            --accent-purple: #7209b7;
+            --gradient-primary: linear-gradient(135deg, var(--brand-orange), var(--accent-purple));
+            --gradient-secondary: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            --hover-effect: translateY(-5px);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -284,6 +314,324 @@
             
             .subtitle {
                 font-size: 1.3rem;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color-dark);
+            font-size: 16px;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 15px 5%;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--brand-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color-dark);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:not(.auth-btn):after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-orange);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 100px 5% 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(26, 26, 26, 0.95) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 5%;
+            margin: 3rem auto;
+            max-width: 1400px;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .workout-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transform: scale(1);
+        }
+
+        .card-container:hover .workout-card {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .card-front {
+            display: flex;
+            align-items: flex-end;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            transform: rotateY(0deg);
+        }
+
+        .card-back {
+            background: var(--dark-secondary-bg);
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-container:hover .card-front {
+            transform: rotateY(180deg);
+        }
+
+        .card-container:hover .card-back {
+            transform: rotateY(0deg);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .card-back {
+            background: var(--dark-secondary-bg);
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-description {
+            margin: 1rem 0;
+            color: var(--text-secondary);
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .card-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Card Backgrounds */
+        .sports-card .card-front {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .nutrition-card .card-front {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url("{{ url_for('static', filename='images/nutrition.jpg') }}");
+         
+        }
+
+
+        .yoga-card .card-front {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .plans-card .card-front {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url("{{ url_for('static', filename='images/workoutplan.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .meditation-card .card-front {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url("{{ url_for('static', filename='images/med.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .challenges-card .card-front {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                            url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
             }
         }
 
@@ -327,6 +675,109 @@
             .floating-icon {
                 display: none;
             }
+        }
+
+        /* Enhanced Light Theme Styles */
+        body.light-mode {
+            background-color: #ffffff;
+            color: #333333;
+            --text-color-dark: #333333;
+            --text-color-light: #666666;
+            --card-bg: #ffffff;
+            --card-border: #f0f0f0;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Light Theme Navbar */
+        body.light-mode header {
+            background: linear-gradient(90deg, #ff8a00, #ffcc00);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        body.light-mode .logo h3 {
+            background: linear-gradient(90deg, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        body.light-mode .nav-links a {
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        body.light-mode .nav-links a:hover {
+            color: #f0f0f0;
+        }
+
+        /* Light Theme Cards */
+        body.light-mode .workout-card {
+            background: var(--card-bg);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        body.light-mode .card-front {
+            color: var(--text-color-dark);
+        }
+
+        body.light-mode .card-back {
+            background: #f9f9f9;
+            color: var(--text-color-dark);
+        }
+
+        body.light-mode .card-title {
+            color: #ff6b35;
+            text-shadow: none;
+        }
+
+        body.light-mode .card-subtitle {
+            color: #888888;
+        }
+
+        body.light-mode .card-description {
+            color: var(--text-color-light);
+        }
+
+        body.light-mode .card-button {
+            background: linear-gradient(90deg, #ff8a00, #ffcc00);
+            color: white;
+            box-shadow: 0 2px 10px rgba(255, 138, 0, 0.3);
+        }
+
+        body.light-mode .card-button:hover {
+            background: linear-gradient(90deg, #ff7b00, #ffc107);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 138, 0, 0.4);
+        }
+
+        /* Light Theme Footer */
+        body.light-mode .site-footer {
+            background: #f9f9f9;
+            color: #333333;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        body.light-mode .footer-section h3 {
+            color: #ff6b35;
+        }
+
+        body.light-mode .footer-section p,
+        body.light-mode .footer-section a {
+            color: #666666;
+        }
+
+        body.light-mode .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        body.light-mode .footer-bottom {
+            border-top: 1px solid #e0e0e0;
+            color: #888888;
+        }
+
+        body.light-mode .footer-bottom a {
+            color: #ff6b35;
         }
     </style>
 </head>
@@ -401,6 +852,137 @@
                         </div>
                         <h2>Bodybuilding</h2>
                     </a>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-dumbbell logo-icon"></i>
+                <h3>FitYou</h3>
+            </div>
+            <div class="nav-links">
+                <a href="/" class="active">Home</a>
+                <a href="/sport">Sports</a>
+                <a href="/workout-plan">Plans</a>
+                <a href="/diet">Nutrition</a>
+                <a href="/meditation">Meditation</a>
+                <a href="/challenges">Challenges</a>
+                <a href="/yoga">Yoga</a>
+                <div class="theme-toggle-container">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="section-title animate__animated animate__fadeInDown">Workout Sections</h1>
+        <p class="section-subtitle animate__animated animate__fadeInUp">Choose your fitness journey and transform your body with our expert-guided programs</p>
+    </section>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid">
+        <!-- Sports Card -->
+        <div class="card-container">
+            <div class="workout-card sports-card">
+                <div class="card-front">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Sports</h3>
+                        <p class="card-subtitle">Enhance Performance</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3 class="card-title">Sports Training</h3>
+                    <p class="card-description">Improve your athletic performance with sport-specific training programs designed to enhance speed, agility, and endurance.</p>
+                    <a href="/sport" class="card-button">Explore Sports</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nutrition Card -->
+        <div class="card-container">
+            <div class="workout-card nutrition-card">
+                <div class="card-front">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Nutrition</h3>
+                        <p class="card-subtitle">Eat Smart</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3 class="card-title">Healthy Eating</h3>
+                    <p class="card-description">Discover meal plans and nutrition guides tailored to your fitness goals and dietary preferences.</p>
+                    <a href="/diet" class="card-button">View Plans</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yoga Card -->
+        <div class="card-container">
+            <div class="workout-card yoga-card">
+                <div class="card-front">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Yoga</h3>
+                        <p class="card-subtitle">Find Balance</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3 class="card-title">Yoga & Meditation</h3>
+                    <p class="card-description">Improve flexibility, strength, and mental clarity with our guided yoga and meditation sessions.</p>
+                    <a href="/yoga" class="card-button">Start Practicing</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workout Plans Card -->
+        <div class="card-container">
+            <div class="workout-card plans-card">
+                <div class="card-front">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Workout Plans</h3>
+                        <p class="card-subtitle">Get Fit</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3 class="card-title">Custom Workouts</h3>
+                    <p class="card-description">Personalized workout plans designed to help you achieve your fitness goals effectively.</p>
+                    <a href="/workouts" class="card-button">View Plans</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meditation Card -->
+        <div class="card-container">
+            <div class="workout-card meditation-card">
+                <div class="card-front">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Meditation</h3>
+                        <p class="card-subtitle">Find Peace</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3 class="card-title">Mindfulness</h3>
+                    <p class="card-description">Reduce stress and improve focus with guided meditation and breathing exercises.</p>
+                    <a href="/meditation" class="card-button">Begin Journey</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fitness Challenges Card -->
+        <div class="card-container">
+            <div class="workout-card challenges-card">
+                <div class="card-front">
+                    <div class="card-overlay">
+                        <h3 class="card-title">Challenges</h3>
+                        <p class="card-subtitle">Push Limits</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3 class="card-title">30-Day Challenges</h3>
+                    <p class="card-description">Join our fitness challenges to stay motivated and achieve remarkable results in just 30 days.</p>
+                    <a href="/challenges" class="card-button">Join Now</a>
                 </div>
             </div>
         </div>
@@ -443,9 +1025,279 @@
                 } else {
                     navbar.style.background = 'rgba(28, 28, 28, 0.9) !important';
                     navbar.style.padding = '15px 0';
+        // Initialize GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate cards on scroll
+        gsap.utils.toArray('.card-container').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.2
+            });
+        });
+    </script>
+
+    <script>
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference or use system preference
+            const savedTheme = localStorage.getItem('theme') || 
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            
+            // Apply the saved theme
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) { // Only if user hasn't set a preference
+                    if (e.matches) {
+                        document.body.classList.remove('light-mode');
+                        icon.classList.remove('fa-sun');
+                        icon.classList.add('fa-moon');
+                    } else {
+                        document.body.classList.add('light-mode');
+                        icon.classList.remove('fa-moon');
+                        icon.classList.add('fa-sun');
+                    }
                 }
             });
         });
     </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About FitYou</h3>
+                <p>Your ultimate fitness companion for achieving health and wellness goals through personalized workout and nutrition plans.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/sport">Sports</a></li>
+                    <li><a href="/workout-plan">Workout Plans</a></li>
+                    <li><a href="/diet">Nutrition</a></li>
+                    <li><a href="/yoga">Yoga</a></li>
+                    <li><a href="/meditation">Meditation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> contact@fityou.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Fitness St., Health City</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for fitness tips and special offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 FitYou. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <style>
+        /* Footer Styles */
+        .site-footer {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 60px 0 0;
+            margin-top: 80px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #ff6b35;
+        }
+        
+        .footer-section p {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #1f1f1f;
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #ff6b35;
+            transform: translateY(-3px);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            display: block;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ff6b35;
+            padding-left: 5px;
+        }
+        
+        .footer-section i {
+            margin-right: 10px;
+            color: #ff6b35;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #333;
+            background: #1f1f1f;
+            color: #fff;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            transition: background 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: #e65c2d;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .footer-bottom a {
+            color: #ff6b35;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-section {
+                padding-bottom: 20px;
+                border-bottom: 1px solid #222;
+            }
+            
+            .footer-section:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
 </body>
 </html>

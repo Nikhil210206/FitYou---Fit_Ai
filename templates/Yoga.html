@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <title>Yoga & Meditation - FitYou</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000 40%, #111 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards ease-in;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 30px;
+            background: #1c1c1c;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid #333;
+        }
+
+        /* Headings */
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff6600, #ff3300);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6600, #ff3300);
+            border-radius: 3px;
+        }
+
+        h2 {
+            margin: 40px 0 20px;
+            color: #ff9966;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            margin: 30px 0 15px;
+            color: #ff9966;
+            font-size: 1.4rem;
+            font-weight: 500;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+        }
+
+        /* Yoga Styles */
+        .yoga-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #ddd;
+            line-height: 1.8;
+        }
+
+        .yoga-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .yoga-card {
+            background: #2d2d2d;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #ff6600;
+        }
+
+        .yoga-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2);
+        }
+
+        .yoga-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 3px solid #ff6600;
+        }
+
+        .yoga-content {
+            padding: 20px;
+        }
+
+        .yoga-card h3 {
+            color: #ff9966;
+            margin: 0 0 10px 0;
+            border: none;
+            font-size: 1.3rem;
+        }
+
+        .yoga-card p {
+            color: #bbb;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff6600, #ff3300);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff6600;
+            color: #ff6600;
+        }
+
+        .btn-outline:hover {
+            background: #ff6600;
+            color: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .benefit-item {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #ff6600;
+            margin-bottom: 15px;
+        }
+
+        .benefit-item h4 {
+            color: #ff9966;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .benefit-item p {
+            color: #bbb;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .yoga-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1c1c1c;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff6600;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff8533;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Yoga & Meditation</h1>
+        
+        <div class="yoga-intro">
+            <p>Discover the transformative power of yoga and meditation. Whether you're looking to improve flexibility, reduce stress, or find inner peace, our guided sessions will help you achieve balance in both body and mind.</p>
+        </div>
+
+        <h2>Yoga Categories</h2>
+        <div class="yoga-categories">
+            <div class="yoga-card">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Hatha Yoga">
+                <div class="yoga-content">
+                    <h3>Hatha Yoga</h3>
+                    <p>A gentle introduction to the most basic yoga postures. Perfect for beginners to develop strength and flexibility.</p>
+                    <a href="#hatha" class="btn">Start Session</a>
+                </div>
+            </div>
+
+            <div class="yoga-card">
+                <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Vinyasa Flow">
+                <div class="yoga-content">
+                    <h3>Vinyasa Flow</h3>
+                    <p>A dynamic practice that links breath with movement. Great for building heat and endurance.</p>
+                    <a href="#vinyasa" class="btn">Start Session</a>
+                </div>
+            </div>
+
+            <div class="yoga-card">
+                <img src="static/images/yinyoga.jpg" alt="Yin Yoga">
+                <div class="yoga-content">
+                    <h3>Yin Yoga</h3>
+                    <p>A slow-paced style with poses held for longer periods to target deep connective tissues.</p>
+                    <a href="#yin" class="btn">Start Session</a>
+                </div>
+            </div>
+        </div>
+
+        <h2>Meditation Sessions</h2>
+        <div class="yoga-categories">
+            <div class="yoga-card">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Mindfulness Meditation">
+                <div class="yoga-content">
+                    <h3>Mindfulness</h3>
+                    <p>Learn to be fully present in the moment and cultivate awareness of your thoughts and feelings.</p>
+                    <a href="#mindfulness" class="btn">Start Meditation</a>
+                </div>
+            </div>
+
+            <div class="yoga-card">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Guided Visualization">
+                <div class="yoga-content">
+                    <h3>Guided Visualization</h3>
+                    <p>Use the power of your imagination to promote relaxation, healing, and personal growth.</p>
+                    <a href="#visualization" class="btn">Start Session</a>
+                </div>
+            </div>
+
+            <div class="yoga-card">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Breathwork">
+                <div class="yoga-content">
+                    <h3>Breathwork</h3>
+                    <p>Explore various breathing techniques to reduce stress, increase energy, and improve focus.</p>
+                    <a href="#breathwork" class="btn">Start Practice</a>
+                </div>
+            </div>
+        </div>
+
+        <h2>Benefits of Yoga & Meditation</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h4>Reduces Stress</h4>
+                <p>Yoga and meditation are powerful tools for managing stress and promoting relaxation.</p>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h4>Improves Focus</h4>
+                <p>Enhance your concentration and mental clarity through regular practice.</p>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h4>Increases Flexibility</h4>
+                <p>Gain greater range of motion and reduce the risk of injury.</p>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <h4>Better Sleep</h4>
+                <p>Improve sleep quality and establish healthy sleep patterns.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 50px 0 30px;">
+            <h3>Ready to Begin Your Journey?</h3>
+            <p style="margin-bottom: 20px;">Join our community and experience the benefits of yoga and meditation today.</p>
+            <a href="#get-started" class="btn" style="padding: 12px 40px; font-size: 1.1rem;">Get Started</a>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling to all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
