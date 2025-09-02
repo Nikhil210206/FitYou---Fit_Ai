@@ -450,6 +450,11 @@ def yoga():
     """Render the Yoga page"""
     return render_template('Yoga.html')
 
+@app.route('/coaches')
+def coaches():
+    """Render the Coaches page"""
+    return render_template('coaches.html')
+
 # AI Chatbot Routes
 @app.route('/ai-coach')
 def ai_coach():
