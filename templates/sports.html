@@ -1259,8 +1259,8 @@
 
     <div class="footer-section contact">
       <h3>Contact Us</h3>
-      <p><i class="fas fa-envelope"></i> nikhilbalamurugan@gmail.com</p>
-      <p><i class="fas fa-phone"></i> +91 7305644420</p>
+      <p><i class="fas fa-envelope"></i> <a href="javascript:void(0)" onclick="handleEmailClick()" style="color: inherit; text-decoration: none; cursor: pointer;">nikhilbalamurugan@gmail.com</a></p>
+      <p><i class="fas fa-phone"></i> <a href="javascript:void(0)" onclick="handlePhoneClick()" style="color: inherit; text-decoration: none; cursor: pointer;">+91 7305644420</a></p>
       <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</p>
     </div>
 
@@ -1321,6 +1321,28 @@
                 }
             }
         });
+        
+        // Enhanced contact functions inspired by KiddieGPT - Global scope
+        function handleEmailClick() {
+          const email = "nikhilbalamurugan@gmail.com";
+          const subject = "Hello from FitYou!";
+          const body = "Hi there!\n\nI would like to get in touch with you about FitYou services.";
+          
+          // Try to open Gmail directly first
+          const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          const newWindow = window.open(gmailUrl, '_blank');
+          
+          // Fallback to mailto if Gmail doesn't open
+          setTimeout(() => {
+            if (!newWindow || newWindow.closed) {
+              window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            }
+          }, 1000);
+        }
+        
+        function handlePhoneClick() {
+          window.location.href = "tel:+917305644420";
+        }
         
         // Sample workout data for demonstration
         const workoutData = {
