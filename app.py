@@ -484,6 +484,16 @@ def chat_api():
             'status': 'error'
         }), 500
 
+@app.route('/privacy')
+def privacy_policy():
+    """Render the Privacy Policy page"""
+    return render_template('privacy.html')
+
+@app.route('/terms')
+def terms_of_service():
+    """Render the Terms of Service page"""
+    return render_template('terms.html')
+
 @app.route('/upload_medical_certificate', methods=['POST'])
 def upload_medical_certificate():
     """Handle medical certificate upload and extract health conditions"""
