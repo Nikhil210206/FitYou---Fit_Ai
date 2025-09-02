@@ -818,6 +818,110 @@
                 flex-direction: column;
             }
         }
+        .footer {
+            background: #111;
+            color: #fff;
+            padding: 50px 20px 20px;
+            margin-top: 50px;
+            }
+
+        .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: auto;
+        }
+
+        .footer-section h3 {
+        color: #ff6600;
+        margin-bottom: 15px;
+        font-size: 18px;
+        border-bottom: 2px solid #ff6600;
+        display: inline-block;
+        padding-bottom: 5px;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #bbb;
+        }
+
+        .footer-section ul {
+        list-style: none;
+        padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+                }
+
+        .footer-section ul li a:hover {
+        color: #ff6600;
+        }
+
+        .social-icons a {
+        margin-right: 10px;
+        color: #bbb;
+            font-size: 18px;
+        transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ff6600;
+        }
+
+        .footer-section.newsletter form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+
+        .footer-section.newsletter input[type="email"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .footer-section.newsletter button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #ff6600;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            white-space: nowrap; 
+        }
+
+        .footer-section.newsletter button:hover {
+                background: #ff3300;
+        }
+
+
+        .footer-bottom {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 13px;
+        color: #aaa;
+        }
+
+        .footer-bottom a {
+        color: #ff6600;
+        text-decoration: none;
+        }
+
         
     </style>
 </head>
@@ -1127,13 +1231,56 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p class="footer-text">
-                © 2025 FitAI. Empowering your fitness journey with intelligent workout planning.
-            </p>
-        </div>
-    </footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>About FitYou</h3>
+      <p>
+        Your ultimate fitness companion for achieving health and wellness goals
+        through personalized workout and nutrition plans.
+      </p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
 
+    <div class="footer-section links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/sports">Sports</a></li>
+        <li><a href="/workout">Workout Plans</a></li>
+        <li><a href="/diet">Nutrition</a></li>
+        <li><a href="/yoga">Yoga</a></li>
+        <li><a href="/meditation">Meditation</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section contact">
+      <h3>Contact Us</h3>
+      <p><i class="fas fa-envelope"></i> nikhilbalamurugan@gmail.com</p>
+      <p><i class="fas fa-phone"></i> +91 7305644420</p>
+      <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</p>
+    </div>
+
+    <div class="footer-section newsletter">
+      <h3>Newsletter</h3>
+      <p>Subscribe to our newsletter for fitness tips and special offers.</p>
+      <form>
+        <input type="email" placeholder="Your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+      <p class="footer-text">
+          © 2025 FitAI. Empowering your fitness journey with intelligent workout planning.
+        </p>
+    </div>
+    
+</footer>
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
