@@ -216,6 +216,83 @@
             font-size: 0.9rem;
             line-height: 1.6;
         }
+        header {
+  background: #1c1c1c;
+  padding: 15px 20px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff6b35, #7209b7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  color: #ff6b35;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.auth-btn.primary-btn {
+  background: linear-gradient(135deg, #ff6b35, #7209b7);
+  color: #fff;
+}
+
+.auth-btn.secondary-btn {
+  border: 2px solid #ff6b35;
+  color: #ff6b35;
+}
+
+.auth-btn.primary-btn:hover {
+  background: #ff3300;
+}
+
+.auth-btn.secondary-btn:hover {
+  background: #ff6b35;
+  color: #fff;
+}
+
+.toggle-theme {
+  background: none;
+  border: none;
+  color: #ff6b35;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -257,6 +334,37 @@
     </style>
 </head>
 <body>
+<header>
+  <nav>
+    <div class="logo">
+      <i class="fas fa-dumbbell logo-icon"></i>
+      <h3>FitAI</h3>
+    </div>
+
+    <div class="auth-buttons">
+      <a href="/ai-coach" class="auth-btn secondary-btn">
+        <i class="fas fa-robot"></i> AI Coach
+      </a>
+      <a href="/sport" class="auth-btn secondary-btn">
+        <i class="fas fa-calendar-alt"></i> Sport Scheduler
+      </a>
+      <a href="/diet" class="auth-btn secondary-btn">
+        <i class="fas fa-utensils"></i> Diet Plan
+      </a>
+      <a href="/workout" class="auth-btn secondary-btn">
+        <i class="fas fa-running"></i> Workout
+      </a>
+      <a href="/gen" class="auth-btn secondary-btn">
+        <i class="fas fa-user-cog"></i> Personalized Routine
+      </a>
+      <button class="toggle-theme" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+
+
     <div class="container">
         <h1>Yoga & Meditation</h1>
         
@@ -365,7 +473,7 @@
             <a href="#get-started" class="btn" style="padding: 12px 40px; font-size: 1.1rem;">Get Started</a>
         </div>
     </div>
-
+    
     <script>
         // Add smooth scrolling to all links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -383,6 +491,19 @@
                 }
             });
         });
+  const themeToggle = document.getElementById("themeToggle");
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    const icon = themeToggle.querySelector("i");
+    if (document.body.classList.contains("light-mode")) {
+      icon.classList.remove("fa-moon");
+      icon.classList.add("fa-sun");
+    } else {
+      icon.classList.remove("fa-sun");
+      icon.classList.add("fa-moon");
+    }
+  });
     </script>
 </body>
 </html>
