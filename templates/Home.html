@@ -726,6 +726,15 @@
       .contact-item:hover {
         transform: var(--hover-effect);
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+      }
+      
+      .contact-item.clickable {
+        transition: all 0.3s ease;
+      }
+      
+      .contact-item.clickable:active {
+        transform: scale(0.98);
       }
 
       .contact-item i {
@@ -1888,15 +1897,15 @@
           help!
         </p>
         <div class="contact-grid">
-          <div class="contact-item email-card" style="cursor: pointer; transition: transform 0.2s ease;">
+          <div class="contact-item">
             <i class="fas fa-envelope"></i>
-            <h3>Email Us</h3>
-            <a href="#" onclick="handleEmailContact(event)" class="contact-link email-link" style="cursor: pointer; color: inherit; text-decoration: none;">nikhilbalamurugan@gmail.com</a>
+            <h3>Email</h3>
+            <a href="mailto:contact@fityou.com">nikhilbalamurugan@gmail.com</a>
           </div>
-          <div class="contact-item phone-card" style="cursor: pointer; transition: transform 0.2s ease;">
+          <div class="contact-item">
             <i class="fas fa-phone"></i>
-            <h3>Call Us</h3>
-            <a href="tel:+917305644420" class="contact-link phone-link" style="cursor: pointer; color: inherit; text-decoration: none;">+91 7305644420</a>
+            <h3>Phone</h3>
+            <a href="tel:+15551234567">+91 7305644420</a>
           </div>
           <div class="contact-item" style="transition: transform 0.2s ease;">
             <i class="fas fa-map-marker-alt"></i>
@@ -1960,8 +1969,8 @@
 
         <div class="footer-section">
           <h3>Contact Us</h3>
-          <p><i class="fas fa-envelope"></i><a href="#" onclick="handleEmailContact(event)" style="color: inherit; text-decoration: none;">nikhilbalamurugan@gmail.com</a></p>
-          <p><i class="fas fa-phone"></i> <a href="tel:+917305644420" style="color: inherit; text-decoration: none;">+91 7305644420</a></p>
+          <p><i class="fas fa-envelope"></i>nikhilbalamurugan@gmail.com</p>
+          <p><i class="fas fa-phone"></i> +91 7305644420</p>
           <p>
             <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India
           </p>
@@ -2170,50 +2179,7 @@
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        // Remove duplicate functions (already defined above)
-
-        function copyToClipboard(text) {
-          if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text).then(() => {
-              alert(`Phone number ${text} copied to clipboard!`);
-            }).catch(err => {
-              console.error('Failed to copy: ', err);
-              fallbackCopyTextToClipboard(text);
-            });
-          } else {
-            fallbackCopyTextToClipboard(text);
-          }
-        }
-
-        function fallbackCopyTextToClipboard(text) {
-          const textArea = document.createElement("textarea");
-          textArea.value = text;
-          textArea.style.top = "0";
-          textArea.style.left = "0";
-          textArea.style.position = "fixed";
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
-          
-          try {
-            const successful = document.execCommand('copy');
-            if (successful) {
-              alert(`Phone number ${text} copied to clipboard!`);
-            } else {
-              alert(`Unable to copy. Please manually copy: ${text}`);
-            }
-          } catch (err) {
-            console.error('Fallback: Oops, unable to copy', err);
-            alert(`Unable to copy. Please manually copy: ${text}`);
-          }
-          
-          document.body.removeChild(textArea);
-        }
-
-        // Contact cards now use native mailto: and tel: links
-        // No additional JavaScript event listeners needed
-
-        // Enhanced Form submission (inspired by KiddieGPT EmailJS pattern)
+        // Form submission
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
           contactForm.addEventListener("submit", (e) => {
@@ -2475,7 +2441,28 @@
           ease: "power4.out",
         });
       });
+      
+      // Enhanced contact functions inspired by KiddieGPT - Global scope
+      function handleEmailClick() {
+        const email = "nikhilbalamurugan@gmail.com";
+        const subject = "Hello from FitYou!";
+        const body = "Hi there!\n\nI would like to get in touch with you about FitYou services.";
+        
+        // Try to open Gmail directly first
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const newWindow = window.open(gmailUrl, '_blank');
+        
+        // Fallback to mailto if Gmail doesn't open
+        setTimeout(() => {
+          if (!newWindow || newWindow.closed) {
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          }
+        }, 1000);
+      }
+      
+      function handlePhoneClick() {
+        window.location.href = "tel:+917305644420";
+      }
     </script>
   </body>
-
 </html>

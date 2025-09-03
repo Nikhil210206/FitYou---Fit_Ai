@@ -320,9 +320,9 @@
                 <h2 class="section-title">Contact Information</h2>
                 <p style="color: var(--brand-blue);">If you have any questions about these Terms of Service, please contact us:</p>
                 <div style="margin-top: 1rem; color: var(--brand-blue);">
-                    <p><strong>Email:</strong> legal@fityou.com</p>
-                    <p><strong>Address:</strong> FitYou Fit AI, [Your Company Address]</p>
-                    <p><strong>Phone:</strong> [Your Contact Number]</p>
+                    <p><strong>Email:</strong> <a href="javascript:void(0)" onclick="handleEmailClick()" style="color: inherit; text-decoration: none; cursor: pointer;">nikhilbalamurugan@gmail.com</a></p>
+                    <p><strong>Address:</strong> Chennai, Tamil Nadu, India</p>
+                    <p><strong>Phone:</strong> <a href="javascript:void(0)" onclick="handlePhoneClick()" style="color: inherit; text-decoration: none; cursor: pointer;">+91 7305644420</a></p>
                 </div>
             </div>
 
@@ -370,6 +370,28 @@
                 }
             });
         });
+        
+        // Enhanced contact functions inspired by KiddieGPT - Global scope
+        function handleEmailClick() {
+          const email = "nikhilbalamurugan@gmail.com";
+          const subject = "Hello from FitYou!";
+          const body = "Hi there!\n\nI would like to get in touch with you about FitYou services.";
+          
+          // Try to open Gmail directly first
+          const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          const newWindow = window.open(gmailUrl, '_blank');
+          
+          // Fallback to mailto if Gmail doesn't open
+          setTimeout(() => {
+            if (!newWindow || newWindow.closed) {
+              window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            }
+          }, 1000);
+        }
+        
+        function handlePhoneClick() {
+          window.location.href = "tel:+917305644420";
+        }
     </script>
 </body>
 </html>
