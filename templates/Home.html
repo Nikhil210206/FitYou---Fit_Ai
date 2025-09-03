@@ -1033,92 +1033,6 @@
       @media (max-width: 1200px) {
         .hero h1 {
           font-size: 3rem;
-
-        /* Enhanced CSS with improved UI */
-        :root {
-            --dark-bg: #0f0f0f;
-            --dark-secondary-bg: #1a1a1a;
-            --dark-tertiary-bg: #252525;
-            --light-bg: #f8f9fa;
-            --light-secondary-bg: #ffffff;
-            --light-tertiary-bg: #e9ecef;
-            --text-color-dark: #ffffff;
-            --text-color-light: #2d3436;
-            --brand-orange: #ff6b35;
-            --brand-orange-dark: #f25c2d;
-            --brand-green: #00d4aa;
-            --brand-green-dark: #00b894;
-            --brand-blue: #4361ee;
-            --accent-purple: #7209b7;
-            --gradient-primary: linear-gradient(135deg, var(--brand-orange), var(--accent-purple));
-            --gradient-secondary: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-            --hover-effect: translateY(-5px);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-color-dark);
-            font-size: 16px;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            line-height: 1.6;
-        }
-
-        #themeToggle{
-            font-size: 20px;
-            padding:5px;
-        }
-        /* Particle background */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        /* Header styling */
-        header {
-            background-color: rgba(26, 26, 26, 0.9);
-            padding: 15px 5%;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1px;
-
         }
 
         .hero p {
@@ -1464,45 +1378,6 @@
         }
       }
 
-      @media (max-width: 480px) {
-        .hero h1 {
-          font-size: 2rem;
-        }
-
-        .logo h3 {
-          font-size: 1.5rem;
-        }
-
-        .services-grid,
-        .testimonials-container,
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .feature,
-        .service-item,
-        .testimonial-card,
-        .contact-item {
-          max-width: 100%;
-        }
-
-        .services-section h2,
-        .testimonials-section h2,
-        .contact-heading {
-          font-size: 2rem;
-        }
-      }
-
-      /* Light Mode Styles */
-      body.light-mode {
-        background-color: var(--light-bg);
-        color: var(--text-color-light);
-      }
-
-      body.light-mode header {
-        background-color: rgba(248, 249, 250, 0.9);
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-      }
 
       body.light-mode .hero::before {
         background: linear-gradient(
