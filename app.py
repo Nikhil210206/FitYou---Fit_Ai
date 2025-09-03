@@ -312,9 +312,9 @@ def home():
     return render_template("Home.html")
 
 @app.route('/gen')
-def index():
+def workout_routine():
     """Render the workout generation page."""
-    return render_template('index.html')
+    return render_template('workout_routine.html')
 
 @app.route('/generate', methods=['POST'])
 def generate():
@@ -325,19 +325,19 @@ def generate():
         
         if weight <= 0 or height <= 0:
             flash("Please enter valid positive weight and height values.", "error")
-            return render_template('index.html')
+            return render_template('workout_routine.html')
         
         intensity = calculate_intensity(weight, height)
         routine = output(intensity)
-        return render_template('index.html', routine=routine)
+        return render_template('workout_routine.html', routine=routine)
     
     except ValueError:
         flash("Please enter numeric values for weight and height.", "error")
-        return render_template('index.html')
+        return render_template('workout_routine.html')
     except Exception as e:
         logger.error(f"Error generating routine: {e}")
         flash("An error occurred while generating your routine.", "error")
-        return render_template('index.html')
+        return render_template('workout_routine.html')
 
 @app.route("/diet", methods=["GET", "POST"])
 def diet_plan():
@@ -387,13 +387,8 @@ def sports():
 
 @app.route("/workout")
 def work():
-    """Render the workout sections page."""
-    return render_template("Sections.html")
-
-@app.route("/GP")
-def gp():
-    """Render a general placeholder page (page5.html)."""
-    return render_template("page5.html")
+    """Render the workout routine page."""
+    return render_template("workout_routine.html")
 
 @app.route("/workout-plan")
 def workout_plan():
