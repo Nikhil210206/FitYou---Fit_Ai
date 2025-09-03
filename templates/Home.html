@@ -1723,7 +1723,7 @@
         </div>
         <div class="phone-mockup">
           <img
-            src="images/fitai.jpg"
+            src="{{ url_for('static', filename='images/fitai.jpg') }}"
             alt="FitAi App Preview"
           />
           <div class="overlay-text">FitAI Coach</div>
@@ -1888,19 +1888,19 @@
           help!
         </p>
         <div class="contact-grid">
-          <div class="contact-item">
+          <div class="contact-item email-card" style="cursor: pointer; transition: transform 0.2s ease;">
             <i class="fas fa-envelope"></i>
-            <h3>Email</h3>
-            <a href="mailto:contact@fityou.com">nikhilbalamurugan@gmail.com</a>
+            <h3>Email Us</h3>
+            <a href="#" onclick="handleEmailContact(event)" class="contact-link email-link" style="cursor: pointer; color: inherit; text-decoration: none;">nikhilbalamurugan@gmail.com</a>
           </div>
-          <div class="contact-item">
+          <div class="contact-item phone-card" style="cursor: pointer; transition: transform 0.2s ease;">
             <i class="fas fa-phone"></i>
-            <h3>Phone</h3>
-            <a href="tel:+15551234567">+91 7305644420</a>
+            <h3>Call Us</h3>
+            <a href="tel:+917305644420" class="contact-link phone-link" style="cursor: pointer; color: inherit; text-decoration: none;">+91 7305644420</a>
           </div>
-          <div class="contact-item">
+          <div class="contact-item" style="transition: transform 0.2s ease;">
             <i class="fas fa-map-marker-alt"></i>
-            <h3>Address</h3>
+            <h3>Visit Us</h3>
             <p>Chennai, Tamil Nadu, India</p>
           </div>
         </div>
@@ -1960,8 +1960,8 @@
 
         <div class="footer-section">
           <h3>Contact Us</h3>
-          <p><i class="fas fa-envelope"></i>nikhilbalamurugan@gmail.com</p>
-          <p><i class="fas fa-phone"></i> +91 7305644420</p>
+          <p><i class="fas fa-envelope"></i><a href="#" onclick="handleEmailContact(event)" style="color: inherit; text-decoration: none;">nikhilbalamurugan@gmail.com</a></p>
+          <p><i class="fas fa-phone"></i> <a href="tel:+917305644420" style="color: inherit; text-decoration: none;">+91 7305644420</a></p>
           <p>
             <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India
           </p>
@@ -1995,6 +1995,93 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+      // Enhanced email contact handler
+      function handleEmailContact(event) {
+        event.preventDefault();
+        const email = "nikhilbalamurugan@gmail.com";
+        const subject = "Hello from FitYou!";
+        const body = "Hi there!\n\nI would like to get in touch with you about your fitness services.\n\nBest regards";
+        
+        // Method 1: Try Gmail web interface
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const newWindow = window.open(gmailUrl, '_blank');
+        
+        // Method 2: If Gmail blocked, try mailto
+        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+          try {
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          } catch (e) {
+            // Method 3: If mailto fails, copy email and show instructions
+            copyEmailToClipboard(email);
+          }
+        }
+      }
+
+      function copyEmailToClipboard(email) {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(email).then(() => {
+            showEmailCopiedMessage();
+          }).catch(() => {
+            fallbackCopyEmail(email);
+          });
+        } else {
+          fallbackCopyEmail(email);
+        }
+      }
+
+      function fallbackCopyEmail(email) {
+        const textArea = document.createElement("textarea");
+        textArea.value = email;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+          document.execCommand('copy');
+          showEmailCopiedMessage();
+        } catch (err) {
+          alert(`Please manually copy this email: ${email}`);
+        }
+        
+        document.body.removeChild(textArea);
+      }
+
+      function showEmailCopiedMessage() {
+        // Create and show a temporary notification
+        const notification = document.createElement('div');
+        notification.innerHTML = '✅ Email copied to clipboard!<br>📧 nikhilbalamurugan@gmail.com';
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #4CAF50;
+          color: white;
+          padding: 15px 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          z-index: 10000;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          text-align: center;
+          animation: slideIn 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+          notification.style.animation = 'slideOut 0.3s ease-in';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              document.body.removeChild(notification);
+            }
+          }, 300);
+        }, 3000);
+      }
+
       // Initialize particles.js
       document.addEventListener("DOMContentLoaded", function () {
         particlesJS("particles-js", {
@@ -2083,14 +2170,84 @@
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        // Form submission
+        // Remove duplicate functions (already defined above)
+
+        function copyToClipboard(text) {
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+              alert(`Phone number ${text} copied to clipboard!`);
+            }).catch(err => {
+              console.error('Failed to copy: ', err);
+              fallbackCopyTextToClipboard(text);
+            });
+          } else {
+            fallbackCopyTextToClipboard(text);
+          }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.style.top = "0";
+          textArea.style.left = "0";
+          textArea.style.position = "fixed";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          
+          try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+              alert(`Phone number ${text} copied to clipboard!`);
+            } else {
+              alert(`Unable to copy. Please manually copy: ${text}`);
+            }
+          } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+            alert(`Unable to copy. Please manually copy: ${text}`);
+          }
+          
+          document.body.removeChild(textArea);
+        }
+
+        // Contact cards now use native mailto: and tel: links
+        // No additional JavaScript event listeners needed
+
+        // Enhanced Form submission (inspired by KiddieGPT EmailJS pattern)
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
           contactForm.addEventListener("submit", (e) => {
+            console.log('Form submit event triggered');
             e.preventDefault();
-            // Here you would typically send the form data to a server
-            alert("Thank you for your message! We will get back to you soon.");
-            contactForm.reset();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            console.log('Form data:', { name, email, message });
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // KiddieGPT-style Gmail compose approach
+            const subject = `Contact Form - ${name}`;
+            const body = `Hi there!\n\nYou have a new message from your FitYou website:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\nBest regards,\n${name}`;
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=nikhilbalamurugan@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open Gmail in new tab
+            window.open(gmailUrl, '_blank');
+            
+            // Reset form and show success
+            setTimeout(() => {
+              submitBtn.innerHTML = originalText;
+              submitBtn.disabled = false;
+              contactForm.reset();
+              alert("🎉 Your message has been prepared in Gmail! Please send it from the new tab that opened.");
+            }, 1000);
           });
         }
 
