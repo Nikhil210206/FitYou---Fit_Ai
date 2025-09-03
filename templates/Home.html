@@ -1897,15 +1897,15 @@
           help!
         </p>
         <div class="contact-grid">
-          <div class="contact-item">
+          <div class="contact-item email-card clickable" onclick="handleEmailClick()" style="cursor: pointer; transition: transform 0.2s ease;">
             <i class="fas fa-envelope"></i>
-            <h3>Email</h3>
-            <a href="mailto:contact@fityou.com">nikhilbalamurugan@gmail.com</a>
+            <h3>Email Us</h3>
+            <a href="javascript:void(0)" onclick="handleEmailClick(); event.stopPropagation();" class="contact-link email-link" style="cursor: pointer; color: inherit; text-decoration: none;">nikhilbalamurugan@gmail.com</a>
           </div>
-          <div class="contact-item">
+          <div class="contact-item phone-card clickable" onclick="handlePhoneClick()" style="cursor: pointer; transition: transform 0.2s ease;">
             <i class="fas fa-phone"></i>
-            <h3>Phone</h3>
-            <a href="tel:+15551234567">+91 7305644420</a>
+            <h3>Call Us</h3>
+            <a href="javascript:void(0)" onclick="handlePhoneClick(); event.stopPropagation();" class="contact-link phone-link" style="cursor: pointer; color: inherit; text-decoration: none;">+91 7305644420</a>
           </div>
           <div class="contact-item" style="transition: transform 0.2s ease;">
             <i class="fas fa-map-marker-alt"></i>
@@ -1969,8 +1969,8 @@
 
         <div class="footer-section">
           <h3>Contact Us</h3>
-          <p><i class="fas fa-envelope"></i>nikhilbalamurugan@gmail.com</p>
-          <p><i class="fas fa-phone"></i> +91 7305644420</p>
+          <p><i class="fas fa-envelope"></i><a href="javascript:void(0)" onclick="handleEmailClick()" style="color: inherit; text-decoration: none; cursor: pointer;">nikhilbalamurugan@gmail.com</a></p>
+          <p><i class="fas fa-phone"></i> <a href="javascript:void(0)" onclick="handlePhoneClick()" style="color: inherit; text-decoration: none; cursor: pointer;">+91 7305644420</a></p>
           <p>
             <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India
           </p>
@@ -2179,7 +2179,53 @@
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
+        
         // Form submission
+
+        // Remove duplicate functions (already defined above)
+
+        function copyToClipboard(text) {
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+              alert(`Phone number ${text} copied to clipboard!`);
+            }).catch(err => {
+              console.error('Failed to copy: ', err);
+              fallbackCopyTextToClipboard(text);
+            });
+          } else {
+            fallbackCopyTextToClipboard(text);
+          }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.style.top = "0";
+          textArea.style.left = "0";
+          textArea.style.position = "fixed";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          
+          try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+              alert(`Phone number ${text} copied to clipboard!`);
+            } else {
+              alert(`Unable to copy. Please manually copy: ${text}`);
+            }
+          } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+            alert(`Unable to copy. Please manually copy: ${text}`);
+          }
+          
+          document.body.removeChild(textArea);
+        }
+
+        // Contact cards now use native mailto: and tel: links
+        // No additional JavaScript event listeners needed
+
+        // Enhanced Form submission (inspired by KiddieGPT EmailJS pattern)
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
           contactForm.addEventListener("submit", (e) => {
