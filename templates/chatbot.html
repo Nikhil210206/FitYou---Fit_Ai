@@ -698,18 +698,18 @@
           </button>
           <ul class="navbar-nav" id="navbarNav">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('diet') }}" onclick="setActiveNav(this)">
+              <a class="nav-link" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
                 <i class="fas fa-home"></i> Home
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
+              <a class="nav-link" href="{{ url_for('sports') }}" onclick="setActiveNav(this)">
                 <i class="fas fa-calendar-alt"></i> Sport Scheduler
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{{ url_for('ai_coach') }}" onclick="setActiveNav(this)">
-                <i class="fas fa-robot"></i> AI Coach
+              <a class="nav-link" href="{{ url_for('workout_routine') }}" onclick="setActiveNav(this)">
+                <i class="fas fa-list-ul"></i> Routine Scheduler
               </a>
             </li>
             <li class="nav-item">
@@ -727,6 +727,11 @@
                 <i class="fas fa-user-friends"></i> Coaches
               </a>
             </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('ai_coach') }}" onclick="setActiveNav(this)">
+                <i class="fas fa-robot"></i> AI Coach
+              </a>
+            </li> -->
             <li class="nav-item d-lg-none">
               <button class="btn toggle-theme-btn">
                 <i class="fas fa-sun"></i>

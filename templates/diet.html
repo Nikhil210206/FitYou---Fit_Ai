@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personalized Diet Plan - FitYou</title>
-
+    <title>FitAI - Your Personal Fitness Companion</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/faviconn.png') }}"
+      onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';"
+    /> 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-    <!-- Bootstrap CSS for layout -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* All CSS variables and themes from the new style */
@@ -539,8 +544,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <!-- Brand -->
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-dumbbell"></i> FitYou
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <i class="fas fa-dumbbell"></i> FitAI
             </a>
 
             <!-- Mobile Toggler -->
@@ -553,30 +558,35 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('diet') }}" onclick="setActiveNav(this)">
-                            <i class="fas fa-home"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
-                            <i class="fas fa-calendar-alt"></i> Sport Scheduler
+                          <i class="fas fa-home"></i> Home
                         </a>
-                    </li>
-                    <li class="nav-item">
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('sports') }}" onclick="setActiveNav(this)">
+                          <i class="fas fa-calendar-alt"></i> Sport Scheduler
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('workout_routine') }}" onclick="setActiveNav(this)">
+                          <i class="fas fa-list-ul"></i> Routine Scheduler
+                        </a>
+                      </li>
+                      <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('diet_plan') }}" onclick="setActiveNav(this)">
-                            <i class="fas fa-apple-alt"></i> Nutrition
+                          <i class="fas fa-apple-alt"></i> Nutrition
                         </a>
-                    </li>
-                    <li class="nav-item">
+                      </li>
+                      <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('work') }}" onclick="setActiveNav(this)">
-                            <i class="fas fa-running"></i> Workouts
+                          <i class="fas fa-running"></i> Workouts
                         </a>
-                    </li>
-                    <li class="nav-item">
+                      </li>
+                      <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('coaches') }}" onclick="setActiveNav(this)">
-                            <i class="fas fa-user-friends"></i> Coaches
+                          <i class="fas fa-user-friends"></i> Coaches
                         </a>
-                    </li>
+                      </li>
                     <!-- Back Button for Mobile View (after Coaches) -->
                     <li class="nav-item d-lg-none"> <!-- d-lg-none hides it on large screens and up -->
                         <a class="nav-link" href="javascript:history.back()">

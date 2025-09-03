@@ -1308,16 +1308,16 @@
           <a href="/ai-coach" class="auth-btn secondary-btn"
             ><i class="fas fa-robot"></i> AI Coach</a
           >
-          <a href="/sport" class="auth-btn primary-btn"
+          <a href="{{ url_for('sports') }}" class="auth-btn primary-btn"
             ><i class="fas fa-calendar-alt"></i> Sport Scheduler</a
           >
-          <a href="/diet" class="auth-btn secondary-btn"
+          <a href="{{ url_for('diet_plan') }}" class="auth-btn secondary-btn"
             ><i class="fas fa-utensils"></i> Diet Plan</a
           >
-          <a href="/workout" class="auth-btn primary-btn"
+          <a href="{{ url_for('work') }}" class="auth-btn primary-btn"
             ><i class="fas fa-running"></i> Workout</a
           >
-          <a href="/gen" class="auth-btn secondary-btn"
+          <a href="{{ url_for('workout_routine') }}" class="auth-btn secondary-btn"
             ><i class="fas fa-user-cog"></i> Personalized Routine</a
           >
           <a href="{{ url_for('coaches') }}" class="auth-btn primary-btn"
@@ -1339,13 +1339,13 @@
           <button class="close-btn" id="closeMenu">
             <i class="fas fa-times"></i>
           </button>
-          <a href="/ai-coach"><i class="fas fa-robot"></i> AI Coach</a>
-          <a href="/sport"
+          <a href="{{ url_for('ai_coach') }}"><i class="fas fa-robot"></i> AI Coach</a>
+          <a href="{{ url_for('sports') }}"
             ><i class="fas fa-calendar-alt"></i> Sport Scheduler</a
           >
-          <a href="/diet"><i class="fas fa-utensils"></i> Diet Plan</a>
-          <a href="/workout"><i class="fas fa-running"></i> Workout</a>
-          <a href="/gen"
+          <a href="{{ url_for('diet_plan') }}"><i class="fas fa-utensils"></i> Diet Plan</a>
+          <a href="{{ url_for('work') }}"><i class="fas fa-running"></i> Workout</a>
+          <a href="{{ url_for('workout_routine') }}"
             ><i class="fas fa-user-cog"></i> Personalized Routine</a
           >
           <a href="{{ url_for('coaches') }}"

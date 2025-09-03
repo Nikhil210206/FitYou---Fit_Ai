@@ -387,8 +387,8 @@ def sports():
 
 @app.route("/workout")
 def work():
-    """Render the workout routine page."""
-    return render_template("workout_routine.html")
+    """Render the workout sections page."""
+    return render_template("Sections.html")
 
 @app.route("/workout-plan")
 def workout_plan():
