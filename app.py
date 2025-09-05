@@ -507,6 +507,11 @@ def terms_of_service():
     """Render the Terms of Service page."""
     return render_template('terms.html')
 
+@app.route('/about')
+def about():
+    """Render the About page."""
+    return render_template('about.html')
+
 # Error handlers
 @app.errorhandler(404)
 def page_not_found(e):
