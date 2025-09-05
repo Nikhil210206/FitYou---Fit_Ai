@@ -930,7 +930,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <!-- Brand -->
-            <a class="navbar-brand" href="{{ url_for('ai_coach') }}">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
                 <i class="fas fa-dumbbell"></i> FitAI
             </a>
 
@@ -944,13 +944,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+
+                        <a class="nav-link" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
+                            <i class="fas fa-home"></i> Home
+
                         <a class="nav-link" href="{{ url_for('diet_plan') }}" onclick="setActiveNav(this)">
                             <i class="fas fa-apple-alt"></i> Nutrition
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
+                        <a class="nav-link active" href="{{ url_for('sports') }}" onclick="setActiveNav(this)">
                             <i class="fas fa-calendar-alt"></i> Sport Scheduler
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('workout_routine') }}" onclick="setActiveNav(this)">
+                            <i class="fas fa-list-ul"></i> Routine Scheduler
                         </a>
                     </li>
                     <li class="nav-item">
