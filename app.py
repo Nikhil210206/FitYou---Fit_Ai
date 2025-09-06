@@ -311,6 +311,11 @@ def home():
     """Render the Home page."""
     return render_template("Home.html")
 
+@app.route("/home")
+def home_alt():
+    """Alternative route for Home page."""
+    return render_template("Home.html")
+
 @app.route('/gen')
 def index():
     """Render the workout generation page."""
@@ -339,7 +344,12 @@ def generate():
         flash("An error occurred while generating your routine.", "error")
         return render_template('index.html')
 
-@app.route("/diet", methods=["GET", "POST"])
+@app.route("/diet")
+def diet():
+    """Redirect to home page."""
+    return render_template("Home.html")
+
+@app.route("/diet-plan", methods=["GET", "POST"])
 def diet_plan():
     """Handle diet plan generation."""
     diet_plan = None

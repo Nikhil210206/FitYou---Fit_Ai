@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://placehold.co/32x32/ff6600/ffffff?text=Y">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <title>Yoga & Meditation - Fit You</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -450,12 +450,14 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Workout</a>
-                <a href="#">Plan</a>
-                <a href="#">Nutrition</a>
-                <a href="#" class="active">Yoga</a>
-                <a href="#">AI Coach</a>
+
+                <a href="{{ url_for('diet') }}">Home</a>
+                <a href="{{ url_for('work') }}">Workout</a>
+                <a href="{{ url_for('workout_plan') }}">Plan</a>
+                <a href="/diet">Nutrition</a>
+                <a href="{{ url_for('yoga') }}" class="active">Yoga</a>
+                <a href="{{ url_for('ai_coach') }}">AI Coach</a>
+
             </div>
             <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
                 <i class="fas fa-moon" id="moon-icon"></i>
@@ -467,12 +469,14 @@
     <!-- Mobile Menu Container -->
     <div class="menu-container" id="menu-container">
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Workout</a>
-            <a href="#">Plan</a>
-            <a href="#">Nutrition</a>
-            <a href="#" class="active">Yoga</a>
-            <a href="#">AI Coach</a>
+
+            <a href="{{ url_for('diet') }}">Home</a>
+            <a href="{{ url_for('work') }}">Workout</a>
+            <a href="{{ url_for('workout_plan') }}">Plan</a>
+            <a href="/diet">Nutrition</a>
+            <a href="{{ url_for('yoga') }}" class="active">Yoga</a>
+            <a href="{{ url_for('ai_coach') }}">AI Coach</a>
+
         </div>
     </div>
 
