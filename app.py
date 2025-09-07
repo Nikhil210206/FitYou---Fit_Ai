@@ -316,33 +316,31 @@ def home_alt():
     """Alternative route for Home page."""
     return render_template("Home.html")
 
-@app.route('/gen')
-def index():
-    """Render the workout generation page."""
-    return render_template('index.html')
-
-@app.route('/generate', methods=['POST'])
+@app.route('/gen', methods=['GET', 'POST'])
 def generate():
     """Generate a workout routine based on user input."""
-    try:
-        weight = float(request.form['weight'])
-        height = float(request.form['height'])
+    if request.method == 'POST':
+        try:
+            weight = float(request.form['weight'])
+            height = float(request.form['height'])
+            
+            if weight <= 0 or height <= 0:
+                flash("Please enter valid positive weight and height values.", "error")
+                return render_template('index.html')
+            
+            intensity = calculate_intensity(weight, height)
+            routine = output(intensity)
+            return render_template('index.html', routine=routine)
         
-        if weight <= 0 or height <= 0:
-            flash("Please enter valid positive weight and height values.", "error")
+        except ValueError:
+            flash("Please enter numeric values for weight and height.", "error")
             return render_template('index.html')
-        
-        intensity = calculate_intensity(weight, height)
-        routine = output(intensity)
-        return render_template('index.html', routine=routine)
-    
-    except ValueError:
-        flash("Please enter numeric values for weight and height.", "error")
-        return render_template('index.html')
-    except Exception as e:
-        logger.error(f"Error generating routine: {e}")
-        flash("An error occurred while generating your routine.", "error")
-        return render_template('index.html')
+        except Exception as e:
+            logger.error(f"Error generating routine: {e}")
+            flash("An error occurred while generating your routine.", "error")
+            return render_template('index.html')
+
+    return render_template('index.html')
 
 @app.route("/diet")
 def diet():
