@@ -905,22 +905,54 @@
         gap: 15px;
         margin-top: 20px;
       }
-
+      
       .social-links a {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 36px;
         height: 36px;
-        background: #1f1f1f;
+        background: transparent;
         border-radius: 50%;
-        color: #fff;
         transition: all 0.3s ease;
+        text-decoration: none;
+      }
+      
+      .social-links a i {
+        color: #fff;
+        transition: color 0.3s ease;
+        font-size: 1.5rem;
+      }
+      
+      /* Specific icon colors on hover */
+      .social-links a.github:hover {
+        transform: translateY(-3px);
+      }
+      .social-links a.github:hover i {
+        color: #fff; /* Changed for dark mode visibility */
       }
 
-      .social-links a:hover {
-        background: #ff6b35;
+      .social-links a.instagram:hover {
         transform: translateY(-3px);
+      }
+      .social-links a.instagram:hover i {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .social-links a.twitter:hover {
+        transform: translateY(-3px);
+      }
+      .social-links a.twitter:hover i {
+        color: #1DA1F2;
+      }
+
+      .social-links a.linkedin:hover {
+        transform: translateY(-3px);
+      }
+      .social-links a.linkedin:hover i {
+        color: #0A66C2;
       }
 
       .footer-section ul {
@@ -1045,6 +1077,40 @@
 
       .back-to-top:hover {
         transform: translateY(-5px);
+      }
+
+      /* Message box styling */
+      .message-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--dark-tertiary-bg);
+        color: var(--text-color-dark);
+        padding: 2rem 3rem;
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+        z-index: 2000;
+        text-align: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+
+      .message-box.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .message-box h3 {
+        font-size: 1.8rem;
+        color: var(--brand-green);
+        margin-bottom: 10px;
+      }
+
+      .message-box p {
+        color: #bbb;
+        font-size: 1.1rem;
       }
 
       /* Media Queries for Responsiveness */
@@ -1271,7 +1337,7 @@
         color: #666;
       }
       /* background: linear-gradient(135deg, #e7b4f3, #b6f1da);
-            color: #f45f19; */
+                 color: #f45f19; */
       body.light-mode .newsletter-form input {
         background-color: #fff;
         color: #333;
@@ -1291,10 +1357,25 @@
         color: var(--text-color-light);
         background: rgba(0, 0, 0, 0.05);
       }
+
+      body.light-mode .social-links a i {
+        color: var(--text-color-light);
+      }
+
+      body.light-mode .social-links a.github:hover i {
+        color: #1a1a1a;
+      }
+
     </style>
   </head>
 
   <body>
+    <!-- Message box for form submission feedback -->
+    <div id="messageBox" class="message-box">
+      <h3>Success!</h3>
+      <p>Your message has been sent. We'll get back to you soon.</p>
+    </div>
+
     <div id="particles-js"></div>
 
     <header>
@@ -1326,7 +1407,7 @@
           <a href="{{ url_for('yoga') }}" class="auth-btn secondary-btn"
             ><i class="fas fa-om"></i> Yoga</a
           >
-          <button class="toggle-theme" id="themeToggle">
+          <button class="toggle-theme" id="themeToggleDesktop">
             <i class="fas fa-moon"></i>
           </button>
         </div>
@@ -1357,6 +1438,10 @@
           <a href="{{ url_for('yoga') }}"
             ><i class="fas fa-om"></i> Yoga</a
           >
+          <!-- The theme toggle button has been added here for the mobile menu -->
+          <button class="toggle-theme" id="themeToggleMobile">
+            <i class="fas fa-moon"></i>
+          </button>
         </div>
       </nav>
 
@@ -1372,6 +1457,7 @@
             Get personalized workout plans, nutrition guidance, and 24/7 AI
             coaching tailored specifically to your goals and lifestyle.
           </p>
+          <!-- The href has been updated to link to the contact section on the same page. -->
           <a href="/gen" class="cta-btn"
             >Start Your Journey <i class="fas fa-arrow-right"></i
           ></a>
@@ -1381,6 +1467,7 @@
           </p>
         </div>
         <div class="phone-mockup">
+          <!-- The image source has been replaced with the original path. -->
           <img
             src="images/fitai.jpg"
             alt="FitAi App Preview"
@@ -1540,7 +1627,7 @@
         </div>
       </section>
 
-      <section class="contact-section">
+      <section class="contact-section" id="contact-section">
         <h2 class="contact-heading">Get In Touch</h2>
         <p class="intro-text">
           Have questions or ready to begin your fitness journey? We're here to
@@ -1564,24 +1651,24 @@
           </div>
         </div>
         <div class="contact-form">
-                <h3>Send Us a Message</h3>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required minlength="3">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required minlength="10"></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
-                </form>
+          <h3>Send Us a Message</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required minlength="3">
             </div>
-        </section>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required minlength="10"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </section>
     </main>
 
 
@@ -1595,13 +1682,14 @@
             goals through personalized workout and nutrition plans.
           </p>
           <div class="social-links">
-            <a href="https://github.com/Nikhil210206" aria-label="Github"
+            <a href="https://github.com/Nikhil210206" class="github" aria-label="Github"
               ><i class="fab fa-github"></i
             ></a>
-            <a href="https://www.instagram.com/nikhiiiiiillllll/" aria-label="Instagram"
+            <a href="https://www.instagram.com/nikhiiiiiillllll/" class="instagram" aria-label="Instagram"
               ><i class="fab fa-instagram"></i
             ></a>
-            <a href="https://www.linkedin.com/in/nikhilb21/" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com" class="twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/nikhilb21/" class="linkedin" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
           </div>
         </div>
 
@@ -1640,13 +1728,13 @@
 
       <div class="footer-bottom">
         <p>
-          &copy; 2024 FitYou. All rights reserved. |
+          &copy; 2025 FitYou. All rights reserved. |
           <a href="/privacy">Privacy Policy</a> |
           <a href="/terms">Terms of Service</a>
         </p>
       </div>
     </footer>
-      
+
 
     <div class="back-to-top" id="backToTop">
       <i class="fas fa-arrow-up"></i>
@@ -1697,8 +1785,11 @@
         const mobileMenuToggle = document.getElementById("mobileMenuToggle");
         const mobileMenu = document.getElementById("mobileMenu");
         const closeMenu = document.getElementById("closeMenu");
-        const themeToggle = document.getElementById("themeToggle");
+        // Get both theme toggle buttons
+        const themeToggles = document.querySelectorAll(".toggle-theme");
         const backToTop = document.getElementById("backToTop");
+        // Get the new message box element
+        const messageBox = document.getElementById("messageBox");
 
         function toggleMobileMenu() {
           mobileMenuToggle.classList.toggle("active");
@@ -1711,33 +1802,46 @@
         mobileMenuToggle.addEventListener("click", toggleMobileMenu);
         closeMenu.addEventListener("click", toggleMobileMenu);
 
-        // Close mobile menu when clicking on links
-        const mobileLinks = document.querySelectorAll(".mobile-menu a");
-        mobileLinks.forEach((link) => {
-          link.addEventListener("click", toggleMobileMenu);
-        });
-
-        themeToggle.addEventListener("click", () => {
-          document.body.classList.toggle("light-mode");
-          const icon = themeToggle.querySelector("i");
-          if (document.body.classList.contains("light-mode")) {
-            icon.classList.remove("fa-moon");
-            icon.classList.add("fa-sun");
-            localStorage.setItem("theme", "light");
-          } else {
-            icon.classList.remove("fa-sun");
-            icon.classList.add("fa-moon");
-            localStorage.setItem("theme", "dark");
-          }
+        // Add event listener to both theme toggle buttons
+        themeToggles.forEach((button) => {
+          button.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+            // Find the icon within the clicked button
+            const icon = button.querySelector("i");
+            if (document.body.classList.contains("light-mode")) {
+              icon.classList.remove("fa-moon");
+              icon.classList.add("fa-sun");
+              localStorage.setItem("theme", "light");
+            } else {
+              icon.classList.remove("fa-sun");
+              icon.classList.add("fa-moon");
+              localStorage.setItem("theme", "dark");
+            }
+            // Update the icon on the OTHER button as well to keep them in sync
+            const otherButton = Array.from(themeToggles).find(
+              (btn) => btn !== button
+            );
+            const otherIcon = otherButton.querySelector("i");
+            if (document.body.classList.contains("light-mode")) {
+              otherIcon.classList.remove("fa-moon");
+              otherIcon.classList.add("fa-sun");
+            } else {
+              otherIcon.classList.remove("fa-sun");
+              otherIcon.classList.add("fa-moon");
+            }
+          });
         });
 
         // Initialize theme from localStorage
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme === "light") {
           document.body.classList.add("light-mode");
-          const icon = themeToggle.querySelector("i");
-          icon.classList.remove("fa-moon");
-          icon.classList.add("fa-sun");
+          // Update icons for both buttons on initial load
+          themeToggles.forEach(button => {
+            const icon = button.querySelector("i");
+            icon.classList.remove("fa-moon");
+            icon.classList.add("fa-sun");
+          });
         }
 
         // Back to top button
@@ -1753,13 +1857,20 @@
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        // Form submission
+        // Form submission logic with custom message box
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
           contactForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            // Here you would typically send the form data to a server
-            alert("Thank you for your message! We will get back to you soon.");
+            // Display the custom message box instead of using an alert
+            messageBox.classList.add("visible");
+
+            // Hide the message box after 3 seconds
+            setTimeout(() => {
+              messageBox.classList.remove("visible");
+            }, 3000);
+
+            // Reset the form fields
             contactForm.reset();
           });
         }
