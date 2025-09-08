@@ -76,99 +76,108 @@ The FitAi project follows a consolidated structure where both frontend (React) a
 
 
 ```
-FitAi/
-├── .DS_Store                      # macOS folder metadata
-├── .gitignore                     # Specifies untracked files to ignore
-├── .hintrc                        # Configuration for code linting/formatting
-├── .vercelignore                  # Files to ignore during Vercel deployment
-├── app.py                         # Main Flask application entry point
-├── app_gradio.py                  # Gradio-based app for demos/features
-├── DEPLOYMENT.md                  # Deployment instructions & guidelines
-├── diet_data.csv                  # Dataset containing diet-related data
-├── env_template.txt               # Template for environment variable setup
-├── exercises.csv                  # Dataset containing exercise-related data
-├── fitai.jpg                      # Project branding/logo image
-├── LICENSE                        # License file
-├── package-lock.json              # Exact versions of npm dependencies
-├── package.json                   # Frontend project metadata & npm scripts
-├── postcss.config.js              # PostCSS (CSS processor) configuration
-├── README.md                      # Main project documentation
-├── README_HUGGINGFACE.md          # Documentation for Hugging Face deployment
-├── render.yaml                    # Deployment configuration for Render
-├── requirements.txt               # Python dependencies for Flask backend
-├── requirements_gradio.txt        # Python dependencies for Gradio app
-├── runtime.txt                    # Python runtime version specification
-├── SECURITY.md                    # Security policy for contributors/users
-├── tailwind.config.js             # Tailwind CSS configuration file
-└── vercel.json                    # Vercel deployment configuration
+📂 FitAi/  
+├── .DS_Store                      # macOS folder metadata (can be ignored)  
+├── .gitignore                     # Specifies untracked files to ignore  
+├── .hintrc                        # Configuration for code linting/formatting  
+├── .vercelignore                  # Files to ignore during Vercel deployment  
+├── app.py                         # Main Flask application entry point  
+├── app_gradio.py                  # Gradio-based app for demos/features  
+├── DEPLOYMENT.md                  # Deployment instructions & guidelines  
+├── diet_data.csv                  # Dataset containing diet-related data  
+├── env_template.txt               # Template for environment variable setup  
+├── exercises.csv                  # Dataset containing exercise-related data  
+├── fitai.jpg                      # Project branding/logo image  
+├── LICENSE                        # License file  
+├── package-lock.json              # Exact versions of npm dependencies  
+├── package.json                   # Frontend project metadata & npm scripts  
+├── postcss.config.js              # PostCSS (CSS processor) configuration  
+├── README.md                      # Main project documentation  
+├── README_HUGGINGFACE.md          # Documentation for Hugging Face deployment  
+├── render.yaml                    # Deployment configuration for Render  
+├── requirements.txt               # Python dependencies for Flask backend  
+├── requirements_gradio.txt        # Python dependencies for Gradio app  
+├── runtime.txt                    # Python runtime version specification  
+├── SECURITY.md                    # Security policy for contributors/users  
+├── tailwind.config.js             # Tailwind CSS configuration file  
+└── vercel.json                    # Vercel deployment configuration  
 
-├── .github/                       # GitHub repo configs
-│   ├── pull_request_template.md   # Template for PRs
-│   ├── ISSUE_TEMPLATE/            # Templates for bug reports, feature requests
-│   └── workflows/                 # CI/CD workflows (deploy, automation, etc.)
+├── .github/                       # GitHub repo configs  
+│   ├── pull_request_template.md   # Template for PRs  
+│   ├── ISSUE_TEMPLATE/            # Templates for bug reports, feature requests  
+│   │   ├── bug_report.yml  
+│   │   ├── config.yml  
+│   │   └── feature_request.yml  
+│   └── workflows/                 # CI/CD workflows (deploy, automation, etc.)  
+│       ├── deploy.yml  
+│       ├── issue-create-automate-message.yml  
+│       └── pr-create-automate-message.yml  
 
-├── .idea/                         # IDE configuration files (JetBrains IDEs)
-│   ├── .gitignore                 # IDE-specific gitignore
-│   ├── FitYou---Fit_Ai.iml        # IntelliJ project file
-│   ├── modules.xml                # IDE module settings
-│   ├── vcs.xml                    # Version control config for IDE
-│   └── inspectionProfiles/        # IDE inspection profile settings
+├── .idea/                         # IDE configuration files (JetBrains IDEs)  
+│   ├── .gitignore                 # IDE-specific gitignore  
+│   ├── FitYou---Fit_Ai.iml        # IntelliJ project file  
+│   ├── modules.xml                # IDE module settings  
+│   ├── vcs.xml                    # Version control config for IDE  
+│   └── inspectionProfiles/        # IDE inspection profile settings  
+│       └── profiles_settings.xml  
 
-├── static/                        # Static frontend assets
-│   ├── css/                       # Theme & custom CSS
-│   │   └── theme.css              # Global theme styles
-│   ├── images/                    # Static images (logos, backgrounds, etc.)
-│   │   ├── faviconn.png
-│   │   ├── fitai.jpg
-│   │   ├── logo.jpg
-│   │   ├── med.jpg
-│   │   ├── nutrition.jpg
-│   │   ├── workoutplan.jpg
-│   │   └── yinyoga.jpg
-│   └── js/                        # JavaScript & React components
-│       ├── README_WorkoutPlanCard.md # Documentation for WorkoutPlanCard
-│       ├── WorkoutPlanCard.jsx    # JSX component for workout plans
-│       ├── WorkoutPlanCard.tsx    # TypeScript variant of workout plan component
-│       ├── WorkoutPlanCardDemo.html # Demo HTML for workout plan card
-│       ├── WorkoutPlanCardExample.jsx # Example usage of component
-│       └── theme.js               # Theme switcher logic
+├── static/                        # Static frontend assets  
+│   ├── .DS_Store                  # macOS metadata (can be ignored)  
+│   ├── css/                       # Theme & custom CSS  
+│   │   └── theme.css              # Global theme styles  
+│   ├── images/                    # Static images (logos, backgrounds, etc.)  
+│   │   ├── faviconn.png  
+│   │   ├── fitai.jpg  
+│   │   ├── logo.jpg  
+│   │   ├── med.jpg  
+│   │   ├── nutrition.jpg  
+│   │   ├── workoutplan.jpg  
+│   │   └── yinyoga.jpg  
+│   └── js/                        # JavaScript & React components  
+│       ├── README_WorkoutPlanCard.md # Documentation for WorkoutPlanCard  
+│       ├── theme.js               # Theme switcher logic  
+│       ├── WorkoutPlanCard.jsx    # JSX component for workout plans  
+│       ├── WorkoutPlanCard.tsx    # TypeScript variant of workout plan component  
+│       ├── WorkoutPlanCardDemo.html # Demo HTML for workout plan card  
+│       └── WorkoutPlanCardExample.jsx # Example usage of component  
 
-├── templates/                     # Flask Jinja2 templates (HTML + assets)
-│   ├── css/                       # CSS scoped for templates
-│   │   └── style.css
-│   ├── images/                    # Images used in templates
-│   │   ├── fitai.jpg
-│   │   ├── FY.png
-│   │   ├── gym.jpg.png
-│   │   └── logo.jpg
-│   ├── chatbot.html               # Chatbot UI
-│   ├── coaches.html               # Coaches Marketplace
-│   ├── day1.html                  # Day 1 plan
-│   ├── day2.html                  # Day 2 plan
-│   ├── day3.html                  # Day 3 plan
-│   ├── day4.html                  # Day 4 plan
-│   ├── day5.html                  # Day 5 plan
-│   ├── day6.html                  # Day 6 plan
-│   ├── day7.html                  # Day 7 plan (Rest Day Importance & Routine) 
-│   ├── diet.html                  # Diet plan page
-│   ├── diet_data.csv              # Diet data (duplicated from root for template use)
-│   ├── Home.html                  # Landing page
-│   ├── index.html                 # Main index/entry point
-│   ├── login.html                 # Login page
-│   ├── page5.html                 # Additional page (generic)
-│   ├── registration.html          # User registration page
-│   ├── Sections.html              # Sections overview
-│   ├── sports.html                # Sports content page
-│   ├── Untitled-2.css             # CSS (unnamed, cleanup recommended)
-│   ├── workout_plan.html          # Workout plan overview
-│   └── Yoga.html                  # Yoga-related content
+├── templates/                     # Flask Jinja2 templates (HTML + assets)  
+│   ├── chatbot.html               # Chatbot UI  
+│   ├── coaches.html               # Coaches Marketplace  
+│   ├── day1.html                  # Day 1 plan  
+│   ├── day2.html                  # Day 2 plan  
+│   ├── day3.html                  # Day 3 plan  
+│   ├── day4.html                  # Day 4 plan  
+│   ├── day5.html                  # Day 5 plan  
+│   ├── day6.html                  # Day 6 plan  
+│   ├── day7.html                  # Day 7 plan (Rest Day Importance & Routine)  
+│   ├── diet.html                  # Diet plan page  
+│   ├── diet_data.csv              # Diet data (duplicated for template use)  
+│   ├── Home.html                  # Landing page  
+│   ├── index.html                 # Main index/entry point  
+│   ├── login.html                 # Login page  
+│   ├── page5.html                 # Additional page (generic)  
+│   ├── privacy.html               # Privacy policy page  
+│   ├── registration.html          # User registration page  
+│   ├── Sections.html              # Sections overview  
+│   ├── sports.html                # Sports content page  
+│   ├── terms.html                 # Terms & conditions page  
+│   ├── Untitled-2.css             # CSS (unnamed, cleanup recommended)  
+│   ├── workout_plan.html          # Workout plan overview  
+│   ├── workout_routine.html       # Workout routine details page  
+│   ├── Yoga.html                  # Yoga-related content  
+│   ├── css/                       # CSS scoped for templates  
+│   │   └── style.css  
+│   └── images/                    # Images used in templates  
+│       ├── fitai.jpg  
+│       ├── FY.png  
+│       ├── gym.jpg.png  
+│       └── logo.jpg  
 
-└── __pycache__/                   # Python compiled bytecode cache
-    ├── app.cpython-310.pyc
-    ├── app.cpython-312.pyc
-    └── app.cpython-313.pyc
+└── __pycache__/                   # Python compiled bytecode cache  
+    └── app.cpython-313.pyc  
 
-```
+    ```
 
 
 ## ⚙️ How to Install
