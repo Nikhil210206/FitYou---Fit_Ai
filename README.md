@@ -8,9 +8,9 @@
   <img src="https://img.shields.io/badge/Google%20Generative%20AI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Generative AI">
 </p>
 
-# FitAi: Your AI Fitness Companion 🌟
+# FitYiu: Your AI Fitness Companion 🌟
 
-FitAi redefines fitness with **AI-driven personalized plans** for workouts and diets. Empowering your fitness journey with cutting-edge technology and expert guidance, FitAi adapts to your unique goals and lifestyle.
+FitYou redefines fitness with **AI-driven personalized plans** for workouts and diets. Empowering your fitness journey with cutting-edge technology and expert guidance, FitYou adapts to your unique goals and lifestyle.
 
 **🌐 Live Deployment:** [Check it out here 👀](https://fityou-fit-ai.onrender.com/)
 
