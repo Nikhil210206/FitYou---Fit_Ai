@@ -628,7 +628,7 @@
                     <h2 class="form-title">
                         <i class="fas fa-utensils"></i> Create Your Personalized Diet Plan
                     </h2>
-                    <form id="dietForm" onsubmit="handleSubmit(event)">
+                    <form id="dietForm" action="{{ url_for('diet_plan') }}" method="POST">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="age" class="form-label">Age</label>
