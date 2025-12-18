@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitAI - Your Personal Fitness Companion</title>
-<link
-      rel="icon"
-      type="image/png"
-      href="{{ url_for('static', filename='images/fitai.jpg') }}"
-      onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';"
-    /> 
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/fitai.jpg') }}"
+        onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';" />
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
         /* All CSS from sports.html and theme.css combined */
-        
+
         /* Existing Dark Theme Variables */
         :root {
             --primary-color: #ff4f00;
@@ -38,14 +37,20 @@
 
         /* Light Theme Variables - Updated to match FIT YOU theme */
         body.light-mode {
-            --primary-color: #ff6b35; /* brand-orange */
-            --primary-dark: #f25c2d; /* brand-orange-dark */
-            --secondary-color: #e9ecef; /* light-tertiary-bg */
-            --background-dark: #f8f9fa; /* light-bg */
-            --text-light: #2d3436; /* text-color-light */
+            --primary-color: #ff6b35;
+            /* brand-orange */
+            --primary-dark: #f25c2d;
+            /* brand-orange-dark */
+            --secondary-color: #e9ecef;
+            /* light-tertiary-bg */
+            --background-dark: #f8f9fa;
+            /* light-bg */
+            --text-light: #2d3436;
+            /* text-color-light */
             --text-muted: #6c757d;
             --border-color: #dee2e6;
-            --card-bg: #ffffff; /* light-secondary-bg */
+            --card-bg: #ffffff;
+            /* light-secondary-bg */
             --success-color: #28a745;
             --shadow-light: rgba(0, 0, 0, 0.1);
             --shadow-dark: rgba(0, 0, 0, 0.2);
@@ -66,7 +71,7 @@
             overflow-x: hidden;
             transition: background 0.5s ease, color 0.5s ease;
         }
-        
+
         /* Header & Navigation */
         .navbar {
             background: var(--navbar-bg);
@@ -79,22 +84,26 @@
             z-index: 1000;
             box-shadow: 0 2px 20px var(--shadow-dark);
             transition: background 0.5s ease, border-color 0.5s ease;
-            height: 80px; /* Define a fixed height for easier calculation */
+            height: 80px;
+            /* Define a fixed height for easier calculation */
             min-height: 80px;
         }
 
         body.light-mode .navbar {
-            height: 80px; /* Define a fixed height for easier calculation */
+            height: 80px;
+            /* Define a fixed height for easier calculation */
             min-height: 80px;
         }
-        
+
         /* Navbar container with a specific layout */
         .navbar .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 1200px; /* Reduced breadth */
-            margin: 0 auto; /* Centered */
+            max-width: 1200px;
+            /* Reduced breadth */
+            margin: 0 auto;
+            /* Centered */
         }
 
         .navbar-brand {
@@ -123,7 +132,7 @@
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 79, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
-        
+
         /* Light mode specific Toggler color */
         body.light-mode .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 53, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
@@ -150,9 +159,11 @@
         /* Fixed Back Button Styles (for desktop view only) */
         .fixed-back-button {
             position: fixed;
-            top: 90px; /* Aligned below the navbar with a small gap */
+            top: 90px;
+            /* Aligned below the navbar with a small gap */
             left: 1rem;
-            z-index: 1010; /* Above most content */
+            z-index: 1010;
+            /* Above most content */
             color: var(--text-light) !important;
             font-weight: 600;
             padding: 0.75rem 1.25rem !important;
@@ -161,7 +172,8 @@
             transition: all 0.3s ease;
             background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            display: flex; /* Ensure flex for icon and text alignment */
+            display: flex;
+            /* Ensure flex for icon and text alignment */
             align-items: center;
             gap: 8px;
         }
@@ -180,13 +192,16 @@
             background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
             border: none;
             color: var(--text-light);
-            padding: 0.75rem; /* Makes it a square */
-            border-radius: 50%; /* Makes it a circle */
+            padding: 0.75rem;
+            /* Makes it a square */
+            border-radius: 50%;
+            /* Makes it a circle */
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            width: 44px; /* Set a fixed size for perfect circle on all screen sizes */
+            width: 44px;
+            /* Set a fixed size for perfect circle on all screen sizes */
             height: 44px;
             display: flex;
             align-items: center;
@@ -205,6 +220,7 @@
             color: var(--text-light);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         body.light-mode .toggle-theme-btn:hover {
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
@@ -227,6 +243,7 @@
             background: radial-gradient(circle at center, rgba(255, 79, 0, 0.1) 0%, transparent 70%);
             pointer-events: none;
         }
+
         body.light-mode .hero-section::before {
             background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
         }
@@ -437,7 +454,7 @@
             overflow: hidden;
             height: 100%;
         }
-        
+
         body.light-mode .exercise-card {
             background: var(--card-bg);
             border: 1px solid rgba(0, 0, 0, 0.1);
@@ -453,6 +470,7 @@
             height: 100%;
             background: var(--primary-color);
         }
+
         body.light-mode .exercise-card::before {
             background: #7209b7;
         }
@@ -480,6 +498,7 @@
             font-size: 1.5rem;
             flex-shrink: 0;
         }
+
         body.light-mode .exercise-icon {
             background: linear-gradient(135deg, #4361ee, #00d4aa);
         }
@@ -508,6 +527,7 @@
             font-size: 1rem;
             color: var(--text-light);
         }
+
         body.light-mode .exercise-item {
             background: var(--secondary-color);
             border-left: 3px solid var(--primary-color);
@@ -517,6 +537,7 @@
             background: rgba(255, 79, 0, 0.1);
             transform: translateX(5px);
         }
+
         body.light-mode .exercise-item:hover {
             background: rgba(0, 123, 255, 0.1);
         }
@@ -530,6 +551,7 @@
             border-radius: 20px;
             overflow: hidden;
         }
+
         body.light-mode .quotes-section {
             background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(248, 249, 250, 0.1) 100%);
         }
@@ -550,6 +572,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         body.light-mode .quotes-section-title {
             background: linear-gradient(45deg, var(--text-light), var(--primary-color));
             -webkit-background-clip: text;
@@ -588,6 +611,7 @@
             0% {
                 transform: translateX(0);
             }
+
             100% {
                 transform: translateX(-50%);
             }
@@ -608,6 +632,7 @@
             flex-direction: column;
             justify-content: center;
         }
+
         body.light-mode .quote-item {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -619,6 +644,7 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 40px var(--shadow-dark);
         }
+
         body.light-mode .quote-item:hover {
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
@@ -634,6 +660,7 @@
             background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
             border-radius: 2px;
         }
+
         body.light-mode .quote-item::before {
             background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
         }
@@ -703,7 +730,7 @@
             .hero-title {
                 font-size: 2.5rem;
             }
-            
+
             .hero-subtitle {
                 font-size: 1.1rem;
                 padding: 0 1rem;
@@ -747,31 +774,37 @@
         /* Show the new fixed back button outside the navbar on larger screens */
         @media (min-width: 992px) {
             .fixed-back-button {
-                display: flex; /* Show on desktop */
+                display: flex;
+                /* Show on desktop */
             }
         }
 
         /* Hide the new fixed back button on smaller screens (mobile) */
         @media (max-width: 991px) {
             .fixed-back-button {
-                display: none; /* Hide on mobile */
+                display: none;
+                /* Hide on mobile */
             }
 
             /* Increase vertical gap between all nav items in mobile view */
             .navbar-nav .nav-item {
-                margin-bottom: 0.75rem; /* Increased vertical spacing */
+                margin-bottom: 0.75rem;
+                /* Increased vertical spacing */
             }
+
             /* Remove last item's bottom margin to prevent excess space */
             .navbar-nav .nav-item:last-child {
                 margin-bottom: 0;
             }
-            
+
             /* Ensure nav links take full width and hover doesn't collapse */
             .navbar-nav .nav-link {
                 width: 100%;
                 text-align: left;
-                padding: 0.75rem 1rem !important; /* Adjust padding slightly if needed */
-                margin: 0; /* Remove horizontal margin */
+                padding: 0.75rem 1rem !important;
+                /* Adjust padding slightly if needed */
+                margin: 0;
+                /* Remove horizontal margin */
             }
         }
 
@@ -789,7 +822,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Smooth Animations */
@@ -798,8 +833,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Scroll Behavior */
@@ -818,40 +860,41 @@
                 flex-direction: column;
             }
         }
+
         .footer {
             background: #111;
             color: #fff;
             padding: 50px 20px 20px;
             margin-top: 50px;
-            }
+        }
 
         .footer-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
-        margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
         }
 
         .footer-section h3 {
-        color: #ff6600;
-        margin-bottom: 15px;
-        font-size: 18px;
-        border-bottom: 2px solid #ff6600;
-        display: inline-block;
-        padding-bottom: 5px;
+            color: #ff6600;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #ff6600;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         .footer-section p,
         .footer-section ul {
-        font-size: 14px;
-        line-height: 1.8;
-        color: #bbb;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #bbb;
         }
 
         .footer-section ul {
-        list-style: none;
-        padding: 0;
+            list-style: none;
+            padding: 0;
         }
 
         .footer-section ul li {
@@ -862,17 +905,17 @@
             color: #bbb;
             text-decoration: none;
             transition: color 0.3s ease;
-                }
+        }
 
         .footer-section ul li a:hover {
-        color: #ff6600;
+            color: #ff6600;
         }
 
         .social-icons a {
-        margin-right: 10px;
-        color: #bbb;
+            margin-right: 10px;
+            color: #bbb;
             font-size: 18px;
-        transition: color 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .social-icons a:hover {
@@ -902,29 +945,28 @@
             color: white;
             cursor: pointer;
             transition: background 0.3s ease;
-            white-space: nowrap; 
+            white-space: nowrap;
         }
 
         .footer-section.newsletter button:hover {
-                background: #ff3300;
+            background: #ff3300;
         }
 
 
         .footer-bottom {
-        text-align: center;
-        margin-top: 30px;
-        font-size: 13px;
-        color: #aaa;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #aaa;
         }
 
         .footer-bottom a {
-        color: #ff6600;
-        text-decoration: none;
+            color: #ff6600;
+            text-decoration: none;
         }
-
-        
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
@@ -936,7 +978,7 @@
 
             <!-- Mobile Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -948,9 +990,9 @@
                         <a class="nav-link" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
                             <i class="fas fa-home"></i> Home
 
-                        <a class="nav-link" href="{{ url_for('diet_plan') }}" onclick="setActiveNav(this)">
-                            <i class="fas fa-apple-alt"></i> Nutrition
-                        </a>
+                            <a class="nav-link" href="{{ url_for('diet_plan') }}" onclick="setActiveNav(this)">
+                                <i class="fas fa-apple-alt"></i> Nutrition
+                            </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('sports') }}" onclick="setActiveNav(this)">
@@ -991,7 +1033,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- Fixed Back Button (for desktop view only) -->
     <a class="fixed-back-button d-none d-lg-flex" href="javascript:history.back()">
         <i class="fas fa-arrow-left"></i> Back
@@ -1002,7 +1044,7 @@
         <div class="container">
             <h1 class="hero-title">Transform Your Fitness Journey</h1>
             <p class="hero-subtitle">
-                Get personalized workout routines tailored to your fitness level. 
+                Get personalized workout routines tailored to your fitness level.
                 Start your transformation today with AI-powered fitness planning.
             </p>
         </div>
@@ -1109,7 +1151,7 @@
                 <h2 class="quotes-section-title">Stay Motivated</h2>
                 <p class="quotes-section-subtitle">Fuel your journey with inspiration</p>
             </div>
-            
+
             <div class="quotes-carousel">
                 <div class="quotes-track">
                     <div class="quote-item">
@@ -1169,7 +1211,8 @@
                         <div class="quote-author">Strength</div>
                     </div>
                     <div class="quote-item">
-                        <div class="quote-text">Fitness is not about being better than someone else. It's about being better than you used to be.</div>
+                        <div class="quote-text">Fitness is not about being better than someone else. It's about being
+                            better than you used to be.</div>
                         <div class="quote-author">Personal Growth</div>
                     </div>
                     <!-- Exact duplicate for seamless loop -->
@@ -1230,7 +1273,8 @@
                         <div class="quote-author">Strength</div>
                     </div>
                     <div class="quote-item">
-                        <div class="quote-text">Fitness is not about being better than someone else. It's about being better than you used to be.</div>
+                        <div class="quote-text">Fitness is not about being better than someone else. It's about being
+                            better than you used to be.</div>
                         <div class="quote-author">Personal Growth</div>
                     </div>
                 </div>
@@ -1240,56 +1284,59 @@
 
     <!-- Footer -->
     <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section about">
-      <h3>About FitYou</h3>
-      <p>
-        Your ultimate fitness companion for achieving health and wellness goals
-        through personalized workout and nutrition plans.
-      </p>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-github"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-      </div>
-    </div>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h3>About FitYou</h3>
+                <p>
+                    Your ultimate fitness companion for achieving health and wellness goals
+                    through personalized workout and nutrition plans.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
 
-    <div class="footer-section links">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/sports">Sports</a></li>
-        <li><a href="/workout">Workout Plans</a></li>
-        <li><a href="/diet">Nutrition</a></li>
-        <li><a href="/yoga">Yoga</a></li>
-        <li><a href="/meditation">Meditation</a></li>
-      </ul>
-    </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('sports') }}">Sports</a></li>
+                    <li><a href="{{ url_for('work') }}">Workout Plans</a></li>
+                    <li><a href="{{ url_for('diet_plan') }}">Nutrition</a></li>
+                    <li><a href="{{ url_for('yoga') }}">Yoga</a></li>
+                    <li><a href="{{ url_for('meditation') }}">Meditation</a></li>
+                </ul>
+            </div>
 
-    <div class="footer-section contact">
-      <h3>Contact Us</h3>
-      <p><i class="fas fa-envelope"></i> <a href="javascript:void(0)" onclick="handleEmailClick()" style="color: inherit; text-decoration: none; cursor: pointer;">nikhilbalamurugan@gmail.com</a></p>
-      <p><i class="fas fa-phone"></i> <a href="javascript:void(0)" onclick="handlePhoneClick()" style="color: inherit; text-decoration: none; cursor: pointer;">+91 7305644420</a></p>
-      <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</p>
-    </div>
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> <a href="javascript:void(0)" onclick="handleEmailClick()"
+                        style="color: inherit; text-decoration: none; cursor: pointer;">nikhilbalamurugan@gmail.com</a>
+                </p>
+                <p><i class="fas fa-phone"></i> <a href="javascript:void(0)" onclick="handlePhoneClick()"
+                        style="color: inherit; text-decoration: none; cursor: pointer;">+91 7305644420</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu, India</p>
+            </div>
 
-    <div class="footer-section newsletter">
-      <h3>Newsletter</h3>
-      <p>Subscribe to our newsletter for fitness tips and special offers.</p>
-      <form>
-        <input type="email" placeholder="Your email" required />
-        <button type="submit">Subscribe</button>
-      </form>
-    </div>
-  </div>
+            <div class="footer-section newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for fitness tips and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Your email" required />
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
 
-  <div class="container">
-      <p class="footer-text">
-          © 2025 FitAI. Empowering your fitness journey with intelligent workout planning.
-        </p>
-    </div>
-    
-</footer>
+        <div class="container">
+            <p class="footer-text">
+                © 2025 FitAI. Empowering your fitness journey with intelligent workout planning.
+            </p>
+        </div>
+
+    </footer>
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
@@ -1330,29 +1377,29 @@
                 }
             }
         });
-        
+
         // Enhanced contact functions inspired by KiddieGPT - Global scope
         function handleEmailClick() {
-          const email = "nikhilbalamurugan@gmail.com";
-          const subject = "Hello from FitYou!";
-          const body = "Hi there!\n\nI would like to get in touch with you about FitYou services.";
-          
-          // Try to open Gmail directly first
-          const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-          const newWindow = window.open(gmailUrl, '_blank');
-          
-          // Fallback to mailto if Gmail doesn't open
-          setTimeout(() => {
-            if (!newWindow || newWindow.closed) {
-              window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            }
-          }, 1000);
+            const email = "nikhilbalamurugan@gmail.com";
+            const subject = "Hello from FitYou!";
+            const body = "Hi there!\n\nI would like to get in touch with you about FitYou services.";
+
+            // Try to open Gmail directly first
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            const newWindow = window.open(gmailUrl, '_blank');
+
+            // Fallback to mailto if Gmail doesn't open
+            setTimeout(() => {
+                if (!newWindow || newWindow.closed) {
+                    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                }
+            }, 1000);
         }
-        
+
         function handlePhoneClick() {
-          window.location.href = "tel:+917305644420";
+            window.location.href = "tel:+917305644420";
         }
-        
+
         // Sample workout data for demonstration
         const workoutData = {
             beginner: {
@@ -1426,7 +1473,7 @@
         function handleSubmit(event) {
             event.preventDefault();
             const fitnessLevel = document.getElementById('fitness_level').value;
-            
+
             // Validate selection
             if (!fitnessLevel) {
                 console.error("Please select a fitness level.");
@@ -1441,7 +1488,7 @@
             // Display routine section
             const routineResultsSection = document.getElementById('routineResults');
             routineResultsSection.style.display = 'block';
-            
+
             // Update routine based on fitness level
             const routineData = workoutData[fitnessLevel];
             if (routineData) {
@@ -1471,7 +1518,7 @@
                 ).join('');
 
                 // Update title with fitness level
-                document.getElementById('routineTitle').textContent = 
+                document.getElementById('routineTitle').textContent =
                     `${fitnessLevel.charAt(0).toUpperCase() + fitnessLevel.slice(1)} Level Routine`;
             }
 
@@ -1486,4 +1533,5 @@
         }
     </script>
 </body>
+
 </html>
