@@ -45,7 +45,7 @@ def chat_with_fitness_ai(message):
         
         full_prompt = f"{system_prompt}\n\nUser's question: {message}"
         
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(full_prompt)
         
         return response.text
