@@ -1,6 +1,6 @@
 Flask
 pandas
 python-dotenv
-google-generativeai
+google-generativeai>=0.4.0
 requests
 gunicorn
