@@ -14,7 +14,7 @@ FitYou redefines fitness with **AI-driven personalized plans** for workouts and 
 
 **🌐 Live Deployment:** [Check it out here 👀](https://fityou-fit-ai.onrender.com/)
 
-**Points for issues on leaderboard:** (Currently not started yet)
+**Points for issues on leaderboard:** 
 1 star - 5 points |
 2 star - 10 points |
 3 star - 15 points
