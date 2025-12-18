@@ -1815,12 +1815,18 @@
       gsap.registerPlugin(ScrollTrigger);
 
       // Animate Header on Load
-      gsap.from("header", {
-        y: -100,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
-      });
+      try {
+        gsap.from("header", {
+          y: -100,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      } catch (e) {
+        console.error("GSAP Header Animation failed:", e);
+        document.querySelector("header").style.opacity = 1;
+        document.querySelector("header").style.transform = "none";
+      }
 
       // Hero Section Animation
       const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
