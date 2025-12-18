@@ -797,40 +797,8 @@
 
             // Handle form submission and display results
             const form = document.getElementById('dietForm');
-            const originalButtonContent = `<i class="fas fa-clipboard-list"></i> Generate Diet Plan`;
+            // Form submission is now handled by server-side POST
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                // Validate form
-                if (!validateForm()) {
-                    return;
-                }
-
-                const generateBtn = document.getElementById('generateBtn');
-                const dietResults = document.getElementById('dietResults');
-
-                generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-                generateBtn.disabled = true;
-
-                // Save form data first
-                saveFormData().then(() => {
-                    // Show success message
-                    showSuccessMessage('Form data saved successfully!');
-                    // Then show results
-                    setTimeout(() => {
-                        generateBtn.innerHTML = originalButtonContent;
-                        generateBtn.disabled = false;
-                        dietResults.style.display = 'block';
-                        dietResults.scrollIntoView({ behavior: 'smooth' });
-                    }, 1500);
-                }).catch((error) => {
-                    console.error('Error saving form:', error);
-                    generateBtn.innerHTML = originalButtonContent;
-                    generateBtn.disabled = false;
-                    showErrorMessage('Error saving form data. Please try again.');
-                });
-            });
 
             // Form validation function
             function validateForm() {
