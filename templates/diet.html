@@ -1,22 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FitAI - Your Personal Fitness Companion</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="{{ url_for('static', filename='images/faviconn.png') }}"
-      onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';"
-    /> 
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/faviconn.png') }}"
+        onerror="this.onerror=null;this.href='https://placehold.co/32x32/FF4F00/FFFFFF?text=FitAI';" />
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         /* All CSS variables and themes from the new style */
@@ -92,7 +90,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .navbar-brand {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
@@ -119,7 +117,7 @@
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 79, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
-        
+
         body.light-mode .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 53, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
@@ -175,13 +173,16 @@
             background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
             border: none;
             color: var(--text-light);
-            padding: 0.75rem; /* Makes it a square */
-            border-radius: 50%; /* Makes it a circle */
+            padding: 0.75rem;
+            /* Makes it a square */
+            border-radius: 50%;
+            /* Makes it a circle */
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            width: 44px; /* Set a fixed size for perfect circle on all screen sizes */
+            width: 44px;
+            /* Set a fixed size for perfect circle on all screen sizes */
             height: 44px;
             display: flex;
             align-items: center;
@@ -200,14 +201,16 @@
             color: var(--text-light);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         body.light-mode .toggle-theme-btn:hover {
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Responsive Design */
         @media (max-width: 991px) {
             .fixed-back-button {
-                display: none; /* Hide on mobile */
+                display: none;
+                /* Hide on mobile */
             }
 
             .navbar-collapse {
@@ -216,24 +219,28 @@
                 margin-top: 1rem;
                 padding: 1rem;
             }
-            
+
             /* Increase vertical gap between all nav items in mobile view */
             .navbar-nav .nav-item {
-                margin-bottom: 0.75rem; /* Increased vertical spacing */
+                margin-bottom: 0.75rem;
+                /* Increased vertical spacing */
             }
+
             /* Remove last item's bottom margin to prevent excess space */
             .navbar-nav .nav-item:last-child {
                 margin-bottom: 0;
             }
-            
+
             /* Ensure nav links take full width and hover doesn't collapse */
             .navbar-nav .nav-link {
                 width: 100%;
                 text-align: left;
-                padding: 0.75rem 1rem !important; /* Adjust padding slightly if needed */
-                margin: 0; /* Remove horizontal margin */
+                padding: 0.75rem 1rem !important;
+                /* Adjust padding slightly if needed */
+                margin: 0;
+                /* Remove horizontal margin */
             }
-            
+
             /* Hide the original back button inside the navbar on all screens */
             .navbar .back-button-nav {
                 display: none;
@@ -283,7 +290,8 @@
             transition: color 0.5s ease;
         }
 
-        .form-select, .form-control {
+        .form-select,
+        .form-control {
             background: var(--secondary-color);
             border: 2px solid var(--border-color);
             color: var(--text-light);
@@ -294,7 +302,8 @@
             width: 100%;
         }
 
-        .form-select:focus, .form-control:focus {
+        .form-select:focus,
+        .form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(255, 79, 0, 0.25);
             background: var(--secondary-color);
@@ -354,7 +363,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Tag-based Health Conditions */
@@ -364,7 +375,7 @@
             gap: 10px;
             margin-top: 10px;
         }
-        
+
         .health-tag {
             background: var(--secondary-color);
             color: var(--text-light);
@@ -419,7 +430,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         body.light-mode .routine-title {
             background: linear-gradient(45deg, var(--text-light), var(--primary-color));
             -webkit-background-clip: text;
@@ -540,6 +551,7 @@
         }
     </style>
 </head>
+
 <body class="dark-mode">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
@@ -551,7 +563,7 @@
 
             <!-- Mobile Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -560,34 +572,34 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('home') }}" onclick="setActiveNav(this)">
-                          <i class="fas fa-home"></i> Home
+                            <i class="fas fa-home"></i> Home
                         </a>
-                      </li>
-                      <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('sports') }}" onclick="setActiveNav(this)">
-                          <i class="fas fa-calendar-alt"></i> Sport Scheduler
+                            <i class="fas fa-calendar-alt"></i> Sport Scheduler
                         </a>
-                      </li>
-                      <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('workout_routine') }}" onclick="setActiveNav(this)">
-                          <i class="fas fa-list-ul"></i> Routine Scheduler
+                            <i class="fas fa-list-ul"></i> Routine Scheduler
                         </a>
-                      </li>
-                      <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('diet_plan') }}" onclick="setActiveNav(this)">
-                          <i class="fas fa-apple-alt"></i> Nutrition
+                            <i class="fas fa-apple-alt"></i> Nutrition
                         </a>
-                      </li>
-                      <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('work') }}" onclick="setActiveNav(this)">
-                          <i class="fas fa-running"></i> Workouts
+                            <i class="fas fa-running"></i> Workouts
                         </a>
-                      </li>
-                      <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('coaches') }}" onclick="setActiveNav(this)">
-                          <i class="fas fa-user-friends"></i> Coaches
+                            <i class="fas fa-user-friends"></i> Coaches
                         </a>
-                      </li>
+                    </li>
                     <!-- Back Button for Mobile View (after Coaches) -->
                     <li class="nav-item d-lg-none"> <!-- d-lg-none hides it on large screens and up -->
                         <a class="nav-link" href="javascript:history.back()">
@@ -602,7 +614,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- Fixed Back Button (for desktop view only) -->
     <a class="fixed-back-button d-none d-lg-flex" href="javascript:history.back()">
         <i class="fas fa-arrow-left"></i> Back
@@ -620,7 +632,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="age" class="form-label">Age</label>
-                                <input type="number" id="age" name="age" min="1" max="120" required class="form-control" placeholder="Enter your age" />
+                                <input type="number" id="age" name="age" min="1" max="120" required class="form-control"
+                                    placeholder="Enter your age" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="gender" class="form-label">Gender</label>
@@ -636,23 +649,31 @@
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="weight" class="form-label">Weight (kg)</label>
-                                <input type="number" id="weight" name="weight" min="20" max="500" step="0.1" required class="form-control" placeholder="e.g. 70" />
+                                <input type="number" id="weight" name="weight" min="20" max="500" step="0.1" required
+                                    class="form-control" placeholder="e.g. 70" />
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="height" class="form-label">Height (cm)</label>
-                                <input type="number" id="height" name="height" min="50" max="300" required class="form-control" placeholder="e.g. 170" />
+                                <input type="number" id="height" name="height" min="50" max="300" required
+                                    class="form-control" placeholder="e.g. 170" />
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="activity_level" class="form-label">Activity Level</label>
-                                <select id="activity_level" name="activity_level" required class="form-select">
-                                    <option value="">Select Activity Level</option>
-                                    <option value="sedentary">Sedentary</option>
-                                    <option value="light">Lightly Active</option>
-                                    <option value="moderate">Moderately Active</option>
-                                    <option value="active">Very Active</option>
-                                    <option value="very_active">Extra Active</option>
-                                </select>
+                                <label for="duration" class="form-label">Duration (weeks)</label>
+                                <input type="number" id="duration" name="duration" min="1" max="52" value="1" required
+                                    class="form-control" />
                             </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="activity_level" class="form-label">Activity Level</label>
+                            <select id="activity_level" name="activity_level" required class="form-select">
+                                <option value="">Select Activity Level</option>
+                                <option value="sedentary">Sedentary</option>
+                                <option value="light">Lightly Active</option>
+                                <option value="moderate">Moderately Active</option>
+                                <option value="active">Very Active</option>
+                                <option value="very_active">Extra Active</option>
+                            </select>
                         </div>
 
                         <div class="form-group mb-3">
@@ -675,24 +696,28 @@
                                 <option value="non-vegetarian">Non-Vegetarian</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group mb-4">
                             <label class="form-label">Health Conditions (select all that apply)</label>
                             <div class="health-tags-container">
-                                <div class="health-tag" data-value="diabetes">Diabetes</div>
-                                <div class="health-tag" data-value="hypertension">High Blood Pressure</div>
-                                <div class="health-tag" data-value="cholesterol">High Cholesterol</div>
-                                <div class="health-tag" data-value="gluten">Gluten Intolerance</div>
-                                <div class="health-tag" data-value="lactose">Lactose Intolerance</div>
+                                <div class="health-tag" data-value="Diabetes">Diabetes</div>
+                                <div class="health-tag" data-value="High Blood Pressure">High Blood Pressure</div>
+                                <div class="health-tag" data-value="High Cholesterol">High Cholesterol</div>
+                                <div class="health-tag" data-value="Heart Disease">Heart Disease</div>
                             </div>
-                            <input type="hidden" id="health_conditions" name="health_conditions" />
+                            <input type="hidden" id="health_conditions" name="health_conditions" value="[]" />
                         </div>
-                        
-                        <div class="form-group mb-4">
+
+                        <!-- Optional file upload removed as it's handled by a different route/logic usually, or kept if app.py supports it mixed? 
+                             app.py has a separate route /upload_medical_certificate. 
+                             The main diet-plan route does NOT handle file upload for conditions. 
+                             So I will keep it as UI but it won't do anything for the main POST.
+                        -->
+                        <!-- <div class="form-group mb-4">
                             <label for="medical_certificate" class="form-label">Upload Medical Certificate (Optional)</label>
                             <input type="file" id="medical_certificate" accept=".pdf,.docx,.txt" class="form-control" />
                             <small class="form-text text-muted">Supported formats: PDF, DOCX, TXT (Max 10MB)</small>
-                        </div>
+                        </div> -->
 
                         <button type="submit" class="btn-generate" id="generateBtn">
                             <i class="fas fa-clipboard-list"></i> Generate Diet Plan
@@ -703,7 +728,8 @@
         </div>
 
         <!-- Routine Results -->
-        <div id="dietResults" style="display: none;">
+        {% if diet_plan %}
+        <div id="dietResults">
             <div class="routine-container fade-in">
                 <div class="routine-header">
                     <h2 class="routine-title" id="dietTitle">Your Personalized Diet Plan</h2>
@@ -711,30 +737,22 @@
                 </div>
 
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 d-flex">
+                    {% for day, meals in diet_plan.items() %}
+                    <div class="col-12 mb-4">
                         <div class="diet-card">
-                            <h3 class="meal-title text-center mb-3">Daily Nutrition</h3>
+                            <h3 class="meal-title text-center mb-3">{{ day }}</h3>
                             <ul class="meal-list">
-                                <li class="meal-item">Calories: 2000 kcal</li>
-                                <li class="meal-item">Protein: 150g</li>
-                                <li class="meal-item">Carbs: 200g</li>
-                                <li class="meal-item">Fats: 70g</li>
+                                {% for meal_type, meal_desc in meals.items() %}
+                                <li class="meal-item"><strong>{{ meal_type }}:</strong> {{ meal_desc }}</li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-6 d-flex">
-                        <div class="diet-card">
-                            <h3 class="meal-title text-center mb-3">Daily Meal Plan</h3>
-                            <ul class="meal-list">
-                                <li class="meal-item"><strong>Breakfast:</strong> Oatmeal with berries and a handful of almonds.</li>
-                                <li class="meal-item"><strong>Lunch:</strong> Grilled chicken salad with mixed greens.</li>
-                                <li class="meal-item"><strong>Dinner:</strong> Baked salmon with steamed vegetables and brown rice.</li>
-                            </ul>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+        {% endif %}
     </main>
 
     <!-- Bootstrap JS -->
@@ -776,19 +794,19 @@
                     icon.classList.add('fa-sun');
                 }
             }
-            
+
             // Handle form submission and display results
             const form = document.getElementById('dietForm');
             const originalButtonContent = `<i class="fas fa-clipboard-list"></i> Generate Diet Plan`;
 
-            form.addEventListener('submit', function(event) {
+            form.addEventListener('submit', function (event) {
                 event.preventDefault();
-                
+
                 // Validate form
                 if (!validateForm()) {
                     return;
                 }
-                
+
                 const generateBtn = document.getElementById('generateBtn');
                 const dietResults = document.getElementById('dietResults');
 
@@ -818,7 +836,7 @@
             function validateForm() {
                 const requiredFields = ['age', 'gender', 'weight', 'height', 'activity_level', 'goal', 'diet_type'];
                 let isValid = true;
-                
+
                 requiredFields.forEach(fieldId => {
                     const field = document.getElementById(fieldId);
                     if (!field.value.trim()) {
@@ -828,30 +846,30 @@
                         field.style.borderColor = '';
                     }
                 });
-                
+
                 if (!isValid) {
                     alert('Please fill in all required fields.');
                 }
-                
+
                 return isValid;
             }
 
             // Function to save form data
             async function saveFormData() {
                 const formData = new FormData(form);
-                
+
                 try {
                     const response = await fetch('/save-diet-form', {
                         method: 'POST',
                         body: formData
                     });
-                    
+
                     const result = await response.json();
-                    
+
                     if (!result.success) {
                         throw new Error(result.error || 'Failed to save data');
                     }
-                    
+
                     return result;
                 } catch (error) {
                     throw error;
@@ -866,11 +884,11 @@
                     <i class="fas fa-check-circle"></i> ${message}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 `;
-                
+
                 // Insert before the form
                 const formSection = document.querySelector('.form-section');
                 formSection.parentNode.insertBefore(successDiv, formSection);
-                
+
                 // Auto-remove after 5 seconds
                 setTimeout(() => {
                     if (successDiv.parentNode) {
@@ -887,11 +905,11 @@
                     <i class="fas fa-exclamation-triangle"></i> ${message}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 `;
-                
+
                 // Insert before the form
                 const formSection = document.querySelector('.form-section');
                 formSection.parentNode.insertBefore(errorDiv, formSection);
-                
+
                 // Auto-remove after 5 seconds
                 setTimeout(() => {
                     if (errorDiv.parentNode) {
@@ -929,4 +947,5 @@
         }
     </script>
 </body>
+
 </html>
